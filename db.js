@@ -6,15 +6,16 @@ mongoose.connect("mongodb://localhost/ArtGallery");
 const userSchema = new mongoose.Schema(
     {
         email: { type: String, unique: true },
-        name: { type: String },
         auth: {
+            pwd: { type: String },
             authToken: { type: String },
             authDate: { type: Date }
         },
         info: {
+            name: { type: String },
             avatar: { type: String },
             gender: { type: String, default: "unknown" },
-            birthday: { type: Date }
+            age: { type: Number }
         },
         createDate: { type: Date, default: Date.now },
         updateDate: { type: Date, default: Date.now }
