@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/ArtGallery");
+mongoose.connect("mongodb://118.89.111.175/ArtGallery");
 
 const userSchema = new mongoose.Schema(
     {
