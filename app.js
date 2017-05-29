@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(bodyParser.raw());
 app.use(cookieParse());
 
-app.use("/", express.static("public"));
+app.use("/", express.static("./"));
 
 app.use("/v1/user", user);
 
