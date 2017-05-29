@@ -45,9 +45,9 @@ router.post("/register", async (req, res, next) => {
     if (req.body.avatar == undefined || req.body.avatar == null || req.body.avatar == "") {
         req.body.avatar = "http://xxx/default/avatar.jpg";
     }
-    else if (req.body.avatar.match("http://res.qnime.com") == null) {
+    /*else if (req.body.avatar.match("http://res.qnime.com") == null) {
         req.body.avatar = "http:/xxx/default/avatar.jpg";
-    }
+    }*/
     if (req.body.gender == undefined || req.body.gender == null || req.body.gender == "") {
         req.body.gender = "unknown";
     }
@@ -145,7 +145,7 @@ router.get("/info", userAuth, async (req, res, next) => {
     var result = {}
     result.info = {}
 
-    result.info = req.user.info;
+    result.userInfo = req.user.info;
     result.info.code = 200;
     result.info.desc = codeDesc(200);
     res.status(200).jsonp(result);
