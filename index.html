@@ -4,20 +4,60 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="red">
+    <link rel="apple-touch-icon-precomposed" href="iphone_logo.png" />
+    <link rel="apple-touch-startup-image" href="logo_startup.png" />
     <title>Galley</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 
-<body id="home">
+<body id="home" data-theme="m">
     <!--<transition class="home-welcome-text" name="component-fade" mode="out-in">
         <component v-bind:is="view"></component>
     </transition>-->
 
     <head>
         <div class="home-welcome-intro" id="home-logo">
-            
+
         </div>
-        
+        <nav id="nav-content">
+            <nav id="art-nav">
+                <ul id="ul-static-nav">
+                    <li>
+                        <a>推荐</a>
+                    </li>
+                    <li>
+                        <a>检索</a>
+                    </li>
+                    <li>
+                        <a>收藏</a>
+                    </li>
+                    <li>
+                        <a>画廊</a>
+                    </li>
+                </ul>
+                <div id="nav-ul-me">
+
+                </div>
+                <div class="search-a">
+                    <div class="any-search">
+                        <span>任何画廊</span>·<span>任何描述</span>·<span>任何作品</span>
+                    </div>
+                    <div class="any-search">
+                        任何画廊
+                    </div>
+                    <div class="any-search">
+                        任何描述
+                    </div>
+                    <div class="any-search">
+                        任何作品
+                    </div>
+                </div>
+            </nav>
+        </nav>
     </head>
 
     <div id="home-welcome-content">
@@ -35,13 +75,13 @@
         <a id="register-button" class="button">
         注册
         </a>
-        
+
     </div>
 
-    <div class="button-pre" id="login-pre"> 
+    <div class="button-pre" id="login-pre">
     </div>
     <div id="login-content" class="login-register-content">
-        
+
         <form action="">
             <div class="form-part-content">
                 <h6>电子邮件地址</h6>
@@ -52,11 +92,400 @@
                 <input>
             </div>
         </form>
-        <div class="button-next" id="login-next">            
+        <div class="button-next" id="login-next">
+        </div>
+    </div>
+
+    <div id="register-content" class="login-register-content">
+
+        <form action="">
+            <div class="form-part-content">
+                <h6>电子邮件地址</h6>
+                <input>
+            </div>
+            <div class="form-part-content">
+                <h6>密码</h6>
+                <input>
+            </div>
+            <div class="form-part-content">
+                <h6>您的画廊叫什么</h6>
+                <input>
+            </div>
+        </form>
+        <div class="button-next" id="register-next">
+        </div>
+    </div>
+    <div class="slide" id="home-page" style="display:none">
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <p class="slide-title">最近浏览的画廊</p>
+        <div class="slide" id="rec-gallery-slide">
+            <table border="0" cellspacing="20px" cellpadding="0" class="slide-table">
+                <tr>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-0">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+
+        <p class="slide-title">新画廊</p>
+        <div class="slide" id="new-gallery-slide">
+            <table border="0" cellspacing="20px" cellpadding="0" class="slide-table">
+                <tr>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img">
+
+                            </div>
+                            <p class="slide-part-name">
+                                颢豆的画廊
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+
+        <p class="slide-title">新作品</p>
+        <div class="slide" id="new-art-slide">
+            <table border="0" cellspacing="20px" cellpadding="0" class="slide-table">
+                <tr>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-2">
+
+                            </div>
+                            <p class="slide-part-intro">
+                                STONE CLS 来自
+                                <span class="slide-part-from">
+                                颢豆的
+                            </span>
+                                <span class="slide-part-from">
+                                画廊
+                            </span>
+                            </p>
+
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-2">
+
+                            </div>
+                            <p class="slide-part-intro">
+                                STONE CLS 来自
+                                <span class="slide-part-from">
+                                颢豆的
+                            </span>
+                                <span class="slide-part-from">
+                                画廊
+                            </span>
+                            </p>
+
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-2">
+
+                            </div>
+                            <p class="slide-part-intro">
+                                STONE CLS 来自
+                                <span class="slide-part-from">
+                                颢豆的
+                            </span>
+                                <span class="slide-part-from">
+                                画廊
+                            </span>
+                            </p>
+
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-2">
+
+                            </div>
+                            <p class="slide-part-intro">
+                                STONE CLS 来自
+                                <span class="slide-part-from">
+                                颢豆的
+                            </span>
+                                <span class="slide-part-from">
+                                画廊
+                            </span>
+                            </p>
+
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slide-part-content">
+                            <div class="slide-part-img-2">
+
+                            </div>
+                            <p class="slide-part-intro">
+                                STONE CLS 来自
+                                <span class="slide-part-from">
+                                颢豆的
+                            </span>
+                                <span class="slide-part-from">
+                                画廊
+                            </span>
+                            </p>
+
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     <script src="./lips/vue.js"></script>
-    <script src="./lips/jquery-3.1.1.min.js"></script>
+    <script src="./lips/iscroll.js"></script>
     <script src="./view/index.js"></script>
 </body>
 

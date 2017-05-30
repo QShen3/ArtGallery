@@ -13,9 +13,22 @@
 //   }
 // })
 
+var pageWidth = window.innerWidth,
+    pageHeight = window.innerHeight;
+
+if (typeof pageWidth != "number") {
+    if (document.compatMode == "CSS1Compat") {
+        pageWidth = document.documentElement.clientWidth;
+        pageHeight = document.documentElement.clientHeight;
+    } else {
+        pageWidth = document.body.clientWidth;
+        pageHeight = document.body.clientHeight;
+    }
+}
+
 ajastDom();
 function ajastDom() {
-    var pageWidth = window.innerWidth,
+    pageWidth = window.innerWidth,
         pageHeight = window.innerHeight;
 
     if (typeof pageWidth != "number") {
@@ -43,12 +56,31 @@ function ajastDom() {
     $("#login-pre").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
     $("#home-logo").css({ "left": (pageWidth - $("#home-logo").width()) / 2 + "px" });
     $("#login-content").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
-    if (pageHeight > 500) {
-        $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
+    $("#register-content").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
+    if (pageHeight > 400) {
+        $("#login-next").css({ "bottom": '-16em' });
+        $("#register-next").css({ "bottom": '-12em' });
+        $("#login-next").css({ "right": '0' });
+        $("#register-next").css({ "right": '0' });
+        if (pageWidth < 330) {
+            $("#register-next").css({ "bottom": '-8em' });
+            $("#login-next").css({ "bottom": '-12em' });
+            $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
+            $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
+        } else {
+            $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
+            $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
+        }
+
     } else {
         $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 + "px" });
-        $("#login-next").css({ "bottom": '-4em' });
+        $("#login-next").css({ "bottom": '0em' });
+        $("#login-next").css({ "right": '-5em' });
+        $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 + "px" });
+        $("#register-next").css({ "bottom": '0em' });
+        $("#register-next").css({ "right": '-5em' });
     }
+
 }
 
 var textIndex = 0;
@@ -143,28 +175,28 @@ function iniPages() {
     //     nt = setTimeout("timedCount()", 2000);
     // })
 
-    $("#home-welcome-content").stop(true, false).on("swipeleft", function () {
+    $("#home-welcome-content").on("swipeleft", function () {
         clearTimer();
-        alert("sl");
         $("#home-welcome-content").stop(true, false).fadeOut(800, function () {
             $("#home-welcome-content").css('background-image', 'url(' + WelcomeImg[textIndex] + ')');
             $("#home-welcome-text").text(WelcomeText[textIndex]);
             $("#home-welcome-content").css('background-size', 'cover');
             $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
+
             });
         });
 
         textIndex >= 3 ? textIndex = 0 : textIndex++;
     });
 
-    $("#home-welcome-content").stop(true, false).on("swiperight", function () {
+    $("#home-welcome-content").on("swiperight", function () {
         clearTimer();
-        alert("sr");
         $("#home-welcome-content").stop(true, false).fadeOut(800, function () {
             $("#home-welcome-content").css('background-image', 'url(' + WelcomeImg[textIndex] + ')');
             $("#home-welcome-text").text(WelcomeText[textIndex]);
             $("#home-welcome-content").css('background-size', 'cover');
             $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
+
             });
         });
 
@@ -177,7 +209,7 @@ function iniPages() {
 
 $("#login-button").click(
     function () {
-        
+
         changePages();
         $("#home-logo").fadeOut(400, function () {
             $("#home-welcome-content").css('display', 'none');
@@ -187,7 +219,9 @@ $("#login-button").click(
             $("#login-content").fadeIn(400);
             $("#login-content").fadeIn(400);
             $("#login-next").fadeIn(400);
-            $("#login-pre").fadeIn(400);
+            $("#login-pre").fadeIn(400, function () {
+                $("#home-welcome-content").css('display', 'none');
+            });
         })
     }
 )
@@ -202,8 +236,12 @@ $("#register-button").click(
             $("#home-logo").text("注册");
             $("#home-logo").css('backgroundImage', 'url()');
             $("#home-logo").fadeIn(400);
-            $("#login-next").fadeIn(400);
-            $("#login-pre").fadeIn(400);
+            $("#register-content").fadeIn(400);
+            $("#register-content").fadeIn(400);
+            $("#register-next").fadeIn(400);
+            $("#login-pre").fadeIn(400, function () {
+                $("#home-welcome-content").css('display', 'none');
+            });
         })
     }
 )
@@ -218,7 +256,7 @@ $("#login-pre").click(
             $("#home-logo").text("");
             $("#home-logo").css('backgroundImage', 'url(./icons/galley-logo-c.png)');
             $("#home-logo").fadeIn(400);
-            $("#home-welcome-content").fadeIn(400,function() {
+            $("#home-welcome-content").fadeIn(400, function () {
                 t = setTimeout("timedCount()", 2000);
                 pageChanged = false;
             });
@@ -234,10 +272,138 @@ $("#login-pre").click(
         $("#login-content").fadeOut(400);
         $("#login-next").fadeOut(400);
         $("#login-pre").fadeOut(400);
+        $("#register-content").fadeOut(400);
+        $("#register-content").fadeOut(400);
+        $("#register-next").fadeOut(400);
+        $("#register-pre").fadeOut(400);
 
     }
 )
 
+
+$("#login-next").click(
+    function () {
+        $("#home-logo").fadeOut(400, function () {
+            $("#home-page").fadeIn(400);
+            with (location) {
+                var newGalleryScroll = new iScroll('new-gallery-slide', {
+                    scrollbarClass: 'myScrollbar'
+                });
+
+                var newArtScroll = new iScroll('new-art-slide', { scrollbarClass: 'myScrollbar' });
+            }
+            // newGalleryScroll = new iScroll('new-gallery-slide', {
+            //     hScrollbar: false,
+            //     vScrollbar: true,
+            //     checkDOMChanges: false,
+            //     lockDirection: 'h'
+            // });
+
+            // newArtScroll = new iScroll('new-art-slide', {
+            //     hScrollbar: false,
+            //     vScrollbar: true,
+            //     checkDOMChanges: true,
+            //     lockDirection: 'n'
+            // });
+
+        })
+        $("#login-content").fadeOut(400);
+        $("#login-next").fadeOut(400);
+        $("#login-pre").fadeOut(400);
+
+    }
+)
+
+$("#register-next").click(
+    function () {
+        $("#home-logo").fadeOut(400, function () {
+            $("#home-page").fadeIn(400);
+            with (location) {
+                var recGalleryScroll = new iScroll('rec-gallery-slide', {
+                    hScrollbar: true,
+                    vScroll: true,
+                    checkDOMChanges: true,
+                    lockDirection: true,
+                    bounce: false,
+                    onBeforeScrollStart: function (e) {
+                        if (this.absDistX > (this.absDistY + 5)) {
+                            // user is scrolling the x axis, so prevent the browsers' native scrolling
+                            e.preventDefault();
+                        }
+                    },
+                    //解决第一次无法滑动的问题
+                    onTouchEnd: function () {
+                        var self = this;
+                        if (self.touchEndTimeId) {
+                            clearTimeout(self.touchEndTimeId);
+                        }
+
+                        self.touchEndTimeId = setTimeout(function () {
+                            self.absDistX = 0;
+                            self.absDistX = 0;
+                        }, 200);
+                    }
+                });
+
+                var newGalleryScroll = new iScroll('new-gallery-slide', {
+                    hScrollbar: true,
+                    vScroll: true,
+                    checkDOMChanges: true,
+                    lockDirection: true,
+                    bounce: false,
+                    onBeforeScrollStart: function (e) {
+                        if (this.absDistX > (this.absDistY + 5)) {
+                            // user is scrolling the x axis, so prevent the browsers' native scrolling
+                            e.preventDefault();
+                        }
+                    },
+                    //解决第一次无法滑动的问题
+                    onTouchEnd: function () {
+                        var self = this;
+                        if (self.touchEndTimeId) {
+                            clearTimeout(self.touchEndTimeId);
+                        }
+
+                        self.touchEndTimeId = setTimeout(function () {
+                            self.absDistX = 0;
+                            self.absDistX = 0;
+                        }, 200);
+                    }
+                });
+
+                var newArtScroll = new iScroll('new-art-slide', {
+                    hScrollbar: true,
+                    vScroll: true,
+                    checkDOMChanges: true,
+                    lockDirection: true,
+                    bounce: false,
+                    onBeforeScrollStart: function (e) {
+                        if (this.absDistX > (this.absDistY + 5)) {
+                            // user is scrolling the x axis, so prevent the browsers' native scrolling
+                            e.preventDefault();
+                        }
+                    },
+                    //解决第一次无法滑动的问题
+                    onTouchEnd: function () {
+                        var self = this;
+                        if (self.touchEndTimeId) {
+                            clearTimeout(self.touchEndTimeId);
+                        }
+
+                        self.touchEndTimeId = setTimeout(function () {
+                            self.absDistX = 0;
+                            self.absDistX = 0;
+                        }, 200);
+                    }
+                });
+            }
+        })
+        $("#register-content").fadeOut(400);
+        $("#register-next").fadeOut(400);
+        $("#login-pre").fadeOut(400);
+
+    }
+)
 
 
 $(window).resize(function () {
@@ -245,5 +411,5 @@ $(window).resize(function () {
 });
 
 $(window).on('orientationchange', function () {
-    ajastDom();
+
 });
