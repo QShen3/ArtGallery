@@ -47,7 +47,8 @@ router.post("/upload", multer().single("file"), async (req, res, next) => {
         return;
     }
 
-    result.url = data.Location;
+    //result.url = data.Location;
+    result.url = "http://test-1252071327.file.myqcloud.com/" + req.body.name;
     result.info.code = 200;
     result.info.desc = codeDesc(200);
     res.status(200).jsonp(result);
@@ -84,7 +85,7 @@ function upload(name, file) {
             else {
                 resolve(data);
             }
-        })
+        });
     })
 }
 module.exports = router;
