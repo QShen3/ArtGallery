@@ -1,5 +1,6 @@
 const express = require("express");
 const codeDesc = require("../codeDesc.js");
+const multer = require("multer");
 const User = require("../db.js").user;
 const userAuth = require("../auth.js").userAuth;
 
@@ -7,7 +8,7 @@ const router = express.Router();
 
 const gender = ["male", "female", "unknown"];
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", multer().single(), async (req, res, next) => {
     var result = {}
     result.info = {}
 
@@ -26,6 +27,13 @@ router.post("/register", async (req, res, next) => {
         return;
     }
     if (req.body.name == undefined || req.body.name == null || req.body.name == "") {
+        result.info.code = 405
+        result.info.desc = codeDesc(405);
+
+        res.status(405).json(result);
+        return;
+    }
+    if (req.body.galleryName == undefined || req.body.galleryName == null || req.body.galleryName == "") {
         result.info.code = 405
         result.info.desc = codeDesc(405);
 
@@ -61,6 +69,7 @@ router.post("/register", async (req, res, next) => {
     let user = new User();
     user.email = req.body.email;
     user.info.name = req.body.name;
+    user.info.galleryName = req.body.galleryName;
     user.info.avatar = req.body.avatar;
     user.info.gender = req.body.gender;
     user.info.age = parseInt(req.body.age);
@@ -83,7 +92,7 @@ router.post("/register", async (req, res, next) => {
     res.status(200).jsonp(result);
 });
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", multer().single(), async (req, res, next) => {
     var result = {}
     result.info = {}
 
@@ -151,7 +160,7 @@ router.get("/info", userAuth, async (req, res, next) => {
     res.status(200).jsonp(result);
 });
 
-router.post("/update", userAuth, async (req, res, next) => {
+router.post("/update", multer().single(), userAuth, async (req, res, next) => {
     var result = {}
     result.info = {}
 
@@ -159,6 +168,9 @@ router.post("/update", userAuth, async (req, res, next) => {
 
     if (req.body.name) {
         user.info.name = req.body.name;
+    }
+    if (req.body.galleryName) {
+        user.info.galleryName = req.body.galleryName;
     }
     if (req.body.avatar) {
         user.info.avatar = req.body.avatar;
