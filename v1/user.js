@@ -1,6 +1,9 @@
 const express = require("express");
 const codeDesc = require("../codeDesc.js");
 const multer = require("multer");
+
+const collection = require("./user/collection.js");
+
 const User = require("../db.js").user;
 const userAuth = require("../auth.js").userAuth;
 
@@ -210,14 +213,16 @@ router.get("/recent", userAuth, async (req, res, next) => {
     var result = {}
     result.info = {}
 
-    let user = User.findOne({ email: req.cookies.email }).select("recent").populate("recent", "_id email info").exec();
+    let user = await User.findOne({ email: req.cookies.email }).select("recent").populate("recent", "_id email galleryName info.name info.avatar").exec();
 
     result.recent = user.recent;
     result.info.code = 200;
     result.info.desc = codeDesc(200);
 
     res.status(200).jsonp(result);
-})
+});
+
+router.use("/collection", collection);
 
 function randomString(len) {
     len = len || 32;
