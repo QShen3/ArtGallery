@@ -45,7 +45,7 @@ router.get("/list", async (req, res, next) => {
     if(req.cookies.email){
         let user = User.findOne({email: req.cookies.email});
         for( let i in user.recent){
-            if(user.recent[i].user == mongoose.Types.ObjectId(req.query.uid)){
+            if(user.recent[i] == mongoose.Types.ObjectId(req.query.uid)){
                 user.recent.splice(i, 1);
                 break;
             }

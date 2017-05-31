@@ -210,7 +210,7 @@ router.get("/recent", userAuth, async (req, res, next) => {
     var result = {}
     result.info = {}
 
-    let user = User.findOne({ email: req.cookies.email }).select("recent").populate("user", "_id email info").exec();
+    let user = User.findOne({ email: req.cookies.email }).select("recent").populate("recent", "_id email info").exec();
 
     result.recent = user.recent;
     result.info.code = 200;

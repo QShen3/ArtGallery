@@ -6,4 +6,12 @@ const userAuth = require("../../auth.js").userAuth;
 
 const router = express.Router();
 
+router.get("/", userAuth, async (req, res, next) => {
+    var result = {}
+    result.info = {}
+
+    let user = User.findOne({ email: req.cookies.email }).select("collection").populate("collection").exec();
+
+})
+
 module.exports = router;

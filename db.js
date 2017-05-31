@@ -18,12 +18,12 @@ const userSchema = new mongoose.Schema(
             gender: { type: String, default: "unknown" },
             age: { type: Number }
         },
-        collection: [{
-            art: {type: mongoose.Schema.Types.ObjectId, ref: "arts"}
-        }],
-        recent: [{
-            user: {type: mongoose.Schema.Types.ObjectId, ref: "users"}
-        }],
+        collection: [
+            { type: mongoose.Schema.Types.ObjectId, ref: "arts" }
+        ],
+        recent: [
+            { type: mongoose.Schema.Types.ObjectId, ref: "users" }
+        ],
         createDate: { type: Date, default: Date.now },
         updateDate: { type: Date, default: Date.now }
     }
