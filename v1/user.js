@@ -1,5 +1,6 @@
 const express = require("express");
 const codeDesc = require("../codeDesc.js");
+const multer = require("multer");
 const User = require("../db.js").user;
 const userAuth = require("../auth.js").userAuth;
 
@@ -7,7 +8,7 @@ const router = express.Router();
 
 const gender = ["male", "female", "unknown"];
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", multer().single(), async (req, res, next) => {
     var result = {}
     result.info = {}
 
@@ -32,6 +33,13 @@ router.post("/register", async (req, res, next) => {
         res.status(405).json(result);
         return;
     }
+    if (req.body.galleryName == undefined || req.body.galleryName == null || req.body.galleryName == "") {
+        result.info.code = 405
+        result.info.desc = codeDesc(405);
+
+        res.status(405).json(result);
+        return;
+    }
 
     let emailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     if (!emailreg.test(req.body.email)) {
@@ -45,9 +53,9 @@ router.post("/register", async (req, res, next) => {
     if (req.body.avatar == undefined || req.body.avatar == null || req.body.avatar == "") {
         req.body.avatar = "http://xxx/default/avatar.jpg";
     }
-    else if (req.body.avatar.match("http://res.qnime.com") == null) {
+    /*else if (req.body.avatar.match("http://res.qnime.com") == null) {
         req.body.avatar = "http:/xxx/default/avatar.jpg";
-    }
+    }*/
     if (req.body.gender == undefined || req.body.gender == null || req.body.gender == "") {
         req.body.gender = "unknown";
     }
@@ -61,6 +69,7 @@ router.post("/register", async (req, res, next) => {
     let user = new User();
     user.email = req.body.email;
     user.info.name = req.body.name;
+    user.info.galleryName = req.body.galleryName;
     user.info.avatar = req.body.avatar;
     user.info.gender = req.body.gender;
     user.info.age = parseInt(req.body.age);
@@ -83,7 +92,7 @@ router.post("/register", async (req, res, next) => {
     res.status(200).jsonp(result);
 });
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", multer().single(), async (req, res, next) => {
     var result = {}
     result.info = {}
 
@@ -145,13 +154,13 @@ router.get("/info", userAuth, async (req, res, next) => {
     var result = {}
     result.info = {}
 
-    result.info = req.user.info;
+    result.userInfo = req.user.info;
     result.info.code = 200;
     result.info.desc = codeDesc(200);
     res.status(200).jsonp(result);
 });
 
-router.post("/update", userAuth, async (req, res, next) => {
+router.post("/update", multer().single(), userAuth, async (req, res, next) => {
     var result = {}
     result.info = {}
 
@@ -159,6 +168,9 @@ router.post("/update", userAuth, async (req, res, next) => {
 
     if (req.body.name) {
         user.info.name = req.body.name;
+    }
+    if (req.body.galleryName) {
+        user.info.galleryName = req.body.galleryName;
     }
     if (req.body.avatar) {
         user.info.avatar = req.body.avatar;
