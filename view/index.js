@@ -286,26 +286,12 @@ $("#login-next").click(
         $("#home-logo").fadeOut(400, function () {
             $("#home-page").fadeIn(400);
             with (location) {
-                var newGalleryScroll = new iScroll('new-gallery-slide', {
-                    scrollbarClass: 'myScrollbar'
-                });
+                var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-                var newArtScroll = new iScroll('new-art-slide', { scrollbarClass: 'myScrollbar' });
+                var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+                var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
             }
-            // newGalleryScroll = new iScroll('new-gallery-slide', {
-            //     hScrollbar: false,
-            //     vScrollbar: true,
-            //     checkDOMChanges: false,
-            //     lockDirection: 'h'
-            // });
-
-            // newArtScroll = new iScroll('new-art-slide', {
-            //     hScrollbar: false,
-            //     vScrollbar: true,
-            //     checkDOMChanges: true,
-            //     lockDirection: 'n'
-            // });
-
         })
         $("#login-content").fadeOut(400);
         $("#login-next").fadeOut(400);
@@ -319,83 +305,11 @@ $("#register-next").click(
         $("#home-logo").fadeOut(400, function () {
             $("#home-page").fadeIn(400);
             with (location) {
-                var recGalleryScroll = new iScroll('rec-gallery-slide', {
-                    hScrollbar: true,
-                    vScroll: true,
-                    checkDOMChanges: true,
-                    lockDirection: true,
-                    bounce: false,
-                    onBeforeScrollStart: function (e) {
-                        if (this.absDistX > (this.absDistY + 5)) {
-                            // user is scrolling the x axis, so prevent the browsers' native scrolling
-                            e.preventDefault();
-                        }
-                    },
-                    //解决第一次无法滑动的问题
-                    onTouchEnd: function () {
-                        var self = this;
-                        if (self.touchEndTimeId) {
-                            clearTimeout(self.touchEndTimeId);
-                        }
+                var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-                        self.touchEndTimeId = setTimeout(function () {
-                            self.absDistX = 0;
-                            self.absDistX = 0;
-                        }, 200);
-                    }
-                });
+                var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-                var newGalleryScroll = new iScroll('new-gallery-slide', {
-                    hScrollbar: true,
-                    vScroll: true,
-                    checkDOMChanges: true,
-                    lockDirection: true,
-                    bounce: false,
-                    onBeforeScrollStart: function (e) {
-                        if (this.absDistX > (this.absDistY + 5)) {
-                            // user is scrolling the x axis, so prevent the browsers' native scrolling
-                            e.preventDefault();
-                        }
-                    },
-                    //解决第一次无法滑动的问题
-                    onTouchEnd: function () {
-                        var self = this;
-                        if (self.touchEndTimeId) {
-                            clearTimeout(self.touchEndTimeId);
-                        }
-
-                        self.touchEndTimeId = setTimeout(function () {
-                            self.absDistX = 0;
-                            self.absDistX = 0;
-                        }, 200);
-                    }
-                });
-
-                var newArtScroll = new iScroll('new-art-slide', {
-                    hScrollbar: true,
-                    vScroll: true,
-                    checkDOMChanges: true,
-                    lockDirection: true,
-                    bounce: false,
-                    onBeforeScrollStart: function (e) {
-                        if (this.absDistX > (this.absDistY + 5)) {
-                            // user is scrolling the x axis, so prevent the browsers' native scrolling
-                            e.preventDefault();
-                        }
-                    },
-                    //解决第一次无法滑动的问题
-                    onTouchEnd: function () {
-                        var self = this;
-                        if (self.touchEndTimeId) {
-                            clearTimeout(self.touchEndTimeId);
-                        }
-
-                        self.touchEndTimeId = setTimeout(function () {
-                            self.absDistX = 0;
-                            self.absDistX = 0;
-                        }, 200);
-                    }
-                });
+                var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
             }
         })
         $("#register-content").fadeOut(400);
@@ -405,6 +319,87 @@ $("#register-next").click(
     }
 )
 
+$("#unfold-search-block").click(
+    function () {
+        var px = $('#unfold-search-block').css('marginLeft');
+        $("#unfold-search-block").css({ position: 'absolute', left: px });
+        $("#unfold-search-block-fake").css('display', 'block');
+        $("#unfold-search-block-fake").slideUp(200);
+        $("#unfold-search-block").fadeOut(200);
+        $("#search-back-top").slideDown(200);
+        $("#folded").slideDown(200);
+        // $("#folded").fadeIn(200);
+        // $("#folded").animate({height:"157px"},200);
+        // $("#folded").animate({opacity:1});
+    }
+);
+
+$("#search-back-top").click(
+    function () {
+        $("#unfold-search-block").slideDown(200);
+        $("#search-back-top").slideUp(200, function () {
+        });
+        $("#unfold-search-block").css({ position: 'relative', left: "0px", paddingLeft: '20px' });
+        // $("#unfold-search-block").animate({opacity:0},10);
+        $("#folded").slideUp(200, function () {
+            // $("#folded").css('height',47+'px');
+        });
+
+    }
+);
+
+var beforeScrollTop = document.body.scrollTop; //  判断滚动方向
+
+window.onscroll = function () {
+    var afterScrollTop = document.body.scrollTop; //  判断滚动方向
+    var delta = afterScrollTop - beforeScrollTop;
+    beforeScrollTop = afterScrollTop;
+    var initscrollTop = 0;
+    var scollTopNow = jQuery(window).scrollTop();
+    console.log(jQuery(window).scrollTop());
+    var op = 1 - (scollTopNow) / 55;
+    var op2 = 255-(255 / 55)*(scollTopNow);
+    console.log(op);
+    $("#nav-slide-content").css('background', 'rgba' + '(153,153,153,' + op + ')');
+    console.log('rgb' + '('+op2+','+op2+','+op2+')')
+    $("#art-nav-b").css('color', 'rgb' + '('+op2+','+op2+','+op2+')');
+    if (scollTopNow > 0) {
+        $("#unfold-search-block").slideDown(300);
+        $("#search-back-top").slideUp(300, function () {
+        });
+        $("#unfold-search-block").css({ position: 'relative', left: "0px", paddingLeft: '20px' });
+        // $("#unfold-search-block").animate({opacity:0},10);
+        $("#folded").slideUp(300, function () {
+            // $("#folded").css('height',47+'px');
+        });
+    } else if(scollTopNow<0){
+        // var px = $('#unfold-search-block').css('marginLeft');
+        // $("#unfold-search-block").fadeOut(100);
+        // $("#search-back-top").slideDown(100);
+        // $("#folded").slideDown(100);
+    }
+
+    if (scollTopNow == 0) {
+        $("#art-nav-b").css('background', "none");
+        $("#art-nav-b").css('position','relative');
+        $("#art-nav-b-fake").css('position','fixed');
+        $("#nav-slide-content").css('background', 'rgb' + '(153,153,153)');
+    } else if (scollTopNow >= 73) {
+        $("#art-nav-b").css('background', 'rgb' + '(255,255,255)');
+        // $("#art-nav-b").css('color', 'rgb' + '(0,0,0)');
+        $("#art-nav-b-fake").css('position','relative');
+        $("#art-nav-b").css('position','fixed');
+    } else {
+        $("#art-nav-b").css('background', "none");
+        $("#art-nav-b").css('position','relative');
+        $("#art-nav-b-fake").css('position','fixed');
+    }
+    if (delta > 0) {
+        // $("#howto-cover-content").css({ 'top': parseInt(coverContentTop) + 1 + "px" });
+    } else {
+        // $("#howto-cover-content").css({ 'top': parseInt(coverContentTop) - 1 + "px" });
+    }
+};
 
 $(window).resize(function () {
     ajastDom();
