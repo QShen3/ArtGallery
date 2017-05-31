@@ -154,6 +154,7 @@ router.get("/info", userAuth, async (req, res, next) => {
     var result = {}
     result.info = {}
 
+    result._id = req.user._id;
     result.userInfo = req.user.info;
     result.info.code = 200;
     result.info.desc = codeDesc(200);
@@ -179,14 +180,15 @@ router.post("/update", multer().single(), userAuth, async (req, res, next) => {
         if (gender.indexOf(req.body.gender) < 0) {
             user.info.gender = "unknown";
         }
-        else{
+        else {
             user.info.gender = req.body.gender;
         }
     }
-    if(req.body.age){
+    if (req.body.age) {
         user.info.age = parseInt(req.body.age);
     }
 
+    user.updateDate = new Date();
     try {
         user = await user.save();
     }
@@ -203,6 +205,19 @@ router.post("/update", multer().single(), userAuth, async (req, res, next) => {
 
     res.status(200).jsonp(result);
 });
+
+router.get("/recent", userAuth, async (req, res, next) => {
+    var result = {}
+    result.info = {}
+
+    let user = User.findOne({ email: req.cookies.email }).select("recent").populate("user", "_id email info").exec();
+
+    result.recent = user.recent;
+    result.info.code = 200;
+    result.info.desc = codeDesc(200);
+
+    res.status(200).jsonp(result);
+})
 
 function randomString(len) {
     len = len || 32;
