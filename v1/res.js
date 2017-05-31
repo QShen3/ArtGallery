@@ -7,9 +7,9 @@ const multer = require("multer");
 const router = express.Router();
 
 const cos = new COS({
-    AppId: '1252071327',
-    SecretId: 'AKIDER2hDhws8YXbBfAKrH65ovrxYcVfROdx',
-    SecretKey: 'sWCnzuleuZXiIqF98ip82wE0SpHraK1R',
+    AppId: '1253482132',
+    SecretId: 'AKID5GWndgXv4JZp5vpGiz86447lafaWmzLc',
+    SecretKey: 'HWn187d5LQQE7rVwBEF3kIfqpfKnEalk',
 });
 
 router.post("/upload", multer().single("file"), async (req, res, next) => {
@@ -47,7 +47,8 @@ router.post("/upload", multer().single("file"), async (req, res, next) => {
         return;
     }
 
-    result.url = data.Location;
+    //result.url = data.Location;
+    result.url = "http://gallery-1253482132.cossh.myqcloud.com/" + req.body.name;
     result.info.code = 200;
     result.info.desc = codeDesc(200);
     res.status(200).jsonp(result);
@@ -73,8 +74,8 @@ function randomString(len) {
 function upload(name, file) {
     return new Promise((resolve, reject) => {
         cos.sliceUploadFile({
-            Bucket: 'test',
-            Region: 'cn-south',
+            Bucket: 'gallery',
+            Region: 'cn-east',
             Key: name,
             FilePath: file
         }, (err, data) => {
@@ -84,7 +85,7 @@ function upload(name, file) {
             else {
                 resolve(data);
             }
-        })
+        });
     })
 }
 module.exports = router;

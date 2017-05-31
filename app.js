@@ -5,6 +5,7 @@ const cookieParse = require("cookie-parser");
 
 const user = require("./v1/user.js");
 const res = require("./v1/res.js");
+const art = require("./v1/art.js");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use("/", express.static("./"));
 
 app.use("/v1/user", user);
 app.use("/v1/res", res);
+app.use("/v1/art", art);
 
 var server = app.listen(80, function () {
     
