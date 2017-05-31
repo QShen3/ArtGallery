@@ -1,6 +1,8 @@
 const express = require("express");
-const codeDesc = require("../codeDesc.js");
+const mongoose = require('mongoose');
 const multer = require("multer");
+const codeDesc = require("../codeDesc.js");
+
 const Art = require("../db.js").art
 const User = require("../db.js").user;
 const userAuth = require("../auth.js").userAuth;
@@ -28,7 +30,7 @@ router.get("/list", async (req, res, next) => {
     let count = await Art.find({ author: mongoose.Types.ObjectId(req.query.uid) }).count().exec();
     let docs = await Art.find({ author: mongoose.Types.ObjectId(req.query.uid) }).skip(
         (parseInt(req.query.page) - 1) * req.query.pagesize
-    ).limit(parseInt(req.query.pagesize)).sort("createDate").populate("art", "_id email info").exec();
+    ).limit(parseInt(req.query.pagesize)).sort("createDate").populate("author", "_id email info.name info.avatar").exec();
 
     result.info.code = 200;
     result.info.desc = codeDesc(200);
@@ -42,18 +44,20 @@ router.get("/list", async (req, res, next) => {
 
     res.status(200).jsonp(result);
 
-    if(req.cookies.email){
-        let user = User.findOne({email: req.cookies.email});
-        for( let i in user.recent){
-            if(user.recent[i] == mongoose.Types.ObjectId(req.query.uid)){
+    if (req.cookies.email) {
+        let user = await User.findOne({ email: req.cookies.email }).exec();
+        for (let i = 0; i < user.recent.length; i++) {
+            if (user.recent[i] == mongoose.Types.ObjectId(req.query.uid)) {
                 user.recent.splice(i, 1);
                 break;
             }
         }
         user.recent.unshift(mongoose.Types.ObjectId(req.query.uid));
-        if(user.recent.length > 20){
+        if (user.recent.length > 20) {
             user.recent.splice(20, 1);
         }
+
+        user = await user.save();
     }
 
 });
@@ -90,7 +94,7 @@ router.post("/add", multer().single(), userAuth, async (req, res, next) => {
         res.status(405).json(result);
         return;
     }
-    let urls = urls.split(",");
+    let urls = req.body.urls.split(",");
 
     let art = new Art();
 
@@ -133,7 +137,7 @@ router.post("/delete", multer().single(), userAuth, async (req, res, next) => {
 
     let doc = await Art.findById(req.body.id);
 
-    if (doc.author != req.user._id) {
+    if (doc.author.toString() != req.user._id.toString()) {
         result.info.code = 403;
         result.info.desc = codeDesc(403);
 
@@ -171,7 +175,15 @@ router.post("/update", multer().single(), userAuth, async (req, res, next) => {
 
     let doc = await Art.findById(req.body.id);
 
-    if (doc.author != req.user._id) {
+    if(doc == null){
+        result.info.code = 400;
+        result.info.desc = codeDesc(400);
+
+        res.status(400).json(result);
+        return;
+    }
+
+    if (doc.author.toString() != req.user._id.toString()) {
         result.info.code = 403;
         result.info.desc = codeDesc(403);
 
@@ -214,7 +226,7 @@ router.get("/search", async (req, res, next) => {
     var result = {}
     result.info = {}
 
-    let query = Art;
+    let query = Art.find();
 
     if (req.query.page == undefined || req.query.page == null || req.query.page <= 0) {
         req.query.page = 1;
@@ -224,7 +236,7 @@ router.get("/search", async (req, res, next) => {
     }
 
     if (req.query.uid) {
-        query = query.where({ author: mongoose.Types.ObjectId(req.query.uid) })
+        query = query.where({ author: mongoose.Types.ObjectId(req.query.uid) });
     }
     if (req.query.key) {
         query = query.or([{ title: new RegExp(req.query.key) }, { profile: new RegExp(req.query.key) }]);
@@ -236,7 +248,7 @@ router.get("/search", async (req, res, next) => {
     let count = await query.count().exec();
     let docs = await query.find().skip(
         (parseInt(req.query.page) - 1) * req.query.pagesize
-    ).limit(parseInt(req.query.pagesize)).populate("art", "email info").exec();
+    ).limit(parseInt(req.query.pagesize)).populate("author", "_id email info.name info.avatar").exec();
 
     result.info.code = 200;
     result.info.desc = codeDesc(200);

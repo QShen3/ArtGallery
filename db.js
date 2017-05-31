@@ -18,11 +18,11 @@ const userSchema = new mongoose.Schema(
             gender: { type: String, default: "unknown" },
             age: { type: Number }
         },
-        collection: [
+        collections: [
             { type: mongoose.Schema.Types.ObjectId, ref: "arts" }
         ],
         recent: [
-            { type: mongoose.Schema.Types.ObjectId, ref: "users" }
+            { type: mongoose.Schema.Types.ObjectId, ref: "user" }
         ],
         createDate: { type: Date, default: Date.now },
         updateDate: { type: Date, default: Date.now }
@@ -34,7 +34,7 @@ const artSchema = new mongoose.Schema(
     {
         title: { type: String },
         profile: { type: String },
-        author: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+        author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
         style: { type: String },
         cover: { type: String },
         urls: { type: [String] },
