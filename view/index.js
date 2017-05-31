@@ -305,11 +305,13 @@ $("#register-next").click(
         $("#home-logo").fadeOut(400, function () {
             $("#home-page").fadeIn(400);
             with (location) {
-                var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+                // var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-                var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+                // var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-                var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+                // var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+                // var newArtScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
             }
         })
         $("#register-content").fadeOut(400);
@@ -348,6 +350,13 @@ $("#search-back-top").click(
     }
 );
 
+$("#gallery-go-top").click(
+    function () {
+        alert("sds")
+
+    }
+);
+
 var beforeScrollTop = document.body.scrollTop; //  判断滚动方向
 
 window.onscroll = function () {
@@ -358,11 +367,11 @@ window.onscroll = function () {
     var scollTopNow = jQuery(window).scrollTop();
     console.log(jQuery(window).scrollTop());
     var op = 1 - (scollTopNow) / 55;
-    var op2 = 255-(255 / 55)*(scollTopNow);
+    var op2 = 255 - (255 / 55) * (scollTopNow);
     console.log(op);
     $("#nav-slide-content").css('background', 'rgba' + '(153,153,153,' + op + ')');
-    console.log('rgb' + '('+op2+','+op2+','+op2+')')
-    $("#art-nav-b").css('color', 'rgb' + '('+op2+','+op2+','+op2+')');
+    console.log('rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')')
+    $("#art-nav-b").css('color', 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
     if (scollTopNow > 0) {
         $("#unfold-search-block").slideDown(300);
         $("#search-back-top").slideUp(300, function () {
@@ -372,7 +381,7 @@ window.onscroll = function () {
         $("#folded").slideUp(300, function () {
             // $("#folded").css('height',47+'px');
         });
-    } else if(scollTopNow<0){
+    } else if (scollTopNow < 0) {
         // var px = $('#unfold-search-block').css('marginLeft');
         // $("#unfold-search-block").fadeOut(100);
         // $("#search-back-top").slideDown(100);
@@ -381,18 +390,18 @@ window.onscroll = function () {
 
     if (scollTopNow == 0) {
         $("#art-nav-b").css('background', "none");
-        $("#art-nav-b").css('position','relative');
-        $("#art-nav-b-fake").css('position','fixed');
+        $("#art-nav-b").css('position', 'relative');
+        $("#art-nav-b-fake").css('position', 'fixed');
         $("#nav-slide-content").css('background', 'rgb' + '(153,153,153)');
     } else if (scollTopNow >= 73) {
         $("#art-nav-b").css('background', 'rgb' + '(255,255,255)');
         // $("#art-nav-b").css('color', 'rgb' + '(0,0,0)');
-        $("#art-nav-b-fake").css('position','relative');
-        $("#art-nav-b").css('position','fixed');
+        $("#art-nav-b-fake").css('position', 'relative');
+        $("#art-nav-b").css('position', 'fixed');
     } else {
         $("#art-nav-b").css('background', "none");
-        $("#art-nav-b").css('position','relative');
-        $("#art-nav-b-fake").css('position','fixed');
+        $("#art-nav-b").css('position', 'relative');
+        $("#art-nav-b-fake").css('position', 'fixed');
     }
     if (delta > 0) {
         // $("#howto-cover-content").css({ 'top': parseInt(coverContentTop) + 1 + "px" });
