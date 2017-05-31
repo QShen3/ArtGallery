@@ -24,7 +24,7 @@ router.get("/", userAuth, async (req, res, next) => {
 
     user.collections = user.collections.slice((parseInt(req.query.page) - 1) * parseInt(req.query.pagesize), (parseInt(req.query.page)) * parseInt(req.query.pagesize));
 
-    result.collections = await Art.populate(user.collections, [{ path: "author", select: "_id email galleryName info.name info.avatar" }]);
+    result.collections = await Art.populate(user.collections, [{ path: "author", select: "_id email info.galleryName info.name info.avatar" }]);
 
     result.pager = {};
     result.pager.page = parseInt(req.query.page);
