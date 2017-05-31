@@ -30,7 +30,7 @@ router.get("/list", async (req, res, next) => {
     let count = await Art.find({ author: mongoose.Types.ObjectId(req.query.uid) }).count().exec();
     let docs = await Art.find({ author: mongoose.Types.ObjectId(req.query.uid) }).skip(
         (parseInt(req.query.page) - 1) * req.query.pagesize
-    ).limit(parseInt(req.query.pagesize)).sort("createDate").populate("author", "_id email info.name info.avatar").exec();
+    ).limit(parseInt(req.query.pagesize)).sort("createDate").populate("author", "_id email info.galleryName info.name info.avatar").exec();
 
     result.info.code = 200;
     result.info.desc = codeDesc(200);
@@ -47,7 +47,7 @@ router.get("/list", async (req, res, next) => {
     if (req.cookies.email) {
         let user = await User.findOne({ email: req.cookies.email }).exec();
         for (let i = 0; i < user.recent.length; i++) {
-            if (user.recent[i] == mongoose.Types.ObjectId(req.query.uid)) {
+            if (user.recent[i].toString() == req.query.uid) {
                 user.recent.splice(i, 1);
                 break;
             }
@@ -248,7 +248,7 @@ router.get("/search", async (req, res, next) => {
     let count = await query.count().exec();
     let docs = await query.find().skip(
         (parseInt(req.query.page) - 1) * req.query.pagesize
-    ).limit(parseInt(req.query.pagesize)).populate("author", "_id email info.name info.avatar").exec();
+    ).limit(parseInt(req.query.pagesize)).populate("author", "_id email info.galleryName info.name info.avatar").exec();
 
     result.info.code = 200;
     result.info.desc = codeDesc(200);
@@ -261,6 +261,19 @@ router.get("/search", async (req, res, next) => {
     result.lists = docs;
 
     res.status(200).jsonp(result);
-})
+});
+
+router.get("/latest", async (req, res, next) => {
+    var result = {}
+    result.info = {}
+
+    let docs = await Art.find().sort("-createDate").limit(20).populate("author", "_id email info.galleryName info.name info.avatar").exec();
+
+    result.lists = docs;
+    result.info.code = 200;
+    result.info.desc = codeDesc(200);
+
+    res.status(200).jsonp(result);
+});
 
 module.exports = router;
