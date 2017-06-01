@@ -2,6 +2,7 @@ var recGallery = new Array();
 var newGallery = new Array();
 var newArtWorks = new Array();
 var seaArtWorks = new Array();
+var colArtWorks = new Array();
 
 var pagenow;
 
@@ -57,19 +58,68 @@ if ($.cookie("authToken") != null) {
     var $defaultNew;
     var $defaultRec;
     var $defaultNewArt;
+    var $defaultColArt;
     $.get("/v1/user/recent", function (recentGallery, result) {
         if (result == "success") {
             // reArrangeArray(candidates.data);
-            if (!(recentGallery.lists instanceof Array)) {
-                console.error("Parameter wrong : {" + recentGallery.data + "} is not an Array");
+            if (!(recentGallery.recent instanceof Array)) {
+                console.error("Parameter wrong : {" + recentGallery.recent + "} is not an Array");
                 return null;
             };
-            recGallery = recentGallery.lists;
+            recGallery = recentGallery.recent;
             if (recGallery.length != 0) {
                 $defaultRec = $("#rec-gallery-slide table tr td:eq(0)").remove();//删除默认节点 
                 for (var i = 0; i < recGallery.length; i++) {
-                    $("#rec-gallery-slide table tr").append("<td id=" + 'newGatTd' + recGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + recGallery[i].recent.info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + recGallery[i].recent.info.name + '的' + recGallery[i].recent.info.galleryName + "</p></div></td>");
+                    $("#rec-gallery-slide table tr").append("<td id=" + 'newGatTd' + recGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + recGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + recGallery[i].info.name + '的' + recGallery[i].info.galleryName + "</p></div></td>");
                 };
+                var tds = $("#rec-gallery-slide table tr td").toArray();
+                for (var i in tds) {
+                    tds[i].onclick = function (ii) {
+                        return function () {
+                            $("#home-page").fadeOut(400);
+                            $("#gallery-page-content").fadeIn(400);
+                            $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
+                                if (result == "success") {
+                                    artworks = artworks.lists;
+                                    $("#gallery-page table tr td:eq(0)").remove();
+                                    $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
+                                    for (var j in artworks) {
+                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                    }
+                                    var tdss = $("#gallery-page table tr td").toArray();
+                                    for (var j in tdss) {
+                                        tdss[j].onclick = function (ii) {
+                                            return function () {
+                                                var index = 0;
+                                                $("#artwork-page-content div.go-next").click(function () {
+                                                    if (index < newArtWorks[ii].urls.length - 1) {
+                                                        index++;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    }
+                                                });
+                                                $("#artwork-page-content div.go-pre").click(function () {
+                                                    if (index > 0) {
+                                                        index--;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    }
+                                                });
+
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+
+                                                $("#gallery-page-content").fadeOut(400);
+                                                $("#artwork-page-content").fadeIn(400);
+                                            }
+                                        }(j)
+                                    }
+                                }
+                            });
+                        }
+                    }(i)
+                }
             }
             // alert(recentGallery.lists[0].info.name)
 
@@ -89,6 +139,54 @@ if ($.cookie("authToken") != null) {
                 for (var i = 0; i < newGallery.length; i++) {
                     $("#new-gallery-slide table tr").append("<td id=" + 'newGatTd' + newGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img' style='background:url(" + newGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + newGallery[i].info.name + '的' + newGallery[i].info.galleryName + "</p></div></td>");
                 };
+                var tds = $("#new-gallery-slide table tr td").toArray();
+                for (var i in tds) {
+                    tds[i].onclick = function (ii) {
+                        return function () {
+                            $("#home-page").fadeOut(400);
+                            $("#gallery-page-content").fadeIn(400);
+                            $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
+                                if (result == "success") {
+                                    artworks = artworks.lists;
+                                    $("#gallery-page table tr td:eq(0)").remove();
+                                    $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
+                                    for (var j in artworks) {
+                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                    }
+                                    var tdss = $("#gallery-page table tr td").toArray();
+                                    for (var j in tdss) {
+                                        tdss[j].onclick = function (ii) {
+                                            return function () {
+                                                var index = 0;
+                                                $("#artwork-page-content div.go-next").click(function () {
+                                                    if (index < newArtWorks[ii].urls.length - 1) {
+                                                        index++;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    }
+                                                });
+                                                $("#artwork-page-content div.go-pre").click(function () {
+                                                    if (index > 0) {
+                                                        index--;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    }
+                                                });
+
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+
+                                                $("#gallery-page-content").fadeOut(400);
+                                                $("#artwork-page-content").fadeIn(400);
+                                            }
+                                        }(j)
+                                    }
+                                }
+                            });
+                        }
+                    }(i)
+                }
             }
             // alert(latestGallery.lists[0].info.name)
 
@@ -105,11 +203,83 @@ if ($.cookie("authToken") != null) {
             if (newArtWorks.length != 0) {
                 $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
                 for (var i = 0; i < newArtWorks.length; i++) {
-                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newGallery[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                 };
+                var tds = $("#new-art-slide table tr td").toArray();
+                for (var i in tds) {
+                    tds[i].onclick = function (ii) {
+                        return function () {
+                            //urls[ii] = newArtWorks[ii].urls;
+                            var index = 0;
+                            $("#artwork-page-content div.go-next").click(function () {
+                                if (index < newArtWorks[ii].urls.length - 1) {
+                                    index++;
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                }
+                            });
+                            $("#artwork-page-content div.go-pre").click(function () {
+                                if (index > 0) {
+                                    index--;
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                }
+                            });
+
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                            $("#artwork-page-content").fadeIn(400);
+                            $("#home-page").fadeOut(400);
+                        }
+                    }(i)
+                }
             }
             // alert(latestArtWrok.lists[0].info.name)
 
+        }
+    });
+    $.get("/v1/user/collection", function (collectArtWork, result) {
+        if (result == "success") {
+            if (!(collectArtWork.collections instanceof Array)) {
+                console.error("Parameter wrong : {" + recentGallery.collections + "} is not an Array");
+                return null
+            };
+            colArtWorks = collectArtWork.collections;
+            if (colArtWorks.length != 0) {
+                $defaultColArt = $("#collection-page-content div:eq(0)").remove();
+                for (var i in colArtWorks) {
+                    $("#collection-page-content").append("<div class='search-part-content'><div class='search-part-img' style='background:url(" + colArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro-m'>" + colArtWorks[i].profile + "</p><p class='slide-part-intro'>" + colArtWorks[i].title + "来自" + "<span class='slide-part-from'>" + colArtWorks[i].author.info.name + "的</span><span class='slide-part-from'>" + colArtWorks[i].author.info.galleryName + "</span></p></div>");
+                }
+                var divs = $("#collection-page-content div").toArray();
+                for (var i in divs) {
+                    divs[i].onclick = function (ii) {
+                        return function () {
+                            var index = 0;
+                            $("#artwork-page-content div.go-next").click(function () {
+                                if (index < newArtWorks[ii].urls.length - 1) {
+                                    index++;
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                }
+                            });
+                            $("#artwork-page-content div.go-pre").click(function () {
+                                if (index > 0) {
+                                    index--;
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                }
+                            });
+
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                            $("#artwork-page-content").fadeIn(400);
+                            $("#home-page").fadeOut(400);
+                        }
+                    }(i)
+                }
+            }
         }
     });
     // var $defaultNew = $("#rec-gallery-slide table tr td:eq(0)").remove();//删除默认节点 
@@ -281,7 +451,7 @@ $("#login-next").click(
                             if (newArtWorks.length != 0) {
                                 $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
                                 for (var i = 0; i < newArtWorks.length; i++) {
-                                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newGallery[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.name + newArtWorks[i].author.galleryName + "</span></p></div></td>");
+                                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.name + newArtWorks[i].author.galleryName + "</span></p></div></td>");
                                 };
                             }
                             // alert(latestArtWrok.lists[0].info.name)
