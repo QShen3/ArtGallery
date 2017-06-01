@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const multer = require("multer");
-const Jimp = require("jimp");
 const codeDesc = require("../codeDesc.js");
 
 const Art = require("../db.js").art
@@ -35,12 +34,6 @@ router.get("/list", async (req, res, next) => {
 
     result.info.code = 200;
     result.info.desc = codeDesc(200);
-
-    for(let i = 0; i < docs.length; i++){
-        let image = await Jimp.read(docs[i].cover);
-        docs[i]._doc.width = image.bitmap.width;
-        docs[i]._doc.height = image.bitmap.height;
-    }
 
     result.pager = {};
     result.pager.page = parseInt(req.query.page);
@@ -260,12 +253,6 @@ router.get("/search", async (req, res, next) => {
     result.info.code = 200;
     result.info.desc = codeDesc(200);
 
-    for(let i = 0; i < docs.length; i++){
-        let image = await Jimp.read(docs[i].cover);
-        docs[i]._doc.width = image.bitmap.width;
-        docs[i]._doc.height = image.bitmap.height;
-    }
-
     result.pager = {};
     result.pager.page = parseInt(req.query.page);
     result.pager.pagesize = parseInt(req.query.pagesize);
@@ -281,12 +268,6 @@ router.get("/latest", async (req, res, next) => {
     result.info = {}
 
     let docs = await Art.find().sort("-createDate").limit(20).populate("author", "_id email info.galleryName info.name info.avatar").exec();
-
-    for(let i = 0; i < docs.length; i++){
-        let image = await Jimp.read(docs[i].cover);
-        docs[i]._doc.width = image.bitmap.width;
-        docs[i]._doc.height = image.bitmap.height;
-    }
 
     result.lists = docs;
     result.info.code = 200;
