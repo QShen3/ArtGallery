@@ -31,8 +31,10 @@ function submitClick(){
 		success: function (info) { // data 保存提交后返回的数据
 			if (info.code == 200) {
 				return true;
+				alert("true");
 			} else {
 				return false;
+				alert("lala");
 			}
 		}
 	});
