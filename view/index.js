@@ -468,6 +468,57 @@ $("#home-welcome-content").on("swiperight", function () {
     artwiIndex <= 0 ? artwiIndex = ArtworkImg.length : artwiIndex--;
 });
 
+function anyClick(index) {
+    if (index == 0) {
+        var galleryName = $('input[name=galleryName]').val();
+        if (galleryName == "所有画廊") {
+            $('input[name=galleryName]').val("");
+        }
+    } else if (index == 1) {
+        var style = $('input[name=style]').val();
+        if (style == "所有描述") {
+            $('input[name=style]').val("");
+        }
+    } else if (index == 2) {
+        var key = $('input[name=key]').val();
+        if (key == "所有作品") {
+            $('input[name=key]').val("");
+        }
+    }
+
+}
+
+function anyBlur(index) {
+    var style = $('input[name=style]').val();
+    if (style == "") {
+        $('input[name=style]').val("所有描述");
+        $("#any-s-span").text("所有描述");
+    } else {
+        $("#any-s-span").text($('input[name=style]').val());
+    }
+    var key = $('input[name=key]').val();
+    if (key == "") {
+        $('input[name=key]').val("所有作品");
+        $("#any-a-span").text("所有作品");
+    } else {
+        $("#any-a-span").text($('input[name=key]').val());
+
+    }
+    var galleryName = $('input[name=galleryName]').val();
+    if (galleryName == "") {
+        $('input[name=galleryName]').val("所有画廊");
+        $("#any-gallery-span").text("所有画廊");
+    } else {
+        $("#any-gallery-span").text($('input[name=galleryName]').val());
+
+    }
+}
+
+
+function anyKeyBlur() {
+
+}
+
 $(window).resize(function () {
     ajastDom();
 });
