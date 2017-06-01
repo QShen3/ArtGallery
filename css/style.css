@@ -389,6 +389,22 @@ ul,li {
     margin: 8px auto;
     padding-top: 13px;
     padding-left: 20px;
+    text-align: left;
+}
+
+.any-search-input {
+    background: rgba(255,255,255,0.3);
+    color: white;
+    border: none;
+    outline: none;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: bold;
+    font-size: 0.9em;
+    width: 96%;
+    height: 34px;
+    margin: 4px auto;
+    padding: 6px 0px;
+    padding-left: 20px;
 }
 
 .white-next-content {
@@ -407,6 +423,7 @@ ul,li {
 }
 
 .search-a {
+    text-align: center;
     position: relative;
     width: 100%;
     box-sizing: border-box;
@@ -604,4 +621,17 @@ ul,li {
     width: 30px;
     height: 30px;
     }
+    .any-search-input {
+    background: rgba(255,255,255,0.3);
+    color: white;
+    border: none;
+    outline: none;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: bold;
+    font-size: 0.9em;
+    width: 86%;
+    height: 34px;
+    padding: 6px 0px;
+    padding-left: 20px;
+}
 } 
