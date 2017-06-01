@@ -35,6 +35,12 @@ router.get("/list", async (req, res, next) => {
     result.info.code = 200;
     result.info.desc = codeDesc(200);
 
+    for (let i = 0; i < docs.length; i++) {
+        let image = await Jimp.read(docs[i].cover);
+        docs[i]._doc.width = image.bitmap.width;
+        docs[i]._doc.height = image.bitmap.height;
+    }
+
     result.pager = {};
     result.pager.page = parseInt(req.query.page);
     result.pager.pagesize = parseInt(req.query.pagesize);
@@ -175,7 +181,7 @@ router.post("/update", multer().single(), userAuth, async (req, res, next) => {
 
     let doc = await Art.findById(req.body.id);
 
-    if(doc == null){
+    if (doc == null) {
         result.info.code = 400;
         result.info.desc = codeDesc(400);
 
@@ -235,23 +241,59 @@ router.get("/search", async (req, res, next) => {
         req.query.pagesize = 15;
     }
 
-    if (req.query.uid) {
-        query = query.where({ author: mongoose.Types.ObjectId(req.query.uid) });
+    if (req.query.galleryName && req.query.galleryName == "所有画廊") {
+        req.query.galleryName = null;
     }
     if (req.query.key) {
-        query = query.or([{ title: new RegExp(req.query.key) }, { profile: new RegExp(req.query.key) }]);
+        if (req.query.key != "所有作品") {
+            query = query.where({ title: new RegExp(req.query.key) });
+        }
     }
     if (req.query.style) {
-        query = query.where({ style: new RegExp(req.query.style) });
+        if (req.query.style != "所有描述") {
+            query = query.where({ profile: new RegExp(req.query.style) });
+        }
+    }
+
+    let users = await User.find({ "info.galleryName": new RegExp(req.query.galleryName || "") }).exec();
+    let userQuery = []
+    for (let i = 0; i < users.length; i++) {
+        userQuery.push({
+            author: users[i]._id
+        })
+    }
+
+    if (userQuery.length > 0) {
+        query = query.or(userQuery)
+    }
+    else {
+        result.info.code = 200;
+        result.info.desc = codeDesc(200);
+
+        result.pager = {};
+        result.pager.page = parseInt(req.query.page);
+        result.pager.pagesize = parseInt(req.query.pagesize);
+        result.pager.pagecount = Math.ceil(0 / req.query.pagesize);
+        result.pager.count = 0;
+        result.lists = [];
+
+        res.status(200).jsonp(result);
+        return;
     }
 
     let count = await query.count().exec();
-    let docs = await query.find().skip(
+    let docs = await query.find().populate("author", "_id email info.galleryName info.name info.avatar").skip(
         (parseInt(req.query.page) - 1) * req.query.pagesize
-    ).limit(parseInt(req.query.pagesize)).populate("author", "_id email info.galleryName info.name info.avatar").exec();
+    ).limit(parseInt(req.query.pagesize)).exec();
 
     result.info.code = 200;
     result.info.desc = codeDesc(200);
+
+    for (let i = 0; i < docs.length; i++) {
+        let image = await Jimp.read(docs[i].cover);
+        docs[i]._doc.width = image.bitmap.width;
+        docs[i]._doc.height = image.bitmap.height;
+    }
 
     result.pager = {};
     result.pager.page = parseInt(req.query.page);
@@ -268,6 +310,12 @@ router.get("/latest", async (req, res, next) => {
     result.info = {}
 
     let docs = await Art.find().sort("-createDate").limit(20).populate("author", "_id email info.galleryName info.name info.avatar").exec();
+
+    for (let i = 0; i < docs.length; i++) {
+        let image = await Jimp.read(docs[i].cover);
+        docs[i]._doc.width = image.bitmap.width;
+        docs[i]._doc.height = image.bitmap.height;
+    }
 
     result.lists = docs;
     result.info.code = 200;

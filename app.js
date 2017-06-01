@@ -19,7 +19,7 @@ app.use("/v1/user", user);
 app.use("/v1/res", res);
 app.use("/v1/art", art);
 
-var server = app.listen(3000, function () {
+var server = app.listen(80, function () {
     
     var host = server.address().address
     var port = server.address().port
