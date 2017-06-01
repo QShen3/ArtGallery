@@ -1,11 +1,31 @@
 var recGallery = new Array();
 var newGallery = new Array();
 var newArtWorks = new Array();
+var seaArtWorks = new Array();
 
 var pagenow;
 
 $("#search-button").click(function () {
-
+    var $defaultSea
+    $("#searchForm").ajaxSubmit({
+        type: "get",
+        url: "/v1/art/search",
+        success: function (result) {
+            if (result.info.code == "200") {
+                if (!(result.lists instanceof Array)) {
+                    console.error("Parameter wrong : {" + result.lists + "} is not an Array");
+                    return null;
+                }
+                seaArtWorks = result.lists;
+                if (seaArtWorks.length != 0) {
+                    $defaultSea = $("#search-page-content div:eq(0)").remove();
+                    for (var i in seaArtWorks) {
+                        $("#search-page-content").append("<div class='search-part-content'><div class='search-part-img' style='background:url(" + seaArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro-m'>" + seaArtWorks[i].profile + "</p><p class='slide-part-intro'>" + seaArtWorks[i].title + " 来自" + "<span class='slide-part-from'>" + seaArtWorks[i].author.info.name + "</span><span class='slide-part-from'>" + "画廊</span></p></div>");
+                    }
+                }
+            }
+        }
+    })
 });
 
 
@@ -80,7 +100,7 @@ if ($.cookie("authToken") != null) {
             if (newArtWorks.length != 0) {
                 $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
                 for (var i = 0; i < newArtWorks.length; i++) {
-                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newGallery[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name +'的'+newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newGallery[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                 };
             }
             // alert(latestArtWrok.lists[0].info.name)
