@@ -1,0 +1,52 @@
+.edit-information-content {
+    display: none;
+    position: fixed;
+    top: 100px;
+}
+
+.button-get {
+    width: 50px;
+    height: 50px;
+    background: url(../icons/get.png);
+    background-size: cover;
+    position: absolute;
+    right: 0px;
+    bottom: -16em;
+    display: none;
+}
+
+#img{
+    margin-top: 10px;
+    margin-left: 30%;
+    /* padding: 15px; */
+    border: 2px solid #000;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+
+#iptfileupload{
+   position: absolute;
+    left: 30%;
+    /* float: right; */
+    opacity: 0;
+    width: 104px;
+    height: 104px;
+    margin-top: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+input .sex-input{
+    width:20px;
+}
+
+.user-name{
+    text-align: center;
+    border-bottom: none;
+    font-size: 1em;
+    color: #000;
+}
+
