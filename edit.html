@@ -22,12 +22,12 @@
     <div class="button-pre" id="login-pre"> 
     </div>
     <div id="edit-content" class="edit-information-content" style="left:240px;">    
-        <form action="">
+        <form name="frmEdit" id="frmEdit" action="">
             <div class="form-part-content" style="height:140px"> 
                 <form action='' method='post' name='myform'>
                     <input type='file' id='iptfileupload' onchange='show()' title="点击修改头像" value=''/>
-                    <img src='img/head.jpg' alt='' id='img'/>
-                    <input type="text" value="你的名字" class="user-name" style=" text-align: center;border-bottom: none;font-size: 1em;color: #000;margin-top:10px"/>
+                    <img src='img/head.jpg' alt='' id='artist-img'/>
+                    <input type="text" name="artistName" id="artist-name" value="你的名字" class="user-name"/>
                 </form>
             </div>
             <div class="form-part-content">
@@ -36,11 +36,11 @@
             </div>
             <div class="form-part-content">
                 <h6>你的年龄</h6>
-                <input>
+                <input id="artist-gender" name="artistGender">
             </div>
             <div class="form-part-content">
                 <h6>画廊名字</h6>
-                <input>
+                <input id="gallery-name" name="artistGallery">
             </div>          
         </form>
         <div class="button-next" id="login-next">            
