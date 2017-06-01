@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
             var lastBox = Array.prototype.slice.call(waterfall.columns[i].children, -1)[0];
             if(checkSlide(lastBox)) {
                 var count = 5;
-                while(count--) waterfall.addBox(boxHandle());
+                // while(count--) waterfall.addBox(boxHandle());
             }
         }
     };
