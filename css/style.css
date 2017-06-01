@@ -398,6 +398,7 @@ ul,li {
 
 .go-next {
     position: absolute;
+    right: 30px;
     margin:0 auto;
     background: url(../icons/go-next.png);
     background-size: cover;
@@ -405,12 +406,19 @@ ul,li {
     height: 30px;
 }
 .go-pre {
+    left: 30px;
     position: absolute;
     margin:0 auto;
     background: url(../icons/pre.png);
     background-size: cover;
     width: 30px;
     height: 30px;
+}
+
+.artwork-intro {
+    position: absolute;
+    bottom: 40px;
+    left: -200px;
 }
 
 .search-result-table {
@@ -431,8 +439,8 @@ ul,li {
 }
 
 .artwork-page-content {
-    
-    width: 100%;
+    margin: 0px auto;
+    width: 80%;
     text-align: center;
 }
 
@@ -527,5 +535,26 @@ ul,li {
     height: 200px;
     width: 100%;;
     margin: 0px auto;;
+    }
+
+    .go-next {
+    position: absolute;
+    right: 5px;
+    top: -100;
+    margin:0 auto;
+    background: url(../icons/go-next.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    }
+    .go-pre {
+    left: 5px;
+    top: -100;
+    position: absolute;
+    margin:0 auto;
+    background: url(../icons/pre.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
     }
 } 

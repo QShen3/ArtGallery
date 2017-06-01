@@ -26,6 +26,9 @@ if (typeof pageWidth != "number") {
     }
 }
 
+var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+
 ajastDom();
 function ajastDom() {
     pageWidth = window.innerWidth,
@@ -40,6 +43,13 @@ function ajastDom() {
             pageHeight = document.body.clientHeight;
         }
     }
+
+    artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+    $("#id-artwork-intro").css('left', artworkLeft);
+
+    artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+    $("#artwork-go-next").css('top', artworkGoTop);
+    $("#artwork-go-pre").css('top', artworkGoTop);
     if (pageWidth > 768) {
         $("#home-welcome-content").css({ "height": pageHeight - 400 + "px" });
         $("#home-welcome-content").css({ "top": (pageHeight - $("#home-welcome-content").height() - 170) / 2 + "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
@@ -124,22 +134,22 @@ function clearTimer() {
 
 iniPages();
 
-function changePages() {
-    $("#login-button").fadeOut(400);
-    $("#register-button").fadeOut(400);
-    pageChanged = true;
-    $("#home-welcome-content").unbind();
-    clearTimer();
-    $("#home-welcome-text").fadeOut(400, function () {
+// function changePages() {
+//     $("#login-button").fadeOut(400);
+//     $("#register-button").fadeOut(400);
+//     pageChanged = true;
+//     $("#home-welcome-content").unbind();
+//     clearTimer();
+//     $("#home-welcome-text").fadeOut(400, function () {
 
-    });
-    $("#home-welcome-content").fadeOut(400, function () {
-        $("#home-welcome-content").css('background-image', 'url()');
-        $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
+//     });
+//     $("#home-welcome-content").fadeOut(400, function () {
+//         $("#home-welcome-content").css('background-image', 'url()');
+//         $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
 
-        });
-    });
-}
+//         });
+//     });
+// }
 
 function iniPages() {
     $("#login-button").fadeIn(400);
@@ -207,119 +217,119 @@ function iniPages() {
 
 }
 
-$("#login-button").click(
-    function () {
+// $("#login-button").click(
+//     function () {
 
-        changePages();
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-welcome-content").css('display', 'none');
-            $("#home-logo").text("登录");
-            $("#home-logo").css('backgroundImage', 'url()');
-            $("#home-logo").fadeIn(400);
-            $("#login-content").fadeIn(400);
-            $("#login-content").fadeIn(400);
-            $("#login-next").fadeIn(400);
-            $("#login-pre").fadeIn(400, function () {
-                $("#home-welcome-content").css('display', 'none');
-            });
-        })
-    }
-)
+//         changePages();
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-welcome-content").css('display', 'none');
+//             $("#home-logo").text("登录");
+//             $("#home-logo").css('backgroundImage', 'url()');
+//             $("#home-logo").fadeIn(400);
+//             $("#login-content").fadeIn(400);
+//             $("#login-content").fadeIn(400);
+//             $("#login-next").fadeIn(400);
+//             $("#login-pre").fadeIn(400, function () {
+//                 $("#home-welcome-content").css('display', 'none');
+//             });
+//         })
+//     }
+// )
 
-$("#register-button").click(
-    function () {
-        $("#login-button").fadeOut(400);
-        $("#register-button").fadeOut(400);
-        changePages();
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-welcome-content").css('display', 'none');
-            $("#home-logo").text("注册");
-            $("#home-logo").css('backgroundImage', 'url()');
-            $("#home-logo").fadeIn(400);
-            $("#register-content").fadeIn(400);
-            $("#register-content").fadeIn(400);
-            $("#register-next").fadeIn(400);
-            $("#login-pre").fadeIn(400, function () {
-                $("#home-welcome-content").css('display', 'none');
-            });
-        })
-    }
-)
+// $("#register-button").click(
+//     function () {
+//         $("#login-button").fadeOut(400);
+//         $("#register-button").fadeOut(400);
+//         changePages();
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-welcome-content").css('display', 'none');
+//             $("#home-logo").text("注册");
+//             $("#home-logo").css('backgroundImage', 'url()');
+//             $("#home-logo").fadeIn(400);
+//             $("#register-content").fadeIn(400);
+//             $("#register-content").fadeIn(400);
+//             $("#register-next").fadeIn(400);
+//             $("#login-pre").fadeIn(400, function () {
+//                 $("#home-welcome-content").css('display', 'none');
+//             });
+//         })
+//     }
+// )
 
-var pageReint = false;
-$("#login-pre").click(
-    function () {
-        $("#login-button").fadeOut(400);
-        $("#register-button").fadeOut(400);
-        changePages();
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-logo").text("");
-            $("#home-logo").css('backgroundImage', 'url(./icons/galley-logo-c.png)');
-            $("#home-logo").fadeIn(400);
-            $("#home-welcome-content").fadeIn(400, function () {
-                t = setTimeout("timedCount()", 2000);
-                pageChanged = false;
-            });
-            $("#home-welcome-text").fadeIn(400);
-            $("#login-register").fadeIn(400);
-            iniPages();
-            $("#home-welcome-content").css('background-image', 'url(' + WelcomeImg[textIndex] + ')');
+// var pageReint = false;
+// $("#login-pre").click(
+//     function () {
+//         $("#login-button").fadeOut(400);
+//         $("#register-button").fadeOut(400);
+//         changePages();
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-logo").text("");
+//             $("#home-logo").css('backgroundImage', 'url(./icons/galley-logo-c.png)');
+//             $("#home-logo").fadeIn(400);
+//             $("#home-welcome-content").fadeIn(400, function () {
+//                 t = setTimeout("timedCount()", 2000);
+//                 pageChanged = false;
+//             });
+//             $("#home-welcome-text").fadeIn(400);
+//             $("#login-register").fadeIn(400);
+//             iniPages();
+//             $("#home-welcome-content").css('background-image', 'url(' + WelcomeImg[textIndex] + ')');
 
-        })
-
-
-        $("#login-content").fadeOut(400);
-        $("#login-content").fadeOut(400);
-        $("#login-next").fadeOut(400);
-        $("#login-pre").fadeOut(400);
-        $("#register-content").fadeOut(400);
-        $("#register-content").fadeOut(400);
-        $("#register-next").fadeOut(400);
-        $("#register-pre").fadeOut(400);
-
-    }
-)
+//         })
 
 
-$("#login-next").click(
-    function () {
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-page").fadeIn(400);
-            with (location) {
-                var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//         $("#login-content").fadeOut(400);
+//         $("#login-content").fadeOut(400);
+//         $("#login-next").fadeOut(400);
+//         $("#login-pre").fadeOut(400);
+//         $("#register-content").fadeOut(400);
+//         $("#register-content").fadeOut(400);
+//         $("#register-next").fadeOut(400);
+//         $("#register-pre").fadeOut(400);
 
-                var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//     }
+// )
 
-                var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
-            }
-        })
-        $("#login-content").fadeOut(400);
-        $("#login-next").fadeOut(400);
-        $("#login-pre").fadeOut(400);
 
-    }
-)
+// $("#login-next").click(
+//     function () {
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-page").fadeIn(400);
+//             with (location) {
+//                 var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-$("#register-next").click(
-    function () {
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-page").fadeIn(400);
-            with (location) {
-                // var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//                 var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-                // var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//                 var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//             }
+//         })
+//         $("#login-content").fadeOut(400);
+//         $("#login-next").fadeOut(400);
+//         $("#login-pre").fadeOut(400);
 
-                // var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
-                // var newArtScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//     }
+// )
 
-            }
-        })
-        $("#register-content").fadeOut(400);
-        $("#register-next").fadeOut(400);
-        $("#login-pre").fadeOut(400);
+// $("#register-next").click(
+//     function () {
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-page").fadeIn(400);
+//             with (location) {
+//                 // var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-    }
-)
+//                 // var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+//                 // var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//                 // var newArtScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+//             }
+//         })
+//         $("#register-content").fadeOut(400);
+//         $("#register-next").fadeOut(400);
+//         $("#login-pre").fadeOut(400);
+
+//     }
+// )
 
 $("#unfold-search-block").click(
     function () {
