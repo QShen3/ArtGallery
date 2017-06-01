@@ -33,19 +33,27 @@
                 <div class="any-search" id="unfold-search-block-fake" data-role:"none" style="opacity:0;display:none;">
                     
                 </div>
-                <div class="any-search" id="unfold-search-block" data-role:"none">
-                    <span>任何画廊</span>·<span>任何描述</span>·<span>任何作品</span>
+                <div class="any-search" id="unfold-search-block" data-role: "none">
+                    <span id="any-gallery-span">所有画廊</span>·<span id="any-s-span">所有描述</span>·<span id="any-a-span">所有作品</span>
                 </div>
                 
                 <div id="folded" style="display:none;">
-                    <div class="any-search">
-                        任何画廊
-                    </div>
-                    <div class="any-search">
-                        任何描述
-                    </div>
-                    <div class="any-search">
-                        任何作品
+
+                    <form id="searchForm">
+                    <input class="any-search-input" name="galleryName" value="所有画廊" onblur="anyBlur(0)" onclick="anyClick(0)">
+                        
+                    </input>
+                    <input class="any-search-input" name="style" value="所有描述" onblur="anyBlur(1)" onclick="anyClick(1)">
+                        
+                    </input>
+                    <input class="any-search-input" name="key" value="所有作品" onblur="anyBlur(2)" onclick="anyClick(2)">
+                        
+                    </input>
+                    </form>
+                    <div class="white-next-content">
+                        <div class="white-next" id="search-button">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -401,13 +409,11 @@
         </div>
         <br>
 
-        <p class="slide-title">新作品</p>
-        <div class="slide" id="new-art-slide">
-            <table border="0" cellspacing="20px" cellpadding="0" class="slide-table">
-                <tr>
-                    <td>
-                        <div class="slide-part-content">
-                            <div class="slide-part-img-2">
+    <div id="search-page-content" style="display:none">
+        <p class="slide-title">检索</p>
+            <div class="search-part-content">
+                <div class="search-part-img">
+
 
                             </div>
                             <p class="slide-part-intro">
@@ -418,32 +424,16 @@
                                 <span class="slide-part-from">
                                 画廊
                             </span>
-                            </p>
 
+                </p>
+            </div>
+            
+    </div>
+    <!--<div id="collection-page-content">
+        <p class="slide-title">收藏</p>
+            <div class="search-part-content">
+                <div class="search-part-img">
 
-                        </div>
-                    </td>
-                    <td>
-                        <div class="slide-part-content">
-                            <div class="slide-part-img-2">
-
-                            </div>
-                            <p class="slide-part-intro">
-                                STONE CLS 来自
-                                <span class="slide-part-from">
-                                颢豆的
-                            </span>
-                                <span class="slide-part-from">
-                                画廊
-                            </span>
-                            </p>
-
-
-                        </div>
-                    </td>
-                    <td>
-                        <div class="slide-part-content">
-                            <div class="slide-part-img-2">
 
                             </div>
                             <p class="slide-part-intro">
