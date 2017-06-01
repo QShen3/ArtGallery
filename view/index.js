@@ -26,6 +26,9 @@ if (typeof pageWidth != "number") {
     }
 }
 
+var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+
 ajastDom();
 function ajastDom() {
     pageWidth = window.innerWidth,
@@ -40,6 +43,13 @@ function ajastDom() {
             pageHeight = document.body.clientHeight;
         }
     }
+
+    artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+    $("#id-artwork-intro").css('left', artworkLeft);
+
+    artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+    $("#artwork-go-next").css('top', artworkGoTop);
+    $("#artwork-go-pre").css('top', artworkGoTop);
     if (pageWidth > 768) {
         $("#home-welcome-content").css({ "height": pageHeight - 400 + "px" });
         $("#home-welcome-content").css({ "top": (pageHeight - $("#home-welcome-content").height() - 170) / 2 + "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
@@ -124,22 +134,22 @@ function clearTimer() {
 
 iniPages();
 
-function changePages() {
-    $("#login-button").fadeOut(400);
-    $("#register-button").fadeOut(400);
-    pageChanged = true;
-    $("#home-welcome-content").unbind();
-    clearTimer();
-    $("#home-welcome-text").fadeOut(400, function () {
+// function changePages() {
+//     $("#login-button").fadeOut(400);
+//     $("#register-button").fadeOut(400);
+//     pageChanged = true;
+//     $("#home-welcome-content").unbind();
+//     clearTimer();
+//     $("#home-welcome-text").fadeOut(400, function () {
 
-    });
-    $("#home-welcome-content").fadeOut(400, function () {
-        $("#home-welcome-content").css('background-image', 'url()');
-        $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
+//     });
+//     $("#home-welcome-content").fadeOut(400, function () {
+//         $("#home-welcome-content").css('background-image', 'url()');
+//         $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
 
-        });
-    });
-}
+//         });
+//     });
+// }
 
 function iniPages() {
     $("#login-button").fadeIn(400);
@@ -207,120 +217,123 @@ function iniPages() {
 
 }
 
-$("#login-button").click(
-    function () {
+// $("#login-button").click(
+//     function () {
 
-        changePages();
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-welcome-content").css('display', 'none');
-            $("#home-logo").text("登录");
-            $("#home-logo").css('backgroundImage', 'url()');
-            $("#home-logo").fadeIn(400);
-            $("#login-content").fadeIn(400);
-            $("#login-content").fadeIn(400);
-            $("#login-next").fadeIn(400);
-            $("#login-pre").fadeIn(400, function () {
-                $("#home-welcome-content").css('display', 'none');
-            });
-        })
-    }
-)
+//         changePages();
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-welcome-content").css('display', 'none');
+//             $("#home-logo").text("登录");
+//             $("#home-logo").css('backgroundImage', 'url()');
+//             $("#home-logo").fadeIn(400);
+//             $("#login-content").fadeIn(400);
+//             $("#login-content").fadeIn(400);
+//             $("#login-next").fadeIn(400);
+//             $("#login-pre").fadeIn(400, function () {
+//                 $("#home-welcome-content").css('display', 'none');
+//             });
+//         })
+//     }
+// )
 
-$("#register-button").click(
-    function () {
-        $("#login-button").fadeOut(400);
-        $("#register-button").fadeOut(400);
-        changePages();
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-welcome-content").css('display', 'none');
-            $("#home-logo").text("注册");
-            $("#home-logo").css('backgroundImage', 'url()');
-            $("#home-logo").fadeIn(400);
-            $("#register-content").fadeIn(400);
-            $("#register-content").fadeIn(400);
-            $("#register-next").fadeIn(400);
-            $("#login-pre").fadeIn(400, function () {
-                $("#home-welcome-content").css('display', 'none');
-            });
-        })
-    }
-)
+// $("#register-button").click(
+//     function () {
+//         $("#login-button").fadeOut(400);
+//         $("#register-button").fadeOut(400);
+//         changePages();
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-welcome-content").css('display', 'none');
+//             $("#home-logo").text("注册");
+//             $("#home-logo").css('backgroundImage', 'url()');
+//             $("#home-logo").fadeIn(400);
+//             $("#register-content").fadeIn(400);
+//             $("#register-content").fadeIn(400);
+//             $("#register-next").fadeIn(400);
+//             $("#login-pre").fadeIn(400, function () {
+//                 $("#home-welcome-content").css('display', 'none');
+//             });
+//         })
+//     }
+// )
 
-var pageReint = false;
-$("#login-pre").click(
-    function () {
-        $("#login-button").fadeOut(400);
-        $("#register-button").fadeOut(400);
-        changePages();
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-logo").text("");
-            $("#home-logo").css('backgroundImage', 'url(./icons/galley-logo-c.png)');
-            $("#home-logo").fadeIn(400);
-            $("#home-welcome-content").fadeIn(400, function () {
-                t = setTimeout("timedCount()", 2000);
-                pageChanged = false;
-            });
-            $("#home-welcome-text").fadeIn(400);
-            $("#login-register").fadeIn(400);
-            iniPages();
-            $("#home-welcome-content").css('background-image', 'url(' + WelcomeImg[textIndex] + ')');
+// var pageReint = false;
+// $("#login-pre").click(
+//     function () {
+//         $("#login-button").fadeOut(400);
+//         $("#register-button").fadeOut(400);
+//         changePages();
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-logo").text("");
+//             $("#home-logo").css('backgroundImage', 'url(./icons/galley-logo-c.png)');
+//             $("#home-logo").fadeIn(400);
+//             $("#home-welcome-content").fadeIn(400, function () {
+//                 t = setTimeout("timedCount()", 2000);
+//                 pageChanged = false;
+//             });
+//             $("#home-welcome-text").fadeIn(400);
+//             $("#login-register").fadeIn(400);
+//             iniPages();
+//             $("#home-welcome-content").css('background-image', 'url(' + WelcomeImg[textIndex] + ')');
 
-        })
-
-
-        $("#login-content").fadeOut(400);
-        $("#login-content").fadeOut(400);
-        $("#login-next").fadeOut(400);
-        $("#login-pre").fadeOut(400);
-        $("#register-content").fadeOut(400);
-        $("#register-content").fadeOut(400);
-        $("#register-next").fadeOut(400);
-        $("#register-pre").fadeOut(400);
-
-    }
-)
+//         })
 
 
-$("#login-next").click(
-    function () {
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-page").fadeIn(400);
-            with (location) {
-                var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//         $("#login-content").fadeOut(400);
+//         $("#login-content").fadeOut(400);
+//         $("#login-next").fadeOut(400);
+//         $("#login-pre").fadeOut(400);
+//         $("#register-content").fadeOut(400);
+//         $("#register-content").fadeOut(400);
+//         $("#register-next").fadeOut(400);
+//         $("#register-pre").fadeOut(400);
 
-                var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//     }
+// )
 
-                var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
-            }
-        })
-        $("#login-content").fadeOut(400);
-        $("#login-next").fadeOut(400);
-        $("#login-pre").fadeOut(400);
 
-    }
-)
+// $("#login-next").click(
+//     function () {
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-page").fadeIn(400);
+//             with (location) {
+//                 var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-$("#register-next").click(
-    function () {
-        $("#home-logo").fadeOut(400, function () {
-            $("#home-page").fadeIn(400);
-            with (location) {
-                var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//                 var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
-                var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//                 var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//             }
+//         })
+//         $("#login-content").fadeOut(400);
+//         $("#login-next").fadeOut(400);
+//         $("#login-pre").fadeOut(400);
 
-                var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
-            }
-        })
-        $("#register-content").fadeOut(400);
-        $("#register-next").fadeOut(400);
-        $("#login-pre").fadeOut(400);
+//     }
+// )
 
-    }
-)
+// $("#register-next").click(
+//     function () {
+//         $("#home-logo").fadeOut(400, function () {
+//             $("#home-page").fadeIn(400);
+//             with (location) {
+//                 // var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
+//                 // var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+//                 // var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+//                 // var newArtScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+//             }
+//         })
+//         $("#register-content").fadeOut(400);
+//         $("#register-next").fadeOut(400);
+//         $("#login-pre").fadeOut(400);
+
+//     }
+// )
+var searchFoldedBool = true;
 $("#unfold-search-block").click(
     function () {
+        searchFoldedBool = false;
         var px = $('#unfold-search-block').css('marginLeft');
         $("#unfold-search-block").css({ position: 'absolute', left: px });
         $("#unfold-search-block-fake").css('display', 'block');
@@ -336,6 +349,7 @@ $("#unfold-search-block").click(
 
 $("#search-back-top").click(
     function () {
+        searchFoldedBool = true;
         $("#unfold-search-block").slideDown(200);
         $("#search-back-top").slideUp(200, function () {
         });
@@ -344,6 +358,13 @@ $("#search-back-top").click(
         $("#folded").slideUp(200, function () {
             // $("#folded").css('height',47+'px');
         });
+
+    }
+);
+
+$("#gallery-go-top").click(
+    function () {
+        alert("sds")
 
     }
 );
@@ -358,12 +379,13 @@ window.onscroll = function () {
     var scollTopNow = jQuery(window).scrollTop();
     console.log(jQuery(window).scrollTop());
     var op = 1 - (scollTopNow) / 55;
-    var op2 = 255-(255 / 55)*(scollTopNow);
+    var op2 = 255 - (255 / 55) * (scollTopNow);
     console.log(op);
     $("#nav-slide-content").css('background', 'rgba' + '(153,153,153,' + op + ')');
-    console.log('rgb' + '('+op2+','+op2+','+op2+')')
-    $("#art-nav-b").css('color', 'rgb' + '('+op2+','+op2+','+op2+')');
+    console.log('rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')')
+    $("#art-nav-b").css('color', 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
     if (scollTopNow > 0) {
+        searchFoldedBool = true;
         $("#unfold-search-block").slideDown(300);
         $("#search-back-top").slideUp(300, function () {
         });
@@ -372,7 +394,7 @@ window.onscroll = function () {
         $("#folded").slideUp(300, function () {
             // $("#folded").css('height',47+'px');
         });
-    } else if(scollTopNow<0){
+    } else if (scollTopNow < 0) {
         // var px = $('#unfold-search-block').css('marginLeft');
         // $("#unfold-search-block").fadeOut(100);
         // $("#search-back-top").slideDown(100);
@@ -381,18 +403,18 @@ window.onscroll = function () {
 
     if (scollTopNow == 0) {
         $("#art-nav-b").css('background', "none");
-        $("#art-nav-b").css('position','relative');
-        $("#art-nav-b-fake").css('position','fixed');
+        $("#art-nav-b").css('position', 'relative');
+        $("#art-nav-b-fake").css('position', 'fixed');
         $("#nav-slide-content").css('background', 'rgb' + '(153,153,153)');
     } else if (scollTopNow >= 73) {
         $("#art-nav-b").css('background', 'rgb' + '(255,255,255)');
         // $("#art-nav-b").css('color', 'rgb' + '(0,0,0)');
-        $("#art-nav-b-fake").css('position','relative');
-        $("#art-nav-b").css('position','fixed');
+        $("#art-nav-b-fake").css('position', 'relative');
+        $("#art-nav-b").css('position', 'fixed');
     } else {
         $("#art-nav-b").css('background', "none");
-        $("#art-nav-b").css('position','relative');
-        $("#art-nav-b-fake").css('position','fixed');
+        $("#art-nav-b").css('position', 'relative');
+        $("#art-nav-b-fake").css('position', 'fixed');
     }
     if (delta > 0) {
         // $("#howto-cover-content").css({ 'top': parseInt(coverContentTop) + 1 + "px" });
@@ -400,6 +422,7 @@ window.onscroll = function () {
         // $("#howto-cover-content").css({ 'top': parseInt(coverContentTop) - 1 + "px" });
     }
 };
+
 
 var ArtworkImg = ['./img/wimg1.png', './img/wimg2.jpg', './img/wimg3.jpg', './img/wimg4.png'];
 var artwiIndex = 0;
@@ -494,10 +517,44 @@ function anyBlur(index) {
     }
 }
 
-
-function anyKeyBlur() {
-
+function everyThingIsGrey() {
+    $("#home-a").css('color','#DFDFDF');
+    $("#search-a").css('color','#DFDFDF');
+    $("#collection-a").css('color','#DFDFDF');
+    $("#gallery-a").css('color','#DFDFDF');
 }
+
+$("#search-a").click(
+    function () {
+        // everyThingIsGrey();
+        // $("#search-a").css('color','white');
+        if (searchFoldedBool) {
+            if ($('body').scrollTop() > 55) {
+                $('body,html').animate({ scrollTop: 0 }, 200, function () {
+                    searchFoldedBool = false;
+                    var px = $('#unfold-search-block').css('marginLeft');
+                    $("#unfold-search-block").css({ position: 'absolute', left: px });
+                    $("#unfold-search-block-fake").css('display', 'block');
+                    $("#unfold-search-block-fake").slideUp(200);
+                    $("#unfold-search-block").fadeOut(200);
+                    $("#search-back-top").slideDown(200);
+                    $("#folded").slideDown(200);
+                });
+            } else {
+                searchFoldedBool = false;
+                var px = $('#unfold-search-block').css('marginLeft');
+                $("#unfold-search-block").css({ position: 'absolute', left: px });
+                $("#unfold-search-block-fake").css('display', 'block');
+                $("#unfold-search-block-fake").slideUp(200);
+                $("#unfold-search-block").fadeOut(200);
+                $("#search-back-top").slideDown(200);
+                $("#folded").slideDown(200);
+            }
+
+        }
+
+    }
+);
 
 $(window).resize(function () {
     ajastDom();
