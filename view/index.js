@@ -330,9 +330,10 @@ function iniPages() {
 
 //     }
 // )
-
+var searchFoldedBool = true;
 $("#unfold-search-block").click(
     function () {
+        searchFoldedBool = false;
         var px = $('#unfold-search-block').css('marginLeft');
         $("#unfold-search-block").css({ position: 'absolute', left: px });
         $("#unfold-search-block-fake").css('display', 'block');
@@ -348,6 +349,7 @@ $("#unfold-search-block").click(
 
 $("#search-back-top").click(
     function () {
+        searchFoldedBool = true;
         $("#unfold-search-block").slideDown(200);
         $("#search-back-top").slideUp(200, function () {
         });
@@ -383,6 +385,7 @@ window.onscroll = function () {
     console.log('rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')')
     $("#art-nav-b").css('color', 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
     if (scollTopNow > 0) {
+        searchFoldedBool = true;
         $("#unfold-search-block").slideDown(300);
         $("#search-back-top").slideUp(300, function () {
         });
@@ -514,10 +517,44 @@ function anyBlur(index) {
     }
 }
 
-
-function anyKeyBlur() {
-
+function everyThingIsGrey() {
+    $("#home-a").css('color','#DFDFDF');
+    $("#search-a").css('color','#DFDFDF');
+    $("#collection-a").css('color','#DFDFDF');
+    $("#gallery-a").css('color','#DFDFDF');
 }
+
+$("#search-a").click(
+    function () {
+        // everyThingIsGrey();
+        // $("#search-a").css('color','white');
+        if (searchFoldedBool) {
+            if ($('body').scrollTop() > 55) {
+                $('body,html').animate({ scrollTop: 0 }, 200, function () {
+                    searchFoldedBool = false;
+                    var px = $('#unfold-search-block').css('marginLeft');
+                    $("#unfold-search-block").css({ position: 'absolute', left: px });
+                    $("#unfold-search-block-fake").css('display', 'block');
+                    $("#unfold-search-block-fake").slideUp(200);
+                    $("#unfold-search-block").fadeOut(200);
+                    $("#search-back-top").slideDown(200);
+                    $("#folded").slideDown(200);
+                });
+            } else {
+                searchFoldedBool = false;
+                var px = $('#unfold-search-block').css('marginLeft');
+                $("#unfold-search-block").css({ position: 'absolute', left: px });
+                $("#unfold-search-block-fake").css('display', 'block');
+                $("#unfold-search-block-fake").slideUp(200);
+                $("#unfold-search-block").fadeOut(200);
+                $("#search-back-top").slideDown(200);
+                $("#folded").slideDown(200);
+            }
+
+        }
+
+    }
+);
 
 $(window).resize(function () {
     ajastDom();

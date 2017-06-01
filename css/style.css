@@ -392,6 +392,16 @@ ul,li {
     text-align: left;
 }
 
+.exit-button {
+    color: black;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: bold;
+    font-size: 0.9em;
+    height: 34px;
+    width: 100%;
+    text-align: center;
+}
+
 .any-search-input {
     background: rgba(255,255,255,0.3);
     color: white;

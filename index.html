@@ -38,15 +38,15 @@
 
                 <div id="folded" style="display:none;">
                     <form id="searchForm">
-                    <input class="any-search-input" name="galleryName" value="所有画廊" onblur="anyBlur(0)" onclick="anyClick(0)">
-                        
-                    </input>
-                    <input class="any-search-input" name="style" value="所有描述" onblur="anyBlur(1)" onclick="anyClick(1)">
-                        
-                    </input>
-                    <input class="any-search-input" name="key" value="所有作品" onblur="anyBlur(2)" onclick="anyClick(2)">
-                        
-                    </input>
+                        <input class="any-search-input" name="galleryName" value="所有画廊" onblur="anyBlur(0)" onclick="anyClick(0)">
+
+                        </input>
+                        <input class="any-search-input" name="style" value="所有描述" onblur="anyBlur(1)" onclick="anyClick(1)">
+
+                        </input>
+                        <input class="any-search-input" name="key" value="所有作品" onblur="anyBlur(2)" onclick="anyClick(2)">
+
+                        </input>
                     </form>
                     <div class="white-next-content">
                         <div class="white-next" id="search-button">
@@ -58,22 +58,21 @@
             <nav id="art-nav-b">
                 <ul id="ul-static-nav">
                     <li>
-                        <a>推荐</a>
+                        <a id="home-a">推荐</a>
                     </li>
                     <li>
-                        <a>检索</a>
+                        <a id="search-a">检索</a>
                     </li>
                     <li>
-                        <a>收藏</a>
+                        <a id="collection-a">收藏</a>
                     </li>
                     <li>
-                        <a>画廊</a>
+                        <a id="gallery-a">画廊</a>
                     </li>
                 </ul>
                 <div id="nav-ul-me">
                     我
                 </div>
-
             </nav>
             <nav id="art-nav-b-fake">
 
@@ -363,6 +362,7 @@
             </div>
             
     </div>-->
+
     <!--<div id="collection-page-content">
         <p class="slide-title">收藏</p>
             <div class="search-part-content">
@@ -469,6 +469,7 @@
             </div>
             
     </div>-->
+
     <!--<div id="artwork-page-content">
         <div class="go-top" id="artwork-go-top">
 
@@ -499,6 +500,17 @@
             </div>
         </div>
     </div>-->
+
+    <div id="me-page-content" style="display:none">
+
+        <div class="button-pre" id="login-pre" style="display:block">
+        </div>
+            <div class="exit-button">
+                <span>退出</span>
+            </div>
+    </div>
+
+
     <script src="./lips/vue.js"></script>
     <script src="/lips/jquery.form.js"></script>
     <script src="/lips/jquery.cookie.js"></script>

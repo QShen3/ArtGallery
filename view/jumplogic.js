@@ -5,12 +5,14 @@ var newArtWorks = new Array();
 var pagenow;
 
 $("#search-button").click(function () {
-    
+
 });
 
 
 //如果cookie存在，直接加载到home
 if ($.cookie("authToken") != null) {
+    // everyThingIsGrey();
+    // $("#home-a").css('color', 'white');
     $("#home-logo").css('display', 'none');
     $("#home-page").css('display', 'block');
     $("#nav-slide-content").css('display', 'block');
@@ -192,6 +194,8 @@ $("#login-next").click(
                 if (data.info.code == 200) {
                     // $("#all-tab").append("<li class='head' id='candidate" + candidates[i].studentNumber + "'><div class='crown'></div><img class='graphoto' id='candidate_avatar" + candidates[i].studentNumber + "' src='" + candidates[i].small_pic + "'/><span  class='tab-name' id='candiate_name" + candidates[i].studentNumber + "'>" + candidates[i].name + "</span><br/>" + "<span class='tab-zan' id='candiate_zan" + candidates[i].studentNumber + "'>" + getZan(candidates[i].studentNumber) + "赞" + "</span>" + "</br><span class='tab-college' id='candiate_college" + candidates[i].studentNumber + "'>" + candidates[i].college + "</span>");
                     $("#home-logo").fadeOut(400, function () {
+                        everyThingIsGrey();
+                        $("#home-a").css('color', 'white');
                         $("#home-page").fadeIn(400);
                         $("#nav-slide-content").fadeIn(400);
                         with (location) {
@@ -306,3 +310,11 @@ $("#register-next").click(
 
     }
 )
+
+$("#nav-ul-me").click(
+    function () {
+    $("#me-page-content").fadeIn(400);
+    $("#nav-slide-content").fadeOut(400);
+    $("#home-page").fadeOut(400);
+    }
+);
