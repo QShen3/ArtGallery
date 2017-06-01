@@ -152,15 +152,40 @@
 }
 
 .slide-title {
+    text-align: left;
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 1.5em;
     margin-left: 20px;
 }
 
 .slide-part-intro {
+    text-align: left;
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 0.8em;
     font-weight: normal;
+    margin-top: 4px;
+}
+
+.slide-part-intro-m {
+    text-align: left;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.5em;
+    margin: 4px 0px 0px 0px;
+    font-weight: normal;
+}
+
+.artwork-part-intro-m {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.5em;
+    margin: 4px 0px 0px 0px;
+    font-weight: normal;
+}
+
+.artwork-part-intro {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.8em;
+    font-weight: normal;
+    margin-top: 4px;
 }
 
 /*#nav-content {
@@ -362,6 +387,86 @@ ul,li {
     height: 30px;
 }
 
+.go-top {
+    position: relative;
+    margin:0 auto;
+    background: url(../icons/gotop.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+
+.go-next {
+    position: absolute;
+    right: 30px;
+    margin:0 auto;
+    background: url(../icons/go-next.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+.go-pre {
+    left: 30px;
+    position: absolute;
+    margin:0 auto;
+    background: url(../icons/pre.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+
+.artwork-intro {
+    position: absolute;
+    bottom: 40px;
+    left: -200px;
+}
+
+.search-result-table {
+    width: 100%;
+}
+
+.gallery-title {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 1.5em;
+    font-weight: bold;
+    margin:0px auto;
+}
+
+.search-part-content {
+    width: 28%;
+    margin: 20px 2.66667%;
+    float: left;
+}
+
+.artwork-page-content {
+    margin: 0px auto;
+    width: 80%;
+    text-align: center;
+}
+
+.search-part-img {
+    background: url(../img/wimg1.png);
+    background-size: cover;
+    height: 150px;
+    width: 100%;
+    margin: 0px auto;
+}
+
+.artwork-part-img {
+    background: url(../img/wimg1.png);
+    background-size: cover;
+    height: 150px;
+    width: 100%;
+    margin: 0px;
+}
+
+#search-page-content {
+    text-align: center;
+}
+
+#collection-page-content {
+    text-align: center;
+}
 @media screen and (min-width: 769px) and (max-width: 1080px) {
 
 }
@@ -409,5 +514,47 @@ ul,li {
         background: grey;
         top: 0px;
         z-index: 1000;
+    }
+
+    .search-part-content {
+    float: none;
+    width: 80%;
+    margin: 40px auto;
+    }
+    .gallery-title {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 1em;
+    font-weight: bold;
+    margin:0px auto 10px auto;
+    }
+
+    
+    .search-part-img {
+    background: url(../img/wimg1.png);
+    background-size: cover;
+    height: 200px;
+    width: 100%;;
+    margin: 0px auto;;
+    }
+
+    .go-next {
+    position: absolute;
+    right: 5px;
+    top: -100;
+    margin:0 auto;
+    background: url(../icons/go-next.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    }
+    .go-pre {
+    left: 5px;
+    top: -100;
+    position: absolute;
+    margin:0 auto;
+    background: url(../icons/pre.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
     }
 } 
