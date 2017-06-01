@@ -1,18 +1,21 @@
 #home {
     /*background: url(../img/home_bgimg.jpg);*/
+    margin: 0px;
     background-size: cover;
     background-position: bottom center;
 }
 #home-welcome-content {
     background: url(../img/wimg1.png);
-    position: fixed;
-    left: 0px;
+    background-size: cover;
+    position: absolute;
+
     width: 80%;
     margin: 0 auto;
 }
 
 #home-welcome-text {
-    position: fixed;
+    position: absolute;
+    top: -100px;
     margin: 0px auto;
     color: black;
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
@@ -29,15 +32,16 @@
     font-size: 2em;
     text-align: center;
     font-weight: bold;
-    position: fixed;
+    position: absolute;
     top: 40px;
+    left: -300px;
     width: 200px;
     height: 30px;
     margin: 0 auto;
 }
 
 #login-register {
-    position: fixed;
+    position: absolute;
     text-align: center;
     width: 100%;
     top:2000px;
@@ -64,7 +68,7 @@
 }*/
 .login-register-content {
     display: none;
-    position: fixed;
+    position: absolute;
     top: 120px;
 }
 
@@ -103,11 +107,266 @@
     display: none;
 }
 
-@media screen and (min-width: 767px) and (max-width: 1080px) {
+.ui-loader-default{ display:none}  
+.ui-mobile-viewport{ border:none;}  
+.ui-page {padding: 0; margin: 0; outline: 0}   
+
+.slide {
+    width: 100%;
+    OVERFLOW-X: scroll;
+}
+
+.slide-part-img-0 {
+    background: url(../img/wimg1.png);
+    background-size: cover;
+    height: 150px;
+    width: 150px;
+    margin: 0px;
+}
+
+.slide-part-img {
+    background: url(../img/wimg2.jpg);
+    background-size: cover;
+    height: 300px;
+    width: 300px;
+    margin: 0px;
+}
+
+.slide-part-img-2 {
+    background: url(../img/wimg3.jpg);
+    background-size: cover;
+    height: 300px;
+    width: 360px;
+    margin: 0px;
+}
+
+.slide-part-name {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 1em;
+    font-weight: bold;
+}
+.slide-part-from {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.slide-title {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 1.5em;
+    margin-left: 20px;
+}
+
+.slide-part-intro {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.8em;
+    font-weight: normal;
+}
+
+/*#nav-content {
+    position: relative;
+    width: 100%;
+    left: 0px;
+    top: 94px;
+    z-index: 1001;
+}*/
+
+
+#art-nav {
+    background: white;
+    padding: 5px;
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-bottom: 1px solid #DFDFDF;
+    z-index: 1000;
+}
+
+#art-nav-b {
+    color: white;
+    /*background: grey;*/
+    padding: 6px 0px 4px 0px;
+    width: 100%;
+    height: 40px;
+    position: relative;
+    left: 0;
+    top: 0px;
+    border-bottom: 1px solid #DFDFDF;
+    z-index: 1000;
+}
+
+#art-nav-b-fake {
+    color: firebrick;
+    width: 100%;
+    height: 59px;
+    position: fixed;
+}
+ul,li {
+	list-style: none;
+}
+
+#ul-static-nav {
+    margin: auto;
+    height: 40px;
+    width: 100%;
+    padding-left: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+#art-nav-b ul li {
+    margin: 12px 12px;
+    float: left;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.8em;
+    font-weight: bold;
+    /*border-bottom: 3px solid white;*/
+    padding-bottom: 12px;
+}
+
+
+#art-nav ul li {
+    margin: 12px 12px;
+    float: left;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.8em;
+    font-weight: bold;
+    border-bottom: 3px solid black;
+    padding-bottom: 12px;
+}
+#nav-ul-me {
+    background: rebeccapurple;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.myScrollbarH {
+	position:absolute;
+	z-index:100;
+	height:8px;
+	bottom:1px;
+	left:2px;
+	right:7px
+}
+
+.myScrollbarH > div {
+	position:absolute;
+	z-index:100;
+	height:100%;
+
+	/* The following is probably what you want to customize */
+	background-image:-webkit-gradient(linear, 0 0, 100% 0, from(#a00), to(#f00));
+	background-image:-moz-linear-gradient(top, #f00, #900);
+	background-image:-o-linear-gradient(top, #f00, #900);
+
+	border:1px solid #900;
+	-webkit-background-clip:padding-box;
+	-moz-background-clip:padding-box;
+	-o-background-clip:padding-box;
+	background-clip:padding-box;
+	
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-o-box-sizing:border-box;
+	box-sizing:border-box;
+	
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	-o-border-radius:4px;
+	border-radius:4px;
+	
+	-webkit-box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);
+	-moz-box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);
+	-o-box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);
+	box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);
+}
+
+
+/**
+ *
+ * Vertical Scrollbar
+ *
+ */
+.myScrollbarV {
+	position:absolute;
+	z-index:100;
+	width:8px;bottom:7px;top:2px;right:1px
+}
+
+.myScrollbarV > div {
+	position:absolute;
+	z-index:100;
+	width:100%;
+
+	/* The following is probably what you want to customize */
+	background:-webkit-gradient(linear, 0 0, 100% 0, from(#f00), to(#900));
+	background-image:-moz-linear-gradient(top, #f00, #900);
+	background-image:-o-linear-gradient(top, #f00, #900);
+
+	border:1px solid #900;
+
+	-webkit-background-clip:padding-box;
+	-moz-background-clip:padding-box;
+	-o-background-clip:padding-box;
+	background-clip:padding-box;
+	
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-o-box-sizing:border-box;
+	box-sizing:border-box;
+	
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	-o-border-radius:4px;
+	border-radius:4px;
+	
+	-webkit-box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);
+	-moz-box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);
+	-o-box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);
+	box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);
+}
+
+.any-search {
+    background: rgba(255,255,255,0.3);
+    color: white;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.search-a {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    left: 0px;
+    /*top: 40px;*/
+    /*background: grey;*/
+    /*padding: 60px 0px 0px 0px;*/
+    padding: 10px 0px 0px 0px;
+    z-index: 1000;
+}
+
+.back-top {
+    position: relative;
+    margin:0 auto;
+    background: url(../icons/backtop.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1080px) {
 
 }
 
-@media only screen and (max-width: 767px) { 
+@media only screen and (max-width: 769px) { 
     #home-welcome-text {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 0.5em;
@@ -123,5 +382,32 @@
     font-size: 1.2em;
     outline: none;
     padding-bottom: 0.2em;
+    }
+    .slide-part-img {
+    height: 200px;
+    width: 200px;
+    }
+    .slide-part-img-0 {
+    height: 100px;
+    width: 100px;
+    }
+    .slide-part-name {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.6em;
+    font-weight: bold;
+    }
+    .any-search {
+    width: 86%;
+    height: 34px;
+    margin: 8px auto;
+    padding-top: 13px;
+    padding-left: 20px;
+    }
+    #nav-slide-content {
+        position: relative;
+        width: 100%;
+        background: grey;
+        top: 0px;
+        z-index: 1000;
     }
 } 
