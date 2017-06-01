@@ -28,18 +28,11 @@ function submitClick(){
 			'proof': proof,
 			'age': age
 		},
-		success: function (data) { // data 保存提交后返回的数据
-			if (data.code == 200) {
+		success: function (info) { // data 保存提交后返回的数据
+			if (info.code == 200) {
 				return true;
-			} else if (data.code == 400) {
-				return false;
-			} else if (data.code == 401) {
-				return false;
-			} else if (data.code == 402) {
-				return false;
 			} else {
-				alert("系统错误，请联系管理员。");
-				$("#ajax-state").fadesOut();
+				return false;
 			}
 		}
 	});
