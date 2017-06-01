@@ -6,11 +6,14 @@ var seaArtWorks = new Array();
 var pagenow;
 
 $("#search-button").click(function () {
+    $("#search-page-content").fadeIn(400);
+    $("#home-page").fadeOut(400);
     var $defaultSea;
     $("#searchForm").ajaxSubmit({
         type: "get",
         url: "/v1/art/search",
         success: function (result) {
+            console.log("here");
             if (result.info.code == "200") {
                 if (!(result.lists instanceof Array)) {
                     console.error("Parameter wrong : {" + result.lists + "} is not an Array");
@@ -19,8 +22,10 @@ $("#search-button").click(function () {
                 seaArtWorks = result.lists;
                 if (seaArtWorks.length != 0) {
                     $defaultSea = $("#search-page-content div:eq(0)").remove();
+                    $("#search-page-content").html("");
+                    $("#search-page-content").append("<p class='slide-title'>检索</p>");
                     for (var i in seaArtWorks) {
-                        $("#search-page-content").append("<div class='search-part-content'><div class='search-part-img' style='background:url(" + seaArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro-m'>" + seaArtWorks[i].profile + "</p><p class='slide-part-intro'>" + seaArtWorks[i].title + " 来自" + "<span class='slide-part-from'>" + seaArtWorks[i].author.info.name + "</span><span class='slide-part-from'>" + "画廊</span></p></div>");
+                        $("#search-page-content").append("<div class='search-part-content'><div class='search-part-img' style='background:url(" + seaArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro-m'>" + seaArtWorks[i].profile + "</p><p class='slide-part-intro'>" + seaArtWorks[i].title + " 来自" + "<span class='slide-part-from'>" + seaArtWorks[i].author.info.name + "</span><span class='slide-part-from'>" + "的" + seaArtWorks[i].author.info.galleryName + "</span></p></div>");
                     }
                 }
             }
