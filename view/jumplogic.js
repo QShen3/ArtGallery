@@ -3,10 +3,12 @@ var newGallery = new Array();
 var newArtWorks = new Array();
 var seaArtWorks = new Array();
 
-var pagenow;
+var pageNow = ['index'];//页面栈 
 
 $("#search-button").click(function () {
-
+    everyThingIsGrey();
+    $("#search-a-li").css('border-bottom', '3px solid '+'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+    pageNow.push("search");
     $("#search-page-content").fadeIn(400);
     $("#home-page").fadeOut(400);
     var $defaultSea;
@@ -34,10 +36,47 @@ $("#search-button").click(function () {
     })
 });
 
+$("#collection-a").click(
+    function () {
+        everyThingIsGrey();
+        $("#collection-a-li").css('border-bottom', '3px solid '+'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+        pageNow.push("collection");
+        fadeoutNow();
+        $("#collection-page-content").fadeIn(400);
+        searchFoldedBool = true;
+        $("#unfold-search-block").slideDown(200);
+        $("#search-back-top").slideUp(200, function () {
+        });
+        $("#unfold-search-block").css({ position: 'relative', left: "0px", paddingLeft: '20px' });
+        // $("#unfold-search-block").animate({opacity:0},10);
+        $("#folded").slideUp(200, function () {
+            // $("#folded").css('height',47+'px');
+        });
+    }
+);
 
+$("#gallery-a").click(
+    function () {
+        everyThingIsGrey();
+        $("#gallery-a-li").css('border-bottom', '3px solid '+'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+        pageNow.push("gallery");
+        fadeoutNow();
+        $("#gallery-page-content").fadeIn(400);
+        searchFoldedBool = true;
+        $("#unfold-search-block").slideDown(200);
+        $("#search-back-top").slideUp(200, function () {
+        });
+        $("#unfold-search-block").css({ position: 'relative', left: "0px", paddingLeft: '20px' });
+        // $("#unfold-search-block").animate({opacity:0},10);
+        $("#folded").slideUp(200, function () {
+            // $("#folded").css('height',47+'px');
+        });
+    }
+);
 //如果cookie存在，直接加载到home
 if ($.cookie("authToken") != null) {
-    // everyThingIsGrey();
+    pageNow.push("home");
+    everyThingIsGrey();
     // $("#home-a").css('color', 'white');
     $("#home-logo").css('display', 'none');
     $("#home-page").css('display', 'block');
@@ -108,7 +147,7 @@ if ($.cookie("authToken") != null) {
             if (newArtWorks.length != 0) {
                 $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
                 for (var i = 0; i < newArtWorks.length; i++) {
-                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newGallery[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                 };
             }
             // alert(latestArtWrok.lists[0].info.name)
@@ -139,7 +178,7 @@ function changePages() {
 
 $("#login-button").click(
     function () {
-
+        pageNow.push("login");
         changePages();
         $("#home-logo").fadeOut(400, function () {
             $("#home-welcome-content").css('display', 'none');
@@ -158,6 +197,7 @@ $("#login-button").click(
 
 $("#register-button").click(
     function () {
+        pageNow.push("rigister");
         $("#login-button").fadeOut(400);
         $("#register-button").fadeOut(400);
         changePages();
@@ -179,6 +219,7 @@ $("#register-button").click(
 var pageReint = false;
 $("#login-pre").click(
     function () {
+        pageNow.push("index");
         $("#login-button").fadeOut(400);
         $("#register-button").fadeOut(400);
         changePages();
@@ -219,9 +260,10 @@ $("#login-next").click(
             success: function (data) { // data 保存提交后返回的数据
                 if (data.info.code == 200) {
                     // $("#all-tab").append("<li class='head' id='candidate" + candidates[i].studentNumber + "'><div class='crown'></div><img class='graphoto' id='candidate_avatar" + candidates[i].studentNumber + "' src='" + candidates[i].small_pic + "'/><span  class='tab-name' id='candiate_name" + candidates[i].studentNumber + "'>" + candidates[i].name + "</span><br/>" + "<span class='tab-zan' id='candiate_zan" + candidates[i].studentNumber + "'>" + getZan(candidates[i].studentNumber) + "赞" + "</span>" + "</br><span class='tab-college' id='candiate_college" + candidates[i].studentNumber + "'>" + candidates[i].college + "</span>");
+                    pageNow.push("home");
                     $("#home-logo").fadeOut(400, function () {
-                        everyThingIsGrey();
-                        $("#home-a").css('color', 'white');
+                        // everyThingIsGrey();
+                        // $("#home-a").css('color', 'white');
                         $("#home-page").fadeIn(400);
                         $("#nav-slide-content").fadeIn(400);
                         with (location) {
@@ -300,13 +342,14 @@ $("#login-next").click(
                 }
             },
             error: function (data) { // data 保存提交后返回的数据
+                pageNow.push("login");
                 $("#home-logo").css('color', 'red');
                 $("#home-logo").text("登陆");
                 $("#email-text").css('color', 'red');
                 $("#email-text").text("请检查电子邮件地址");
                 $("#pwd-text").css('color', 'red');
                 $("#pwd-text").text("请检查密码");
-                $("input").css('borderBottom', '3px solid red')
+                $("input").css('borderBottom', '3px solid '+'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')')
                 $("#home-logo").css('backgroundImage', 'url()');
                 $("#home-logo").fadeIn(400);
             }
@@ -339,8 +382,72 @@ $("#register-next").click(
 
 $("#nav-ul-me").click(
     function () {
-    $("#me-page-content").fadeIn(400);
-    $("#nav-slide-content").fadeOut(400);
-    $("#home-page").fadeOut(400);
+        pageNow.push("me");
+        $("#me-page-content").fadeIn(400);
+        $("#nav-slide-content").fadeOut(400);
+        fadeoutNow();
     }
 );
+
+$("#me-pre").click(
+    function () {
+        $("#me-page-content").fadeOut(400);
+        $("#nav-slide-content").fadeIn(400);
+        fadeinNow();
+        pageNow.push(pageNow[pageNow.length - 2]);
+
+    }
+)
+
+$("#home-a").click(
+    function () {
+        everyThingIsGrey();
+        $("#home-a-li").css('border-bottom', '3px solid '+'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+        if (pageNow[pageNow.length - 1] != "home") {
+            pageNow.push("home");
+            $("#home-page").fadeIn(400);
+            fadeoutNow();
+        }
+        searchFoldedBool = true;
+        $("#unfold-search-block").slideDown(200);
+        $("#search-back-top").slideUp(200, function () {
+        });
+        $("#unfold-search-block").css({ position: 'relative', left: "0px", paddingLeft: '20px' });
+        // $("#unfold-search-block").animate({opacity:0},10);
+        $("#folded").slideUp(200, function () {
+            // $("#folded").css('height',47+'px');
+        });
+
+    }
+)
+
+function fadeoutNow() {
+    if (pageNow[pageNow.length - 2] == "home") {
+        $("#home-page").fadeOut(400);
+    };
+    if (pageNow[pageNow.length - 2] == "search") {
+        $("#search-page-content").css('display','none');
+    };
+    if (pageNow[pageNow.length - 2] == "collection") {
+        $("#collection-page-content").css('display','none');
+    };
+    if (pageNow[pageNow.length - 2] == "gallery") {
+        $("#gallery-page-content").fadeOut(400);
+    };
+}
+
+function fadeinNow() {
+    if (pageNow[pageNow.length - 2] == "home") {
+        $("#home-page").fadeIn(400);
+    };
+    if (pageNow[pageNow.length - 2] == "search") {
+        $("#search-page-content").fadeIn(400);
+    };
+    if (pageNow[pageNow.length - 2] == "collection") {
+        $("#collection-page-content").fadeIn(400);
+    };
+    if (pageNow[pageNow.length - 2] == "gallery") {
+        $("#gallery-page-content").fadeIn(400);
+    };
+
+}

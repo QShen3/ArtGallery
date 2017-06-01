@@ -57,16 +57,16 @@
             </div>
             <nav id="art-nav-b">
                 <ul id="ul-static-nav">
-                    <li>
+                    <li id="home-a-li" style="border-bottom:3px solid white;">
                         <a id="home-a">推荐</a>
                     </li>
-                    <li>
+                    <li id="search-a-li">
                         <a id="search-a">检索</a>
                     </li>
-                    <li>
+                    <li id="collection-a-li">
                         <a id="collection-a">收藏</a>
                     </li>
-                    <li>
+                    <li id="gallery-a-li">
                         <a id="gallery-a">画廊</a>
                     </li>
                 </ul>
@@ -258,45 +258,45 @@
 
     <div id="search-page-content" style="display:none">
         <p class="slide-title">检索</p>
-            <div class="search-part-content">
-                <div class="search-part-img">
+        <div class="search-part-content">
+            <div class="search-part-img">
 
-                </div>
-                <p class="slide-part-intro-m">
-                    知更鸟开始飞了。
-                </p>
-                <p class="slide-part-intro">
-                    STONE CLS 来自
-                    <span class="slide-part-from">
+            </div>
+            <p class="slide-part-intro-m">
+                知更鸟开始飞了。
+            </p>
+            <p class="slide-part-intro">
+                STONE CLS 来自
+                <span class="slide-part-from">
                                 颢豆的
                             </span>
-                    <span class="slide-part-from">
+                <span class="slide-part-from">
                                 画廊
                             </span>
-                </p>
+            </p>
 
-            </div>          
+        </div>
     </div>
     <div id="collection-page-content" style="display:none">
         <p class="slide-title">收藏</p>
-            <div class="search-part-content">
-                <div class="search-part-img">
+        <div class="search-part-content">
+            <div class="search-part-img">
 
-                </div>
-                <p class="slide-part-intro-m">
-                    知更鸟开始飞了。
-                </p>
-                <p class="slide-part-intro">
-                    STONE CLS 来自
-                    <span class="slide-part-from">
+            </div>
+            <p class="slide-part-intro-m">
+                知更鸟开始飞了。
+            </p>
+            <p class="slide-part-intro">
+                STONE CLS 来自
+                <span class="slide-part-from">
                                 颢豆的
                             </span>
-                    <span class="slide-part-from">
+                <span class="slide-part-from">
                                 画廊
                             </span>
-                </p>
+            </p>
 
-            </div>            
+        </div>
     </div>
     <!--<div id="artwork-page-content">
         <div class="go-top" id="artwork-go-top">
@@ -331,12 +331,73 @@
 
     <div id="me-page-content" style="display:none">
 
-        <div class="button-pre" id="login-pre" style="display:block">
+        <div class="button-pre" id="me-pre" style="display:block">
         </div>
-            <div class="exit-button">
-                <span>退出</span>
+        <form action="">
+            <div class="form-part-content" style="height:140px">
+                <form action='' method='post' name='myform'>
+                    <input type='file' id='iptfileupload' onchange='show()' title="点击修改头像" value='' />
+                    <img src='img/head.jpg' alt='' id='img' />
+                    <input type="text" value="你的名字" class="user-name" style=" text-align: center;border-bottom: none;font-size: 1em;color: #000;margin-top:10px"
+                    />
+                </form>
             </div>
+            <div class="form-part-content">
+                <h6>你的性别</h6>
+                <h6><input class="sex-input" name="sex" type="radio" value="" style="width:40px" />male <input class="sex-input"
+                        name="sex" type="radio" value="" style="width:40px" />female<input class="sex-input" name="sex" type="radio"
+                        value="" style="width:40px" />unknown</h6>
+            </div>
+            <div class="form-part-content">
+                <h6>你的年龄</h6>
+                <input>
+            </div>
+            <div class="form-part-content">
+                <h6>画廊名字</h6>
+                <input>
+            </div>
+        </form>
+        <div class="button-next" id="login-next">
+        </div>
+        <div class="exit-button">
+            <span>退出</span>
+        </div>
     </div>
+
+    <!--<div id="registe2-page-content" style="display:none">
+
+        <div class="button-pre" id="me-pre" style="display:block">
+        </div>
+        <form action="">
+            <div class="form-part-content" style="height:140px">
+                <form action='' method='post' name='myform'>
+                    <input type='file' id='iptfileupload' onchange='show()' title="点击修改头像" value='' />
+                    <img src='img/head.jpg' alt='' id='img' />
+                    <input type="text" value="你的名字" class="user-name" style=" text-align: center;border-bottom: none;font-size: 1em;color: #000;margin-top:10px"
+                    />
+                </form>
+            </div>
+            <div class="form-part-content">
+                <h6>你的性别</h6>
+                <h6><input class="sex-input" name="sex" type="radio" value="" style="width:40px" />male <input class="sex-input"
+                        name="sex" type="radio" value="" style="width:40px" />female<input class="sex-input" name="sex" type="radio"
+                        value="" style="width:40px" />unknown</h6>
+            </div>
+            <div class="form-part-content">
+                <h6>你的年龄</h6>
+                <input>
+            </div>
+            <div class="form-part-content">
+                <h6>画廊名字</h6>
+                <input>
+            </div>
+        </form>
+        <div class="button-next" id="login-next">
+        </div>
+        <div class="exit-button">
+            <span>退出</span>
+        </div>
+    </div>-->
 
 
     <script src="./lips/vue.js"></script>
