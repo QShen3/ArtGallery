@@ -6,7 +6,7 @@ var seaArtWorks = new Array();
 var pagenow;
 
 $("#search-button").click(function () {
-    var $defaultSea
+    var $defaultSea;
     $("#searchForm").ajaxSubmit({
         type: "get",
         url: "/v1/art/search",

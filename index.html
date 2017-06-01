@@ -33,19 +33,21 @@
 
                 </div>
                 <div class="any-search" id="unfold-search-block" data-role: "none">
-                    <span>任何画廊</span>·<span>任何描述</span>·<span>任何作品</span>
+                    <span id="any-gallery-span">所有画廊</span>·<span id="any-s-span">所有描述</span>·<span id="any-a-span">所有作品</span>
                 </div>
 
                 <div id="folded" style="display:none;">
-                    <div class="any-search">
-                        任何画廊
-                    </div>
-                    <div class="any-search">
-                        任何描述
-                    </div>
-                    <div class="any-search">
-                        任何作品
-                    </div>
+                    <form id="searchForm">
+                    <input class="any-search-input" name="galleryName" value="所有画廊" onblur="anyBlur(0)" onclick="anyClick(0)">
+                        
+                    </input>
+                    <input class="any-search-input" name="style" value="所有描述" onblur="anyBlur(1)" onclick="anyClick(1)">
+                        
+                    </input>
+                    <input class="any-search-input" name="key" value="所有作品" onblur="anyBlur(2)" onclick="anyClick(2)">
+                        
+                    </input>
+                    </form>
                     <div class="white-next-content">
                         <div class="white-next" id="search-button">
 
