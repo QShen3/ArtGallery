@@ -15,6 +15,17 @@ a:hover { color: #41ccff; }
     padding-bottom: 20px;
     text-align: center;
 }
+
+.head-button-pre {
+    width: 50px;
+    height: 50px;
+    background: url(../icons/return.png);
+    background-size: cover;
+    position: absolute;
+    left: 10%;
+    top: 60px;
+}
+
 .header p {
     margin: 12px 0;
 }
@@ -40,8 +51,17 @@ a:hover { color: #41ccff; }
 .wf-box .content {
     border: 1px solid #ccc;
     border-top-width: 0;
-    padding: 5px 8px;
+    padding: 8px 8px;
 }
+
+.content h3{
+    font-weight: normal;
+}
+
+.content p{
+    font-size: 12px;
+}
+
 .wf-column {
     float: left;
 }
