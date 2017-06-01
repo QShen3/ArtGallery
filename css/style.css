@@ -174,6 +174,20 @@
     font-weight: normal;
 }
 
+.artwork-part-intro-m {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.5em;
+    margin: 4px 0px 0px 0px;
+    font-weight: normal;
+}
+
+.artwork-part-intro {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.8em;
+    font-weight: normal;
+    margin-top: 4px;
+}
+
 /*#nav-content {
     position: relative;
     width: 100%;
@@ -382,6 +396,23 @@ ul,li {
     height: 30px;
 }
 
+.go-next {
+    position: absolute;
+    margin:0 auto;
+    background: url(../icons/go-next.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+.go-pre {
+    position: absolute;
+    margin:0 auto;
+    background: url(../icons/pre.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+
 .search-result-table {
     width: 100%;
 }
@@ -399,7 +430,21 @@ ul,li {
     float: left;
 }
 
+.artwork-page-content {
+    
+    width: 100%;
+    text-align: center;
+}
+
 .search-part-img {
+    background: url(../img/wimg1.png);
+    background-size: cover;
+    height: 150px;
+    width: 100%;
+    margin: 0px auto;
+}
+
+.artwork-part-img {
     background: url(../img/wimg1.png);
     background-size: cover;
     height: 150px;
@@ -408,6 +453,10 @@ ul,li {
 }
 
 #search-page-content {
+    text-align: center;
+}
+
+#collection-page-content {
     text-align: center;
 }
 @media screen and (min-width: 769px) and (max-width: 1080px) {

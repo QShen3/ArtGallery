@@ -410,6 +410,54 @@ window.onscroll = function () {
     }
 };
 
+
+var ArtworkImg = ['./img/wimg1.png', './img/wimg2.jpg', './img/wimg3.jpg', './img/wimg4.png'];
+var artwiIndex = 0;
+$("artwork-go-next").click(function () {
+    $("#artwork-part-img").stop(true, false).fadeOut(800, function () {
+        $("#artwork-part-img").css('background-image', 'url(' + ArtworkImg[artwiIndex] + ')');
+        $("#home-welcome-content").css('background-size', 'cover');
+        $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
+        });
+    });
+
+    artwiIndex >= ArtworkImg.length ? artwiIndex = 0 : artwiIndex++;
+});
+
+$("artwork-go-pre").click(function () {
+    $("#artwork-part-img").stop(true, false).fadeOut(800, function () {
+        $("#artwork-part-img").css('background-image', 'url(' + ArtworkImg[artwiIndex] + ')');
+        $("#home-welcome-content").css('background-size', 'cover');
+        $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
+        });
+    });
+
+    artwiIndex <= 0 ? artwiIndex = ArtworkImg.length : artwiIndex--;
+});
+
+
+$("#artwork-go-next").on("swipeleft", function () {
+    $("#artwork-part-img").stop(true, false).fadeOut(800, function () {
+        $("#artwork-part-img").css('background-image', 'url(' + ArtworkImg[artwiIndex] + ')');
+        $("#home-welcome-content").css('background-size', 'cover');
+        $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
+        });
+    });
+
+    artwiIndex >= ArtworkImg.length ? artwiIndex = 0 : artwiIndex++;
+});
+
+$("#home-welcome-content").on("swiperight", function () {
+    $("#artwork-part-img").stop(true, false).fadeOut(800, function () {
+        $("#artwork-part-img").css('background-image', 'url(' + ArtworkImg[artwiIndex] + ')');
+        $("#home-welcome-content").css('background-size', 'cover');
+        $("#home-welcome-content").stop(true, false).fadeIn(400, function () {
+        });
+    });
+
+    artwiIndex <= 0 ? artwiIndex = ArtworkImg.length : artwiIndex--;
+});
+
 $(window).resize(function () {
     ajastDom();
 });
