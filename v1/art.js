@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const multer = require("multer");
-const Jimp = require("jimp");
 const codeDesc = require("../codeDesc.js");
 
 const Art = require("../db.js").art

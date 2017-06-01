@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const multer = require("multer");
-const Jimp = require("jimp");
 const codeDesc = require("../../codeDesc.js");
 const User = require("../../db.js").user;
 const Art = require("../../db.js").art;
@@ -24,12 +23,6 @@ router.get("/", userAuth, async (req, res, next) => {
     let count = user.collections.length;
 
     user.collections = user.collections.slice((parseInt(req.query.page) - 1) * parseInt(req.query.pagesize), (parseInt(req.query.page)) * parseInt(req.query.pagesize));
-
-    for(let i = 0; i < user.collections.length; i++){
-        let image = await Jimp.read(user.collections[i].cover);
-        user.collections[i]._doc.width = image.bitmap.width;
-        user.collections[i]._doc.height = image.bitmap.height;
-    }
 
     result.collections = await Art.populate(user.collections, [{ path: "author", select: "_id email info.galleryName info.name info.avatar" }]);
 

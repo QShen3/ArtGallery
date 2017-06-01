@@ -82,7 +82,6 @@
 }
 
 .form-part-content h6 {
-    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     margin: 1.5em 0;
 }
 
@@ -141,18 +140,11 @@
     margin: 0px;
 }
 
-.slide-part-no {
-    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
-    font-size: 4em;
-    font-weight: lighter;
-}
-
 .slide-part-name {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 1em;
     font-weight: bold;
 }
-
 .slide-part-from {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 1em;
@@ -160,40 +152,15 @@
 }
 
 .slide-title {
-    text-align: left;
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 1.5em;
     margin-left: 20px;
 }
 
 .slide-part-intro {
-    text-align: left;
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 0.8em;
     font-weight: normal;
-    margin-top: 4px;
-}
-
-.slide-part-intro-m {
-    text-align: left;
-    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
-    font-size: 0.5em;
-    margin: 4px 0px 0px 0px;
-    font-weight: normal;
-}
-
-.artwork-part-intro-m {
-    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
-    font-size: 0.5em;
-    margin: 4px 0px 0px 0px;
-    font-weight: normal;
-}
-
-.artwork-part-intro {
-    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
-    font-size: 0.8em;
-    font-weight: normal;
-    margin-top: 4px;
 }
 
 /*#nav-content {
@@ -269,25 +236,13 @@ ul,li {
     border-bottom: 3px solid black;
     padding-bottom: 12px;
 }
-/*#nav-ul-me {
+#nav-ul-me {
     background: rebeccapurple;
     border-radius: 50%;
     width: 35px;
     height: 35px;
     position: absolute;
     top: 8px;
-    right: 20px;
-    z-index: 1000;
-}*/
-
-#nav-ul-me {
-    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
-    font-size: 0.8em;
-    font-weight: bold;
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    top: 18px;
     right: 20px;
     z-index: 1000;
 }
@@ -444,86 +399,6 @@ ul,li {
     height: 30px;
 }
 
-.go-top {
-    position: relative;
-    margin:0 auto;
-    background: url(../icons/gotop.png);
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-}
-
-.go-next {
-    position: absolute;
-    right: 30px;
-    margin:0 auto;
-    background: url(../icons/go-next.png);
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-}
-.go-pre {
-    left: 30px;
-    position: absolute;
-    margin:0 auto;
-    background: url(../icons/pre.png);
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-}
-
-.artwork-intro {
-    position: absolute;
-    bottom: 40px;
-    left: -200px;
-}
-
-.search-result-table {
-    width: 100%;
-}
-
-.gallery-title {
-    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
-    font-size: 1.5em;
-    font-weight: bold;
-    margin:0px auto;
-}
-
-.search-part-content {
-    width: 28%;
-    margin: 20px 2.66667%;
-    float: left;
-}
-
-.artwork-page-content {
-    margin: 0px auto;
-    width: 80%;
-    text-align: center;
-}
-
-.search-part-img {
-    background: url(../img/wimg1.png);
-    background-size: cover;
-    height: 150px;
-    width: 100%;
-    margin: 0px auto;
-}
-
-.artwork-part-img {
-    background: url(../img/wimg1.png);
-    background-size: cover;
-    height: 150px;
-    width: 100%;
-    margin: 0px;
-}
-
-#search-page-content {
-    text-align: center;
-}
-
-#collection-page-content {
-    text-align: center;
-}
 @media screen and (min-width: 769px) and (max-width: 1080px) {
 
 }
@@ -565,13 +440,6 @@ ul,li {
     padding-top: 13px;
     padding-left: 20px;
     }
-
-    .white-next-content {
-    width: 86%;
-    height: 40px;
-    margin: 30px auto 0px auto;
-    }
-
     #nav-slide-content {
         position: relative;
         width: 100%;
