@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Galley</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/edit.css" />
+</head>
+
+<body id="home">
+    <!--<transition class="home-welcome-text" name="component-fade" mode="out-in">
+        <component v-bind:is="view"></component>
+    </transition>-->
+
+    <head>
+<!--         <div class="home-welcome-intro" id="home-logo">      
+        </div> -->
+    </head>
+
+    <div class="button-pre" id="login-pre"> 
+    </div>
+    <div id="edit-content" class="edit-information-content" style="left:240px;">    
+        <form action="">
+            <div class="form-part-content" style="height:140px"> 
+                <form action='' method='post' name='myform'>
+                    <input type='file' id='iptfileupload' onchange='show()' title="点击修改头像" value=''/>
+                    <img src='img/head.jpg' alt='' id='img'/>
+                    <input type="text" value="你的名字" class="user-name" style=" text-align: center;border-bottom: none;font-size: 1em;color: #000;margin-top:10px"/>
+                </form>
+            </div>
+            <div class="form-part-content">
+                <h6>你的性别</h6>
+                <h6><input class="sex-input" name="sex" type="radio" value="" style="width:40px"/>male <input class="sex-input" name="sex" type="radio" value="" style="width:40px"/>female<input class="sex-input" name="sex" type="radio" value="" style="width:40px"/>unknown</h6> 
+            </div>
+            <div class="form-part-content">
+                <h6>你的年龄</h6>
+                <input>
+            </div>
+            <div class="form-part-content">
+                <h6>画廊名字</h6>
+                <input>
+            </div>          
+        </form>
+        <div class="button-next" id="login-next">            
+        </div>
+    </div>
+
+    <script src="./lips/vue.js"></script>
+    <script src="./lips/jquery-3.1.1.min.js"></script>
+    <script src="./view/index.js"></script>
+    <script src="./view/edit.js"></script>
+</body>
+
+</html>

@@ -25,7 +25,7 @@ router.get("/", userAuth, async (req, res, next) => {
 
     user.collections = user.collections.slice((parseInt(req.query.page) - 1) * parseInt(req.query.pagesize), (parseInt(req.query.page)) * parseInt(req.query.pagesize));
 
-    for(let i = 0; i < user.collections.length; i++){
+    for (let i = 0; i < user.collections.length; i++) {
         let image = await Jimp.read(user.collections[i].cover);
         user.collections[i]._doc.width = image.bitmap.width;
         user.collections[i]._doc.height = image.bitmap.height;
