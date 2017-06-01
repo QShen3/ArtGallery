@@ -9,7 +9,8 @@ a:hover { color: #41ccff; }
 
 /* header */
 .header {
-    background: #eee;
+    color:#fff;
+    background: #777;
     padding-top: 50px;
     padding-bottom: 20px;
     text-align: center;
