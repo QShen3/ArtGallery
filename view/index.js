@@ -90,7 +90,8 @@ function ajastDom() {
         $("#register-next").css({ "bottom": '0em' });
         $("#register-next").css({ "right": '-5em' });
     }
-
+    $("#edit-content").css({ "left": (pageWidth - $("#edit-content").width()) / 2 + "px" });
+    $("#edit-content").css({ "top": (pageHeight - $("#edit-content").height()) / 2 - 60 + "px" })
 }
 
 var textIndex = 0;
