@@ -392,6 +392,16 @@ ul,li {
     text-align: left;
 }
 
+.exit-button {
+    color: black;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: bold;
+    font-size: 0.9em;
+    height: 34px;
+    width: 100%;
+    text-align: center;
+}
+
 .any-search-input {
     background: rgba(255,255,255,0.3);
     color: white;
@@ -473,7 +483,7 @@ ul,li {
 }
 
 .artwork-intro {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 40px;
     left: -200px;
 }
@@ -512,7 +522,7 @@ ul,li {
 .artwork-part-img {
     background: url(../img/wimg1.png);
     background-size: cover;
-    height: 150px;
+    height: 650px;
     width: 100%;
     margin: 0px;
 }
@@ -524,11 +534,64 @@ ul,li {
 #collection-page-content {
     text-align: center;
 }
+
+#head-file {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+}
+
+.input-head-content {
+    margin: auto auto;
+    width: 400px;
+    height: 400px;
+    text-align: center;
+}
+
+.fake-input {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    /*background: rebeccapurple;*/
+    border:1px solid grey;
+}
+
+.slide-part-content .collecte-button{
+    /*position: absolute;*/
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../icons/collection.png);
+    right: 5px;
+    top: 5px;
+}
+
 @media screen and (min-width: 769px) and (max-width: 1080px) {
 
 }
 
 @media only screen and (max-width: 769px) { 
+    /*#head-file {
+    width: 260px;
+    height: 260px;
+    background: rebeccapurple;
+    }*/
+    .input-head-content {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    }
+
+    .fake-input {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    border:1px solid grey;
+    background: grey;
+    }
     #home-welcome-text {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 0.5em;

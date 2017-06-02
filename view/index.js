@@ -64,22 +64,29 @@ function ajastDom() {
         $("#login-register").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + 30 + "px" });
     }
     $("#login-pre").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
+    $("#register2-pre").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
     $("#home-logo").css({ "left": (pageWidth - $("#home-logo").width()) / 2 + "px" });
     $("#login-content").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
     $("#register-content").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
+     $("#registe2-page-content").css({ "left": (pageWidth - $("#registe2-page-content").width()) / 2 + "px" });
     if (pageHeight > 400) {
         $("#login-next").css({ "bottom": '-16em' });
         $("#register-next").css({ "bottom": '-12em' });
+        $("#register-next2").css({ "bottom": '-16em' });
         $("#login-next").css({ "right": '0' });
         $("#register-next").css({ "right": '0' });
+        $("#register-next2").css({ "right": '0' });
         if (pageWidth < 330) {
             $("#register-next").css({ "bottom": '-8em' });
+            $("#register-next2").css({ "bottom": '-14em' });
             $("#login-next").css({ "bottom": '-12em' });
             $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
             $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
+            $("#registe2-page-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
         } else {
             $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
             $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
+            $("#registe2-page-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
         }
 
     } else {
@@ -87,8 +94,11 @@ function ajastDom() {
         $("#login-next").css({ "bottom": '0em' });
         $("#login-next").css({ "right": '-5em' });
         $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 + "px" });
+        $("#registe2-page-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 + "px" });
         $("#register-next").css({ "bottom": '0em' });
         $("#register-next").css({ "right": '-5em' });
+        $("#register-next2").css({ "bottom": '0em' });
+        $("#register-next2").css({ "right": '-5em' });
     }
     $("#edit-content").css({ "left": (pageWidth - $("#edit-content").width()) / 2 + "px" });
     $("#edit-content").css({ "top": (pageHeight - $("#edit-content").height()) / 2 - 60 + "px" })
@@ -372,6 +382,7 @@ $("#gallery-go-top").click(
 
 var beforeScrollTop = document.body.scrollTop; //  判断滚动方向
 
+var op2 = 255;
 window.onscroll = function () {
     var afterScrollTop = document.body.scrollTop; //  判断滚动方向
     var delta = afterScrollTop - beforeScrollTop;
@@ -380,11 +391,28 @@ window.onscroll = function () {
     var scollTopNow = jQuery(window).scrollTop();
     console.log(jQuery(window).scrollTop());
     var op = 1 - (scollTopNow) / 55;
-    var op2 = 255 - (255 / 55) * (scollTopNow);
+    op2 = 255 - (255 / 55) * (scollTopNow);
     console.log(op);
+    console.log('op2' + op2);
+
+    if (pageNow[pageNow.length - 1] == "home") {
+        $("#home-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+    };
+    if (pageNow[pageNow.length - 1] == "search") {
+        $("#search-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+    };
+    if (pageNow[pageNow.length - 1] == "collection") {
+        $("#collection-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+    };
+    if (pageNow[pageNow.length - 1] == "gallery") {
+        $("#gallery-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+    };
+
     $("#nav-slide-content").css('background', 'rgba' + '(153,153,153,' + op + ')');
     console.log('rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')')
     $("#art-nav-b").css('color', 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+    $("#art-nav-b").css('color', 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+
     if (scollTopNow > 0) {
         searchFoldedBool = true;
         $("#unfold-search-block").slideDown(300);
@@ -519,19 +547,33 @@ function anyBlur(index) {
 }
 
 function everyThingIsGrey() {
-    $("#home-a").css('color','#DFDFDF');
-    $("#search-a").css('color','#DFDFDF');
-    $("#collection-a").css('color','#DFDFDF');
-    $("#gallery-a").css('color','#DFDFDF');
+    $("#home-a-li").css('border-bottom', 'none');
+    $("#search-a-li").css('border-bottom', 'none');
+    $("#collection-a-li").css('border-bottom', 'none');
+    $("#gallery-a-li").css('border-bottom', 'none');
 }
 
 $("#search-a").click(
     function () {
         // everyThingIsGrey();
         // $("#search-a").css('color','white');
-        if (searchFoldedBool) {
-            if ($('body').scrollTop() > 55) {
-                $('body,html').animate({ scrollTop: 0 }, 200, function () {
+        if (pageNow[pageNow.length - 1] != "search") {
+
+            everyThingIsGrey();
+            $("#search-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+            if (searchFoldedBool) {
+                if ($('body').scrollTop() > 55) {
+                    $('body,html').animate({ scrollTop: 0 }, 200, function () {
+                        searchFoldedBool = false;
+                        var px = $('#unfold-search-block').css('marginLeft');
+                        $("#unfold-search-block").css({ position: 'absolute', left: px });
+                        $("#unfold-search-block-fake").css('display', 'block');
+                        $("#unfold-search-block-fake").slideUp(200);
+                        $("#unfold-search-block").fadeOut(200);
+                        $("#search-back-top").slideDown(200);
+                        $("#folded").slideDown(200);
+                    });
+                } else {
                     searchFoldedBool = false;
                     var px = $('#unfold-search-block').css('marginLeft');
                     $("#unfold-search-block").css({ position: 'absolute', left: px });
@@ -540,20 +582,38 @@ $("#search-a").click(
                     $("#unfold-search-block").fadeOut(200);
                     $("#search-back-top").slideDown(200);
                     $("#folded").slideDown(200);
-                });
-            } else {
-                searchFoldedBool = false;
-                var px = $('#unfold-search-block').css('marginLeft');
-                $("#unfold-search-block").css({ position: 'absolute', left: px });
-                $("#unfold-search-block-fake").css('display', 'block');
-                $("#unfold-search-block-fake").slideUp(200);
-                $("#unfold-search-block").fadeOut(200);
-                $("#search-back-top").slideDown(200);
-                $("#folded").slideDown(200);
+                }
+
             }
 
-        }
+            pageNow.push("search");
+            $("#search-page-content").fadeIn(400);
+            fadeoutNow();
+            var $defaultSea;
+            $("#searchForm").ajaxSubmit({
+                type: "get",
+                url: "/v1/art/search",
+                success: function (result) {
+                    console.log("here");
+                    if (result.info.code == "200") {
+                        if (!(result.lists instanceof Array)) {
+                            console.error("Parameter wrong : {" + result.lists + "} is not an Array");
+                            return null;
+                        }
+                        seaArtWorks = result.lists;
+                        if (seaArtWorks.length != 0) {
+                            $defaultSea = $("#search-page-content div:eq(0)").remove();
+                            $("#search-page-content").html("");
+                            $("#search-page-content").append("<p class='slide-title'>检索</p>");
+                            for (var i in seaArtWorks) {
+                                $("#search-page-content").append("<div class='search-part-content'><div class='search-part-img' style='background:url(" + seaArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro-m'>" + seaArtWorks[i].profile + "</p><p class='slide-part-intro'>" + seaArtWorks[i].title + " 来自" + "<span class='slide-part-from'>" + seaArtWorks[i].author.info.name + "</span><span class='slide-part-from'>" + "的" + seaArtWorks[i].author.info.galleryName + "</span></p></div>");
+                            }
+                        }
+                    }
+                }
+            })
 
+        }
     }
 );
 
