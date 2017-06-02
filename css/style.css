@@ -483,7 +483,7 @@ ul,li {
 }
 
 .artwork-intro {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 40px;
     left: -200px;
 }
@@ -534,11 +534,53 @@ ul,li {
 #collection-page-content {
     text-align: center;
 }
+
+#head-file {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+}
+
+.input-head-content {
+    margin: auto auto;
+    width: 400px;
+    height: 400px;
+    text-align: center;
+}
+
+.fake-input {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    /*background: rebeccapurple;*/
+    border:1px solid grey;
+}
+
 @media screen and (min-width: 769px) and (max-width: 1080px) {
 
 }
 
 @media only screen and (max-width: 769px) { 
+    /*#head-file {
+    width: 260px;
+    height: 260px;
+    background: rebeccapurple;
+    }*/
+    .input-head-content {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    }
+
+    .fake-input {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    border:1px solid grey;
+    background: grey;
+    }
     #home-welcome-text {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 0.5em;

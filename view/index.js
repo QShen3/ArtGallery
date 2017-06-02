@@ -64,22 +64,29 @@ function ajastDom() {
         $("#login-register").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + 30 + "px" });
     }
     $("#login-pre").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
+    $("#register2-pre").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
     $("#home-logo").css({ "left": (pageWidth - $("#home-logo").width()) / 2 + "px" });
     $("#login-content").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
     $("#register-content").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
+     $("#registe2-page-content").css({ "left": (pageWidth - $("#registe2-page-content").width()) / 2 + "px" });
     if (pageHeight > 400) {
         $("#login-next").css({ "bottom": '-16em' });
         $("#register-next").css({ "bottom": '-12em' });
+        $("#register-next2").css({ "bottom": '-16em' });
         $("#login-next").css({ "right": '0' });
         $("#register-next").css({ "right": '0' });
+        $("#register-next2").css({ "right": '0' });
         if (pageWidth < 330) {
             $("#register-next").css({ "bottom": '-8em' });
+            $("#register-next2").css({ "bottom": '-14em' });
             $("#login-next").css({ "bottom": '-12em' });
             $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
             $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
+            $("#registe2-page-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
         } else {
             $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
             $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
+            $("#registe2-page-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
         }
 
     } else {
@@ -87,8 +94,11 @@ function ajastDom() {
         $("#login-next").css({ "bottom": '0em' });
         $("#login-next").css({ "right": '-5em' });
         $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 + "px" });
+        $("#registe2-page-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 + "px" });
         $("#register-next").css({ "bottom": '0em' });
         $("#register-next").css({ "right": '-5em' });
+        $("#register-next2").css({ "bottom": '0em' });
+        $("#register-next2").css({ "right": '-5em' });
     }
 
 }
