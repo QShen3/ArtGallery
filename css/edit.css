@@ -10,8 +10,8 @@
     background-size: cover;
     position: absolute;
     right: 0px;
-    bottom: -16em;
-    display: none;
+    bottom: -6em;
+/*    display: none;*/
 }
 
 #artist-img{
@@ -26,6 +26,8 @@
 }
 
 .user-name{
+    font-size: 14px;
+    border: none;
     text-align: center;
     border-bottom: none;
     font-size: 1em;
