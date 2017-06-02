@@ -114,7 +114,7 @@ if ($.cookie("authToken") != null) {
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
                                     artworks = artworks.lists;
-                                    $("#gallery-page table tr td:eq(0)").remove();
+                                    $("#gallery-page table tr").html("");
                                     $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
                                     for (var j in artworks) {
                                         $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
