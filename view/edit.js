@@ -29,10 +29,10 @@ function adjustEdit () {
     $("#home-logo").css({ "left": (pageWidth - $("#home-logo").width()) / 2 + "px" });
     $("#edit-content").css({ "left": (pageWidth - $("#edit-content").width()) / 2 + "px" });
     if (pageHeight > 400) {
-        $("#edit-get").css({ "bottom": '-16em' });
+        $("#edit-get").css({ "bottom": '-8em' });
         $("#edit-get").css({ "right": '0' });
         if (pageWidth < 330) {
-            $("#edit-get").css({ "bottom": '-12em' });
+            $("#edit-get").css({ "bottom": '-4em' });
             $("#edit-content").css({ "top": (pageHeight - $("#edit-content").height()) / 2 - 60 + "px" })
         } else {
             $("#edit-content").css({ "top": (pageHeight - $("#edit-content").height()) / 2 - 100 + "px" });
@@ -113,11 +113,10 @@ function getPath(obj,fileQuery,transImg) {
  
  function show(){
   //以下即为完整客户端路径
-  var file_img=document.getElementById("img"),
+  var file_img=document.getElementById("artist-img"),
   iptfileupload = document.getElementById('iptfileupload') ;
   getPath(file_img,iptfileupload,file_img) ;
  }
-
 
  $("#nav-ul-me").click(
      function () {
@@ -129,6 +128,7 @@ function getPath(obj,fileQuery,transImg) {
             $("#home-logo").text("编辑个人信息");
             $("#home-logo").css('backgroundImage', 'url()');
             $(".edit-information-content").fadeIn(400);
+            $("#login-pre").fadeIn(400);
             $("#home-logo").fadeIn(400);
             $("#edit-get").fadeIn(400);
         })

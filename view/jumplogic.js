@@ -1,3 +1,36 @@
+
+function addCol() {
+    $.post("/v1/user/collection/add", { aid: currentArtwork }, function (data, status) {
+        if (status == "success") {
+
+        }
+    });
+}
+
+function addArt() {
+    $("#addArtworkForm").ajaxSubmit({
+        type: "post",
+        url: "/v1/art/add",
+        success: function (result) {
+            if(result.info.code == "200"){
+
+            }
+        }
+    });
+}
+function addArt() {
+    $("#addArtworkForm").ajaxSubmit({
+        type: "post",
+        url: "/v1/art/update",
+        success: function (result) {
+            if(result.info.code == "200"){
+                
+            }
+        }
+    });
+}
+
+
 var recGallery = new Array();
 var newGallery = new Array();
 var newArtWorks = new Array();
@@ -5,6 +38,8 @@ var seaArtWorks = new Array();
 var colArtWorks = new Array();
 
 var pageNow = ['index'];//页面栈 
+var pagenow;
+var currentArtwork;
 
 $("#search-button").click(function () {
     everyThingIsGrey();
@@ -17,7 +52,6 @@ $("#search-button").click(function () {
         type: "get",
         url: "/v1/art/search",
         success: function (result) {
-            console.log("here");
             if (result.info.code == "200") {
                 if (!(result.lists instanceof Array)) {
                     console.error("Parameter wrong : {" + result.lists + "} is not an Array");
