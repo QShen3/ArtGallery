@@ -18,6 +18,7 @@ function addArt() {
         }
     });
 }
+
 function addArt() {
     $("#addArtworkForm").ajaxSubmit({
         type: "post",
@@ -341,7 +342,7 @@ if ($.cookie("authToken") != null) {
             if (newArtWorks.length != 0) {
                 $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
                 for (var i = 0; i < newArtWorks.length; i++) {
-                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>"+'<div class="collecte-button"></div>'+"</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                 };
                 var tds = $("#new-art-slide table tr td").toArray();
                 for (var i in tds) {
@@ -601,7 +602,7 @@ $("#login-next").click(
                             if (newArtWorks.length != 0) {
                                 $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
                                 for (var i = 0; i < newArtWorks.length; i++) {
-                                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.name + newArtWorks[i].author.galleryName + "</span></p></div></td>");
+                                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>"+'<div class="collecte-button"></div>'+"</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.name + newArtWorks[i].author.galleryName + "</span></p></div></td>");
                                 };
                             }
                             // alert(latestArtWrok.lists[0].info.name)

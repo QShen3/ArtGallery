@@ -522,7 +522,7 @@ ul,li {
 .artwork-part-img {
     background: url(../img/wimg1.png);
     background-size: cover;
-    height: 150px;
+    height: 650px;
     width: 100%;
     margin: 0px;
 }
@@ -555,6 +555,17 @@ ul,li {
     height: 200px;
     /*background: rebeccapurple;*/
     border:1px solid grey;
+}
+
+.slide-part-content .collecte-button{
+    /*position: absolute;*/
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../icons/collection.png);
+    right: 5px;
+    top: 5px;
 }
 
 @media screen and (min-width: 769px) and (max-width: 1080px) {
