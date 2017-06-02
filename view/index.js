@@ -68,7 +68,7 @@ function ajastDom() {
     $("#home-logo").css({ "left": (pageWidth - $("#home-logo").width()) / 2 + "px" });
     $("#login-content").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
     $("#register-content").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
-     $("#registe2-page-content").css({ "left": (pageWidth - $("#registe2-page-content").width()) / 2 + "px" });
+    $("#registe2-page-content").css({ "left": (pageWidth - $("#registe2-page-content").width()) / 2 + "px" });
     if (pageHeight > 400) {
         $("#login-next").css({ "bottom": '-16em' });
         $("#register-next").css({ "bottom": '-12em' });
@@ -607,6 +607,39 @@ $("#search-a").click(
                             $("#search-page-content").append("<p class='slide-title'>检索</p>");
                             for (var i in seaArtWorks) {
                                 $("#search-page-content").append("<div class='search-part-content'><div class='search-part-img' style='background:url(" + seaArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro-m'>" + seaArtWorks[i].profile + "</p><p class='slide-part-intro'>" + seaArtWorks[i].title + " 来自" + "<span class='slide-part-from'>" + seaArtWorks[i].author.info.name + "</span><span class='slide-part-from'>" + "的" + seaArtWorks[i].author.info.galleryName + "</span></p></div>");
+                            }
+                            var divs = $("#search-page-content div").toArray();
+                            for (var i in divs) {
+                                divs[i].onclick = function (ii) {
+                                    return function () {
+                                        var index = 0;
+                                        $("#artwork-page-content div.go-next").click(function () {
+                                            if (index < seaArtWorks[ii].urls.length - 1) {
+                                                index++;
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
+                                            }
+                                        });
+                                        $("#artwork-page-content div.go-pre").click(function () {
+                                            if (index > 0) {
+                                                index--;
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
+                                            }
+                                        });
+
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(seaArtWorks[ii].profile);
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(seaArtWorks[ii].title + " 来自");
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + seaArtWorks[ii].author.info.name + "的</span>");
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + seaArtWorks[ii].author.info.galleryName + "</span>");
+                                        artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                        $("#id-artwork-intro").css('left', artworkLeft);
+                                        //$("#artwork-page-content").fadeIn(400);
+                                        //$("#home-page").fadeOut(400);
+                                        pageNow.push("artworks");
+                                        fadeoutNow();
+                                        fadeinNow();
+                                    }
+                                }(i)
                             }
                         }
                     }
