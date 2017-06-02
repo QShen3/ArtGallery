@@ -38,15 +38,15 @@
 
                 <div id="folded" style="display:none;">
                     <form id="searchForm">
-                    <input class="any-search-input" name="galleryName" value="所有画廊" onblur="anyBlur(0)" onclick="anyClick(0)">
-                        
-                    </input>
-                    <input class="any-search-input" name="style" value="所有描述" onblur="anyBlur(1)" onclick="anyClick(1)">
-                        
-                    </input>
-                    <input class="any-search-input" name="key" value="所有作品" onblur="anyBlur(2)" onclick="anyClick(2)">
-                        
-                    </input>
+                        <input class="any-search-input" name="galleryName" value="所有画廊" onblur="anyBlur(0)" onclick="anyClick(0)">
+
+                        </input>
+                        <input class="any-search-input" name="style" value="所有描述" onblur="anyBlur(1)" onclick="anyClick(1)">
+
+                        </input>
+                        <input class="any-search-input" name="key" value="所有作品" onblur="anyBlur(2)" onclick="anyClick(2)">
+
+                        </input>
                     </form>
                     <div class="white-next-content">
                         <div class="white-next" id="search-button">
@@ -57,16 +57,16 @@
             </div>
             <nav id="art-nav-b">
                 <ul id="ul-static-nav">
-                    <li>
+                    <li id="home-a-li" style="border-bottom:3px solid white;">
                         <a id="home-a">推荐</a>
                     </li>
-                    <li>
+                    <li id="search-a-li">
                         <a id="search-a">检索</a>
                     </li>
-                    <li>
+                    <li id="collection-a-li">
                         <a id="collection-a">收藏</a>
                     </li>
-                    <li>
+                    <li id="gallery-a-li">
                         <a id="gallery-a">画廊</a>
                     </li>
                 </ul>
@@ -105,7 +105,7 @@
         <form name="loginForm" id="loginForm">
             <div class="form-part-content">
                 <h6 id="email-text">电子邮件地址</h6>
-                <input name="email" type="text">
+                <input name="email" type="text" id="emailInput">
             </div>
             <div class="form-part-content">
                 <h6 id="pwd-text">密码</h6>
@@ -119,18 +119,22 @@
 
     <div id="register-content" class="login-register-content">
 
-        <form action="">
+        <form id="registerForm1">
             <div class="form-part-content">
                 <h6>电子邮件地址</h6>
-                <input>
+                <input name="email" type="text">
             </div>
             <div class="form-part-content">
                 <h6>密码</h6>
-                <input>
+                <input name="pwd" type="password">
             </div>
             <div class="form-part-content">
                 <h6>您的画廊叫什么</h6>
-                <input>
+                <input name="galleryName" type="text">
+                <input name="name" type="text" value="default" style="display:none">
+                <input name="avatar" type="text" value="" style="display:none">
+                <input name="gender" type="text" value="" style="display:none">
+                <input name="age" type="text" value="" style="display:none">
             </div>
         </form>
         <div class="button-next" id="register-next">
@@ -199,7 +203,7 @@
         <div class="slide" id="gallery-page">
             <table border="0" cellspacing="50px" cellpadding="20px" class="slide-table" style="text-align:left;">
                 <tr>
-                    <td>
+                    <!--<td>
                         <div class="slide-part-content">
                             <div class="slide-part-img-0">
 
@@ -208,53 +212,29 @@
                                 颢豆的画廊
                             </p>
                         </div>
-                    </td>
+                    </td>-->
 
                 </tr>
             </table>
         </div>
-        <p class="gallery-title">颢豆的画廊</p>
+        <p class="gallery-title"></p>
     </div>
 
     <div id="search-page-content" style="display:none">
         <p class="slide-title">检索</p>
-            <div class="search-part-content">
-                <div class="search-part-img">
-
-                </div>
-                <p class="slide-part-intro-m">
-                    知更鸟开始飞了。
-                </p>
-                <p class="slide-part-intro">
-                    STONE CLS 来自
-                    <span class="slide-part-from">
-                                颢豆的
-                            </span>
-                    <span class="slide-part-from">
-                                画廊
-                            </span>
-                </p>
-            </div>          
+        <div class="search-part-content">
+            <p class="slide-part-no" style="font-size:4em">
+                无
+            </p>
+        </div>
     </div>
     <div id="collection-page-content" style="display:none">
         <p class="slide-title">收藏</p>
-            <div class="search-part-content">
-                <div class="search-part-img">
-
-                </div>
-                <p class="slide-part-intro-m">
-                    知更鸟开始飞了。
-                </p>
-                <p class="slide-part-intro">
-                    STONE CLS 来自
-                    <span class="slide-part-from">
-                                颢豆的
-                            </span>
-                    <span class="slide-part-from">
-                                画廊
-                            </span>
-                </p>
-            </div>            
+        <div class="search-part-content">
+            <p class="slide-part-no" style="font-size:4em">
+                无
+            </p>
+        </div>
     </div>
     <div id="artwork-page-content" style="display:none">
         <div class="go-top" id="artwork-go-top">
@@ -286,6 +266,106 @@
             </div>
         </div>
     </div>
+
+    <div id="me-page-content" style="display:none">
+
+        <div class="button-pre" id="me-pre" style="display:block">
+        </div>
+        <form action="">
+            <div class="form-part-content" style="height:140px">
+                <form action='' method='post' name='myform'>
+                    <input type='file' id='iptfileupload' onchange='show()' title="点击修改头像" value='' />
+                    <img src='img/head.jpg' alt='' id='img' />
+                    <input type="text" value="你的名字" class="user-name" style=" text-align: center;border-bottom: none;font-size: 1em;color: #000;margin-top:10px"
+                    />
+                </form>
+            </div>
+            <div class="form-part-content">
+                <h6>你的性别</h6>
+                <h6><input class="sex-input" name="sex" type="radio" value="" style="width:40px" />male <input class="sex-input"
+                        name="sex" type="radio" value="" style="width:40px" />female<input class="sex-input" name="sex" type="radio"
+                        value="" style="width:40px" />unknown</h6>
+            </div>
+            <div class="form-part-content">
+                <h6>你的年龄</h6>
+                <input>
+            </div>
+            <div class="form-part-content">
+                <h6>画廊名字</h6>
+                <input>
+            </div>
+        </form>
+        <div class="button-next" id="login-next">
+        </div>
+        <div class="exit-button">
+            <span>退出</span>
+        </div>
+    </div>
+
+    <div class="button-pre" id="register2-pre" style="display:none">
+    </div>
+    <div id="registe2-page-content" class="login-register-content" style="display:none">
+
+
+        <form id="registerForm3">
+            <div class="form-part-content">
+                <h6>您叫什么</h6>
+                <input name="name" type="text">
+                <input name="avatar" id="headurlavareg" type="text" style="display:none">
+            </div>
+        </form>
+
+        <form id="registerForm2">
+            <div class="form-part-content">
+                <h6>上传您的画廊封面</h6>
+            </div>
+            <div class="input-head-content">
+                <div class="fake-input" id="register-head-fake">
+                    <input name="name" id="RurlName" type="text" style="display:none">
+                    <input name="file" type="file" id="head-file" onchange="RigisterUpHead();">
+                </div>
+            </div>
+        </form>
+        <div class="button-next" id="register-next2">
+        </div>
+    </div>
+
+    <div id="addArtWroks-page-content" style="display:none">
+
+        <div class="button-pre" id="me-pre" style="display:block">
+        </div>
+        <form action="">
+            <div class="form-part-content" style="height:140px">
+                <form action='' method='post' name='myform'>
+                    <input type='file' id='iptfileupload' onchange='show()' title="点击修改头像" value='' />
+                    <img src='img/head.jpg' alt='' id='img' />
+                    <input type="text" value="你的名字" class="user-name" style=" text-align: center;border-bottom: none;font-size: 1em;color: #000;margin-top:10px"
+                    />
+                </form>
+            </div>
+            <div class="form-part-content">
+                <h6>你的性别</h6>
+                <h6><input class="sex-input" name="sex" type="radio" value="" style="width:40px" />male <input class="sex-input"
+                        name="sex" type="radio" value="" style="width:40px" />female<input class="sex-input" name="sex" type="radio"
+                        value="" style="width:40px" />unknown</h6>
+            </div>
+            <div class="form-part-content">
+                <h6>你的年龄</h6>
+                <input>
+            </div>
+            <div class="form-part-content">
+                <h6>画廊名字</h6>
+                <input>
+            </div>
+        </form>
+        <div class="button-next" id="login-next">
+        </div>
+        <div class="exit-button">
+            <span>退出</span>
+        </div>
+    </div>
+
+
     <script src="./lips/vue.js"></script>
     <script src="/lips/jquery.form.js"></script>
     <script src="/lips/jquery.cookie.js"></script>
