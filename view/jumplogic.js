@@ -111,6 +111,16 @@ $("#search-button").click(function () {
 $("#collection-a").click(
     function () {
         everyThingIsGrey();
+        $("#collection-page-content").html('');//每次点击都更新一遍
+        if (colArtWorks.length == 0) {
+            $("#collection-page-content").html("<p class='slide-part-no' style='font-size:4em'>无</p>");//每次点击都更新一遍
+        } else {
+            for (var i in colArtWorks) {
+                $("#collection-page-content").append("<div class='search-part-content'><div class='search-part-img' style='background:url(" + colArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro-m'>" + colArtWorks[i].profile + "</p><p class='slide-part-intro'>" + colArtWorks[i].title + "来自" + "<span class='slide-part-from'>" + colArtWorks[i].author.info.name + "的</span><span class='slide-part-from'>" + colArtWorks[i].author.info.galleryName + "</span></p></div>");
+            }
+        }
+
+
         $("#collection-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
         pageNow.push("collection");
         fadeoutNow();
@@ -379,7 +389,7 @@ if ($.cookie("authToken") != null) {
                 console.error("Parameter wrong : {" + recentGallery.collections + "} is not an Array");
                 return null
             };
-            
+
             colArtWorks = collectArtWork.collections;
             if (colArtWorks.length != 0) {
                 $defaultColArt = $("#collection-page-content div:eq(0)").remove();
@@ -431,6 +441,15 @@ if ($.cookie("authToken") != null) {
         return false;
     }
 
+    function removeById(arr, val) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i]._id == val) {
+                arr.splice(i, 1);
+                break;
+            }
+        }
+    }
+
     $.get("/v1/art/latest", function (latestArtWrok, result) {
         if (result == "success") {
             // reArrangeArray(candidates.data);
@@ -453,13 +472,11 @@ if ($.cookie("authToken") != null) {
                             }
                         }
 
-                    } else {
-                        $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                     }
-                    
+
                 };
                 for (var i = 0; i < newArtWorks.length; i++) {
-                    if (contains(artworkInCollection,i)) {
+                    if (contains(artworkInCollection, i)) {
                         $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(./icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                     } else {
                         $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
@@ -505,8 +522,20 @@ if ($.cookie("authToken") != null) {
                     colButton[i].onclick = function (ii) {
                         return function () {
                             $.post("/v1/user/collection/add", { aid: newArtWorks[ii]._id }, function (data, status) {
-                                if (status == "success") {//等待申泽怡
-                                    // colButton[i].css({background:'none'});
+                                if (status == "success") {//
+                                    if (data.status) {
+                                        $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
+                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection_fill.png)', backgroundSize: 'cover' });
+                                            $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
+                                            colArtWorks.push(newArtWorks[ii]);
+                                        })
+                                    } else {
+                                        $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
+                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection.png)', backgroundSize: 'cover' });
+                                            $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
+                                            removeById(colArtWorks, newArtWorks[ii]._id);
+                                        })
+                                    }
                                 }
                             });
                         }
