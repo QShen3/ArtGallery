@@ -152,6 +152,7 @@
 .slide-part-img-2 {
     background: url(../img/wimg3.jpg);
     background-size: cover;
+    padding: 5px;
     height: 300px;
     width: 360px;
     margin: 0px;
@@ -574,14 +575,15 @@ ul,li {
 }
 
 .slide-part-content .collecte-button{
-    /*position: absolute;*/
-    margin-left: 10px;
-    margin-top: 10px;
+    position: absolute;
+    /*margin-left: 10px;
+    margin-top: 10px;*/
     width: 30px;
     height: 30px;
     background: url(../icons/collection.png);
-    right: 5px;
-    top: 5px;
+    background-size: cover;
+    margin-left: 15px;
+    top: 35px;
 }
 
 @media screen and (min-width: 769px) and (max-width: 1080px) {
@@ -594,20 +596,20 @@ ul,li {
     height: 260px;
     background: rebeccapurple;
     }*/
-    .input-head-content {
+    /*.input-head-content {
     margin: auto auto;
     width: 200px;
     height: 200px;
     opacity: 0;
-    }
+    }*/
 
-    .fake-input {
+    /*.fake-input {
     margin: auto auto;
     width: 200px;
     height: 200px;
     border:1px solid grey;
     background: grey;
-    }
+    }*/
     #home-welcome-text {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 0.5em;

@@ -121,15 +121,15 @@
 
         <form id="registerForm1">
             <div class="form-part-content">
-                <h6>电子邮件地址</h6>
+                <h6 id="re-email-text">电子邮件地址</h6>
                 <input name="email" type="text">
             </div>
             <div class="form-part-content">
-                <h6>密码</h6>
+                <h6 id="re-pwd-text">密码</h6>
                 <input name="pwd" type="password">
             </div>
             <div class="form-part-content">
-                <h6>您的画廊叫什么</h6>
+                <h6 id="re-gallery-text">您的画廊叫什么</h6>
                 <input name="galleryName" type="text">
                 <input name="name" type="text" value="default" style="display:none">
                 <input name="avatar" type="text" value="" style="display:none">
@@ -271,13 +271,12 @@
 
         <div class="button-pre" id="me-pre" style="display:block">
         </div>
-        <div class="modify-form-content" id="modify-form-content">
+        <!--<div class="modify-form-content" id="modify-form-content">
             <form id="changeInfoFrom">
 
             </form>
             <form id="registerForm2">
                 <div class="form-part-content">
-                    <!--<h6>上传您的画廊封面</h6>-->
                 </div>
                 <div class="input-head-content">
                     <div class="fake-input" id="register-head-fake">
@@ -296,17 +295,17 @@
                     <input name="gender" type="text" value="" style="display:none">
                     <input name="age" type="text" value="" style="display:none">
                 </div>
-            </form>
+            </form>-->
 
-            <div id="mod-exit">
-                <a id="login-button" class="button">
+        <div id="mod-exit">
+            <a id="modify-button" class="button">
         修改
         </a>
-                <a id="register-button" class="button" style="background:black">
+            <a id="exit-button" class="button" style="background:black">
         退出
         </a>
-            </div>
         </div>
+    </div>
     </div>
 
     <div class="button-pre" id="register2-pre" style="display:none">
@@ -318,6 +317,9 @@
             <div class="form-part-content">
                 <h6>您叫什么</h6>
                 <input name="name" type="text">
+                <input name="galleryName" type="text" style="display:none">
+                <input name="gender" type="text" style="display:none">
+                <input name="age" type="text" style="display:none">
                 <input name="avatar" id="headurlavareg" type="text" style="display:none">
             </div>
         </form>
@@ -333,38 +335,13 @@
                 </div>
             </div>
         </form>
-        <div class="button-next" id="register-next2">
-        </div>
+        <div class="button-next" id="register-next2"></div>
     </div>
 
     <div id="addArtWroks-page-content" style="display:none">
 
         <div class="button-pre" id="me-pre" style="display:block">
         </div>
-        <form action="">
-            <div class="form-part-content" style="height:140px">
-                <form action='' method='post' name='myform'>
-                    <input type='file' id='iptfileupload' onchange='show()' title="点击修改头像" value='' />
-                    <img src='img/head.jpg' alt='' id='img' />
-                    <input type="text" value="你的名字" class="user-name" style=" text-align: center;border-bottom: none;font-size: 1em;color: #000;margin-top:10px"
-                    />
-                </form>
-            </div>
-            <div class="form-part-content">
-                <h6>你的性别</h6>
-                <h6><input class="sex-input" name="sex" type="radio" value="" style="width:40px" />male <input class="sex-input"
-                        name="sex" type="radio" value="" style="width:40px" />female<input class="sex-input" name="sex" type="radio"
-                        value="" style="width:40px" />unknown</h6>
-            </div>
-            <div class="form-part-content">
-                <h6>你的年龄</h6>
-                <input>
-            </div>
-            <div class="form-part-content">
-                <h6>画廊名字</h6>
-                <input>
-            </div>
-        </form>
         <div class="button-next" id="login-next">
         </div>
         <div class="exit-button">

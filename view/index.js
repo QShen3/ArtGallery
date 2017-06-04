@@ -75,13 +75,13 @@ function ajastDom() {
     if (pageHeight > 400) {
         $("#login-next").css({ "bottom": '-16em' });
         $("#register-next").css({ "bottom": '-12em' });
-        $("#register-next2").css({ "bottom": '-16em' });
+        $("#register-next2").css({ "bottom": '-8em' });
         $("#login-next").css({ "right": '0' });
         $("#register-next").css({ "right": '0' });
         $("#register-next2").css({ "right": '0' });
         if (pageWidth < 330) {
             $("#register-next").css({ "bottom": '-8em' });
-            $("#register-next2").css({ "bottom": '-14em' });
+            $("#register-next2").css({ "bottom": '-5em' });
             $("#login-next").css({ "bottom": '-12em' });
             $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
             $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 60 + "px" });
