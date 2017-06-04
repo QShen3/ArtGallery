@@ -44,6 +44,7 @@ function ajastDom() {
         }
     }
 
+    // $("#mod-exit").css({ "width": pageWidth + "px" });
     $("#me-page-content").css('left', (pageWidth - $("#me-page-content").width()) / 2 + 'px');
     artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
     $("#id-artwork-intro").css('left', artworkLeft);
@@ -57,14 +58,14 @@ function ajastDom() {
         $("#home-welcome-text").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + -75 + "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
         // $("#login-button").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + -75 +40+ "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
         $("#login-register").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + -95 + 100 + "px" });
-        $("#mod-exit").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + -95 + 100 + "px" });
+        $("#mod-exit").css({ "top": (pageHeight + $("#me-page-content").height()) / 2 + -95 + 100 + "px" });
     } else {
         $("#home-welcome-content").css({ "height": pageHeight - 250 + "px" });
         $("#home-welcome-content").css({ "top": (pageHeight - $("#home-welcome-content").height() - 40) / 2 + "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
         $("#home-welcome-text").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 - 10 + "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
         // $("#login-button").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 +20 + "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
         $("#login-register").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + 30 + "px" });
-        $("#mod-exit").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + -95 + 100 + "px" });
+        $("#mod-exit").css({ "top": (pageHeight + $("#me-page-content").height()) / 2 + -95 + 100 + "px" });
     }
     $("#login-pre").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
     $("#register2-pre").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });

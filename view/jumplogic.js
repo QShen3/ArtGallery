@@ -111,11 +111,12 @@ $("#search-button").click(function () {
 $("#collection-a").click(
     function () {
         everyThingIsGrey();
-        $("#collection-page-content").html('');//每次点击都更新一遍
+        $("#collection-page-content ").html('<p class="slide-title">收藏</p>');//每次点击都更新一遍
         if (colArtWorks.length == 0) {
-            $("#collection-page-content").html("<p class='slide-part-no' style='font-size:4em'>无</p>");//每次点击都更新一遍
+            $("#collection-page-content").html("<p class='slide-title'>收藏</p><div class='search-part-content'><p class='slide-part-no' style='font-size:4em'>无</p></div>");//每次点击都更新一遍
         } else {
-            for (var i in colArtWorks) {
+
+            for (var i = 0; i < colArtWorks.length; i++) {
                 $("#collection-page-content").append("<div class='search-part-content'><div class='search-part-img' style='background:url(" + colArtWorks[i].cover + ");background-size:cover;'></div><p class='slide-part-intro-m'>" + colArtWorks[i].profile + "</p><p class='slide-part-intro'>" + colArtWorks[i].title + "来自" + "<span class='slide-part-from'>" + colArtWorks[i].author.info.name + "的</span><span class='slide-part-from'>" + colArtWorks[i].author.info.galleryName + "</span></p></div>");
             }
         }
@@ -475,13 +476,17 @@ if ($.cookie("authToken") != null) {
                     }
 
                 };
+
                 for (var i = 0; i < newArtWorks.length; i++) {
                     if (contains(artworkInCollection, i)) {
+                        console.log("collected" + i)
                         $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(./icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                     } else {
+                        console.log("uncollected" + i)
                         $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                     }
                 };
+
                 var tds = $("#new-art-slide table tr td .slide-part-img-2").toArray();
                 for (var i in tds) {
                     tds[i].onclick = function (ii) {
@@ -859,10 +864,10 @@ function getRandomString(len) {
     return pwd;
 }
 
-var nowHeadUrl = $.cookie("email");
-function RigisterUpHead() {
 
-    $('#registerForm2').find('#RurlName').val(getRandomString(10));
+function RigisterUpHead() {
+    var nowHeadUrl = $.cookie("email");
+    $('#registerForm2').find('#RurlName').val(nowHeadUrl);
 
     var strSrc = $("#head-file").val();
     img = new Image();
@@ -871,7 +876,7 @@ function RigisterUpHead() {
     //验证上传文件格式是否正确  
     var pos = strSrc.lastIndexOf(".");
     var lastname = strSrc.substring(pos, strSrc.length)
-    if (lastname.toLowerCase() != ".jpg" || lastname.toLowerCase() != ".png" || lastname.toLowerCase() != ".gif") {
+    if (lastname.toLowerCase() != ".jpg" && lastname.toLowerCase() != ".png" && lastname.toLowerCase() != ".gif") {
         alert("您上传的文件类型为" + lastname + "，Gallery仅接受 JPG/PNG/GIF 类型的图像格式");
         return false;
     }
@@ -885,15 +890,19 @@ function RigisterUpHead() {
         alert("请您上传4M以内的画廊封面");
         return false;
     }
-    $("#register-head-fake").css({ background: getFullPath(this) });
+    var imgObject = document.getElementById('head-file');
+    var getImageSrc = getFullPath(imgObject); // 本地路径
+    var srcs = window.URL.createObjectURL(imgObject.files[0]);
+    $("#register-head-fake").css({ background: 'url(' + srcs + ')' });
+
 
     $("#registerForm2").ajaxSubmit({
         type: "post",
         url: "/v1/res/upload",
         success: function (urll) {
             console.log("register2");
-            $('#registerForm1').find('#headurlavareg').val(urll.url);
-            console.log($('#registerForm1').find('#headurlavareg').val());
+            $('#registerForm3').find('#headurlavareg').val(urll.url);
+            console.log($('#registerForm3').find('#headurlavareg').val());
         },
         error: function () {
             alert("请检查图片的合法性")
@@ -939,12 +948,7 @@ $("#register-next2").click(
             success: function (result) {
                 console.log("register3");
                 if (result.info.code == "200") {
-                    $("#registe2-page-content").fadeIn(400);
-                    // $("#register2-pre").css('display', 'block');
-                    $("#register-content").fadeOut(400);
-                    $("#login-pre").fadeOut(400);
-                    $("input").css('borderBottom', "none");
-                    $("#register-next2").css('display', 'block');
+                    location.reload();
                 }
             },
             error: function () {
@@ -957,6 +961,10 @@ $("#register-next2").click(
 $("#nav-ul-me").click(
     function () {
         pageNow.push("me");
+        // $("#home-logo").css('backgroundImage', 'url()');
+        // $("#home-logo").text("您");
+        // $("#home-logo").fadeIn(400);
+        $("#mod-exit").fadeIn(400);
         $("#me-page-content").fadeIn(400);
         $("#nav-slide-content").fadeOut(400);
         fadeoutNow();
@@ -967,6 +975,7 @@ $("#me-pre").click(
     function () {
         $("#me-page-content").fadeOut(400);
         $("#nav-slide-content").fadeIn(400);
+        $("#mod-exit").fadeOut(400);
         fadeinNow();
         pageNow.push(pageNow[pageNow.length - 2]);
 
