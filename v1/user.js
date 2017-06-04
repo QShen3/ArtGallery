@@ -89,8 +89,24 @@ router.post("/register", multer().single(), async (req, res, next) => {
         return;
     }
 
+    user.auth.authToken = randomString();
+    user.auth.authDate = new Date();
+
+    try {
+        user = await user.save();
+    }
+    catch (err) {
+        result.info.code = 500;
+        result.info.desc = codeDec(500);
+
+        res.status(500).jsonp(result);
+        return;
+    }
+
     result.info.code = 200;
     result.info.desc = codeDesc(200);
+    res.cookie("authToken", user.auth.authToken, { maxAge: 2592000000 });
+    res.cookie("email", user.email, { maxAge: 2592000000 })
 
     res.status(200).jsonp(result);
 });
