@@ -147,7 +147,7 @@ router.post("/login", multer().single(), async (req, res, next) => {
         res.status(405).json(result);
         return;
     }
-    user.auth.authToken = randomString();
+    //user.auth.authToken = randomString();
     user.auth.authDate = new Date();
 
     try {
