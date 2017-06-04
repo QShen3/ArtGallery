@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const multer = require("multer");
-const Jimp = require("jimp"); 
+const Jimp = require("jimp");
 const codeDesc = require("../codeDesc.js");
 
 const Art = require("../db.js").art
@@ -256,7 +256,8 @@ router.get("/search", async (req, res, next) => {
         }
     }
 
-    let users = await User.find({ "info.galleryName": new RegExp(req.query.galleryName || "") }).exec();
+    //let users = await User.find({ "info.galleryName": new RegExp(req.query.galleryName || "") }).exec();
+    let users = await User.find().or([{ "info.galleryName": new RegExp(req.query.galleryName || "") }, { "info.name": new RegExp(req.query.galleryName || "") }])
     let userQuery = []
     for (let i = 0; i < users.length; i++) {
         userQuery.push({
