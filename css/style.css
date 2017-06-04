@@ -48,6 +48,22 @@
     left: 0px;
 }
 
+#mod-exit {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top:2000px;
+    left: 0px;
+}
+
+.modify-form-content {
+    margin: auto auto;
+}
+
+#me-page-content {
+    margin: 0px auto;
+}
+
 .button {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-weight: bold;
@@ -69,7 +85,7 @@
 .login-register-content {
     display: none;
     position: absolute;
-    top: 120px;
+    top: 20px;
 }
 
 .form-part-content input {
@@ -544,8 +560,8 @@ ul,li {
 
 .input-head-content {
     margin: auto auto;
-    width: 400px;
-    height: 400px;
+    width: 200px;
+    height: 200px;
     text-align: center;
 }
 

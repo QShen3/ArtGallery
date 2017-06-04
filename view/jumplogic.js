@@ -168,11 +168,11 @@ if ($.cookie("authToken") != null) {
     $("#home-page").css('display', 'block');
     $("#nav-slide-content").css('display', 'block');
     with (location) {
-        var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+        var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false,scrollbars:false });
 
-        var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+        var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false,scrollbars:false });
 
-        var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+        var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false,scrollbars:false });
     }
     $("#login-button").css('display', 'none');
     $("#register-button").css('display', 'none');
@@ -600,7 +600,7 @@ $("#login-next").click(
                             };
                             newArtWorks = latestArtWrok.lists;
                             if (newArtWorks.length != 0) {
-                                $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
+                                $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 33
                                 for (var i = 0; i < newArtWorks.length; i++) {
                                     $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>"+'<div class="collecte-button"></div>'+"</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.name + newArtWorks[i].author.galleryName + "</span></p></div></td>");
                                 };
