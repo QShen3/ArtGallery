@@ -65,6 +65,7 @@ router.post("/add", userAuth, async (req, res, next) => {
 
             result.info.code = 200;
             result.info.desc = codeDesc(200);
+            result.status = false;
             res.status(200).jsonp(result);
 
             return;
@@ -76,6 +77,7 @@ router.post("/add", userAuth, async (req, res, next) => {
 
     result.info.code = 200;
     result.info.desc = codeDesc(200);
+    result.status = true;
     res.status(200).jsonp(result);
 });
 
