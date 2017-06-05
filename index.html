@@ -201,7 +201,7 @@
     <div id="gallery-page-content" style="text-align:center;display:none">
         <div class="go-top" id="gallery-go-top"></div>
         <div class="slide" id="gallery-page">
-            <table border="0" cellspacing="50px" cellpadding="20px" class="slide-table" style="text-align:left;">
+            <table border="0" cellspacing="50px" cellpadding="20px" id="gallery-slide-table" class="slide-table" style="text-align:left;">
                 <tr>
                     <!--<td>
                         <div class="slide-part-content">
@@ -213,12 +213,14 @@
                             </p>
                         </div>
                     </td>-->
-
+                    <!--<td>
+                        <div class="add-button" id="add-works-button"></div>
+                    </td>-->
                 </tr>
             </table>
-            <div class="button">
-                 编辑画廊
-            </div>
+        </div>
+        <div class="button" style="width:200px;margin:auto auto;" id="edit-button">
+            点击编辑您的画廊
         </div>
         <p class="gallery-title"></p>
     </div>
@@ -289,6 +291,7 @@
                 </form>
             </div>
         </div>
+        
         <form id="registerForm5">
             <div class="form-part-content">
                 <h6>您叫什么</h6>
@@ -300,22 +303,22 @@
                 <input name="avatar" id="headurlavamod" type="text" style="display:none">
             </div>
         </form>
-        
 
 
 
 
-        
+
+
     </div>
     <br>
     <div id="mod-exit" style="display:none">
-            <a id="modify-button" class="button">
+        <a id="modify-button" class="button">
         修改
         </a>
-            <a id="exit-button" class="button" style="background:black">
+        <a id="exit-button" class="button" style="background:black">
         退出
         </a>
-        </div>
+    </div>
     </div>
 
     <div class="button-pre" id="register2-pre" style="display:none">
@@ -350,7 +353,7 @@
         <div class="button-next" id="register-next2"></div>
     </div>
 
-    <div id="addArtWroks-page-content" style="display:none">
+    <!--<div id="addArtWroks-page-content" style="display:none">
 
         <div class="button-pre" id="me-pre" style="display:block">
         </div>
@@ -359,8 +362,67 @@
         <div class="exit-button">
             <span>退出</span>
         </div>
-    </div>
+    </div>-->
 
+    <div id="edit-addArtWroks-page-content" style="display:none;">
+
+
+
+        <div id="edit-page-content">
+            <div id="edit-pre" style="display:block">
+            </div>
+            <br>
+            <br>
+            <form id="editForm1">
+                <div class="form-part-content">
+                    <div class="edit-form-content">
+                        <h6>您的作品叫什么</h6>
+                        <input name="title" type="text">
+                    </div>
+                    <div class="edit-form-content">
+                        <h6>您如何描述该作品？(20字内）</h6>
+                        <input name="profile" type="text">
+                        <input name="urls" id="urlsid" type="text" style="display:none">
+                        <input name="style" value="qisile" type="text" style="display:none">
+                    </div>
+                </div>
+            </form>
+
+            <div class="edit-form-content">
+                <div class="form-part-content">
+                    <h6>上传您的作品图</h6>
+                </div>
+            
+
+            <div class="slide" id="edit-img-page">
+                <table border="0" cellspacing="50px" cellpadding="20px" id="edit-img-page-slide-table" class="slide-table" style="text-align:left;">
+                    <tr>
+                        <td>
+                            <div class="add-button" id="add-works-button">
+                                <form id="editForm2">
+                                    <input name="name" id="RurlWorksName" type="text" style="display:none">
+                                    <input name="file" type="file" id="works-file" onchange="WorksUpImg();" style="width:50px;height:50px;opacity:0;">
+                                </form>
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+                
+            </div>
+            
+            </div>
+            <div id="save-delete">
+                    <a id="save-button" class="button">
+        提交
+        </a>
+                    <a id="delete-button" class="button" style="background:black">
+        删除该作品
+        </a>
+                </div>
+        </div>
+
+    </div>
 
     <script src="./lips/vue.js"></script>
     <script src="/lips/jquery.form.js"></script>
