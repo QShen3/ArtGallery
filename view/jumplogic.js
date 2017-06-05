@@ -3,10 +3,13 @@ var newGallery = new Array();
 var newArtWorks = new Array();
 var seaArtWorks = new Array();
 var colArtWorks = new Array();
+var artworksLocal = new Array();
 
 var pageNow = ['index'];//页面栈 
 var pagenow;
 var currentArtwork;
+
+var currentImg = new Array();
 
 $("#exit-button").click(function () {
     $.cookie('authToken', null, { expires: -1, path: '/' });
@@ -138,7 +141,7 @@ $("#collection-a").click(
     }
 );
 $("#artwork-go-top").click(function () {
-    $("#nav-slide-content").fadeIn(400);
+    // $("#nav-slide-content").fadeIn(400);
     pageNow.push(pageNow[pageNow.length - 2]);
     fadeoutNow();
     fadeinNow();
@@ -148,8 +151,9 @@ $("#artwork-go-top").click(function () {
 $("#gallery-go-top").click(function () {
     $("#nav-slide-content").fadeIn(400);
     // pageNow.push(pageNow[pageNow.length - 2]);
+    $("#add-button-td").fadeOut(400);
     for (var j = 2; j < pageNow.length; j++) {
-        if (pageNow[pageNow.length - j] != 'artworks'&&pageNow[pageNow.length - j] != 'gallery') {
+        if (pageNow[pageNow.length - j] != 'artworks' && pageNow[pageNow.length - j] != 'gallery' && pageNow[pageNow.length - j] != 'edita') {
             pageNow.push(pageNow[pageNow.length - j]);
 
             break;
@@ -165,16 +169,22 @@ $("#gallery-go-top").click(function () {
 
 });
 
+$("#edit-button").click(function () {
+    $("#add-button-td").fadeIn(400);
+});
+
 $("#gallery-a").click(
     function () {
 
         $("#nav-slide-content").fadeOut(100, function () {
-            pageNow.push("gallery");
-            fadeoutNow();
-            $("#gallery-page-content").fadeIn(300);
+
         });
+        pageNow.push("gallery");
+        fadeoutNow();
+        $("#gallery-page-content").fadeIn(300);
+        $("#gallery-a-li").css('border-bottom', 'none');
         // everyThingIsGrey();
-        // $("#gallery-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+        $("#gallery-a-li").css('border-bottom', 'none');
 
         searchFoldedBool = true;
         $("#unfold-search-block").slideDown(200);
@@ -193,12 +203,19 @@ $("#gallery-a").click(
                 $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                     if (result == "success") {
                         artworks = artworks.lists;
-                        $("#gallery-page table tr td:eq(0)").remove();
+                        artworksLocal = artworks.lists;
+                        $("#gallery-page table tr").html('');
+                        $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>")
                         $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
+                        $("#add-works-button").click(function () {
+                            pageNow.push("edita");
+                            fadeinNow();
+                            fadeoutNow();
+                        });
                         for (var j in artworks) {
                             $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                         }
-                        var tdss = $("#gallery-page table tr td").toArray();
+                        var tdss = $("#gallery-page table tr td .slide-part-content").toArray();
                         for (var j in tdss) {
                             tdss[j].onclick = function (ii) {
                                 return function () {
@@ -238,6 +255,8 @@ $("#gallery-a").click(
 
     }
 );
+
+
 //如果cookie存在，直接加载到home
 if ($.cookie("authToken") != null) {
     pageNow.push("home");
@@ -530,7 +549,7 @@ if ($.cookie("authToken") != null) {
                             $("#nav-slide-content").fadeOut(400);
                             var index = 0;
                             $("#artwork-page-content div.go-next").click(function () {
-                                if (index < colArtWorks[ii].urls.length - 1) {
+                                if (index < newArtWorks[ii].urls.length - 1) {
                                     index++;
                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 }
@@ -898,6 +917,48 @@ function getRandomString(len) {
 }
 
 
+function WorksUpImg() {
+    var nowHeadUrl = $.cookie("email");
+    $('#editForm2').find('#RurlWorksName').val(nowHeadUrl + getRandomString(6));
+
+    var strSrc = $("#works-file").val();
+    img = new Image();
+    img.src = getFullPath(strSrc);
+    console.log('imgsrc' + getFullPath(strSrc))
+    //验证上传文件格式是否正确  
+    var pos = strSrc.lastIndexOf(".");
+    var lastname = strSrc.substring(pos, strSrc.length)
+    if (lastname.toLowerCase() != ".jpg" && lastname.toLowerCase() != ".png" && lastname.toLowerCase() != ".gif" && lastname.toLowerCase() != ".jpeg") {
+        alert("您上传的文件类型为" + lastname + "，Gallery仅接受 JPG/PNG/GIF 类型的图像格式");
+        return false;
+    }
+
+    //验证上传文件是否超出了大小  
+    if (img.fileSize / 1024 > 4096) {
+        alert("请您上传4M以内的作品图片，谢谢。");
+        return false;
+    }
+    var imgObject = document.getElementById('works-file');
+    var getImageSrc = getFullPath(imgObject); // 本地路径
+    var srcs = window.URL.createObjectURL(imgObject.files[0]);
+    $("#edit-img-page-slide-table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + srcs + ");background-size:cover;'></div></td>");
+
+    $("#editForm2").ajaxSubmit({
+        type: "post",
+        url: "/v1/res/upload",
+        success: function (urll) {
+            console.log("editForm2");
+            currentImg.push(urll.url);
+            $('#editForm1').find('#urlsid').val(currentImg.join(','));
+            console.log($('#editForm1').find('#urlsid').val());
+        },
+        error: function () {
+            alert("请检查图片的合法性")
+        }
+    })
+
+}
+
 function RigisterUpHead() {
     var nowHeadUrl = $.cookie("email");
     $('#registerForm2').find('#RurlName').val(nowHeadUrl);
@@ -1005,6 +1066,88 @@ function getFullPath(obj) {  //得到图片的完整路径
         return obj.value;
     }
 }
+
+$("#save-button").click(function () {
+    $("#editForm1").ajaxSubmit({
+        type: "post",
+        url: "/v1/art/add",
+        success: function (result) {
+            console.log("editForm1");
+            if (result.info.code == "200") {
+                // location.reload();
+                //添加成功
+                // artworksLocal.push();
+                pageNow.push('gallery');
+                fadeinNow();
+                fadeoutNow();
+                $.get("v1/user/info", function (user, result) {
+                    if (result == "success") {
+                        $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
+                            if (result == "success") {
+                                artworks = artworks.lists;
+                                artworksLocal = artworks.lists;
+                                $("#gallery-page table tr").html('');
+                                $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>")
+                                $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
+                                $("#add-works-button").click(function () {
+                                    pageNow.push("edita");
+                                    fadeinNow();
+                                    fadeoutNow();
+                                });
+                                for (var j in artworks) {
+                                    $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                }
+                                var tdss = $("#gallery-page table tr td .slide-part-content").toArray();
+                                for (var j in tdss) {
+                                    tdss[j].onclick = function (ii) {
+                                        return function () {
+
+                                            pageNow.push("artworks");
+                                            var index = 0;
+                                            $("#artwork-page-content div.go-next").click(function () {
+                                                if (index < newArtWorks[ii].urls.length - 1) {
+                                                    index++;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                }
+                                            });
+                                            $("#artwork-page-content div.go-pre").click(function () {
+                                                if (index > 0) {
+                                                    index--;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                }
+                                            });
+
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                                            artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                            $("#id-artwork-intro").css('left', artworkLeft);
+                                            $("#gallery-page-content").fadeOut(400);
+                                            $("#artwork-page-content").fadeIn(400);
+                                        }
+                                    }(j)
+                                }
+                            }
+                        });
+                    }
+                })
+                $('#add-button-td').fadeIn(400);
+            }
+        },
+        error: function () {
+            alert("请检查输入的合法性")
+        }
+    })
+});
+
+$("#edit-pre").click(function () {
+    pageNow.push("gallery");
+    fadeinNow();
+    fadeoutNow();
+}
+);
 
 $("#register-next2").click(
     function () {
@@ -1141,6 +1284,9 @@ function fadeoutNow() {
     if (pageNow[pageNow.length - 2] == "artworks") {
         $("#artwork-page-content").fadeOut(400);
     };
+    if (pageNow[pageNow.length - 2] == "edita") {
+        $("#edit-addArtWroks-page-content").fadeOut(400);
+    };
 }
 
 function fadeinNow() {
@@ -1159,6 +1305,9 @@ function fadeinNow() {
     };
     if (pageNow[pageNow.length - 1] == "artworks") {
         $("#artwork-page-content").fadeIn(400);
+    };
+    if (pageNow[pageNow.length - 1] == "edita") {
+        $("#edit-addArtWroks-page-content").fadeIn(400);
     };
 
 }

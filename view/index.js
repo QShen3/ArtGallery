@@ -45,8 +45,11 @@ function ajastDom() {
     }
 
     // $("#mod-exit").css({ "width": pageWidth + "px" });
+    // $("#gallery-page").height(pageHeight-122+'px');
+    $("#gallery-slide-table").height(pageHeight-112+'px')
     $("#me-page-content").css('left', (pageWidth - $("#me-page-content").width()) / 2 + 'px');
     $("#me-pre").css('left', ($("#me-page-content").width() - $("#me-pre").width()) / 2 + 'px');
+    // $("#edit-page-content").css('height','')
     artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
     $("#id-artwork-intro").css('left', artworkLeft);
 

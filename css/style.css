@@ -135,6 +135,14 @@
     display: none;
 }
 
+.add-button {
+    background: url(../icons/add.png);
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    /*display: none;*/
+}
+
 .ui-loader-default{ display:none}  
 .ui-mobile-viewport{ border:none;}  
 .ui-page {padding: 0; margin: 0; outline: 0}   
@@ -619,11 +627,33 @@ ul,li {
     top: 35px;
 }
 
+.edit-form-content {
+    width: 402px;
+    margin: auto auto;
+}
+
+#save-delete {
+    /*width: 260px;*/
+    margin: auto auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#edit-pre {
+    width: 30px;
+    height: 30px;
+    background: url(../icons/close.png);
+    background-size: cover;
+    margin: auto auto;
+}
 @media screen and (min-width: 769px) and (max-width: 1080px) {
 
 }
 
 @media only screen and (max-width: 769px) { 
+    .edit-form-content {
+    width: 262px;
+    }
     /*#head-file {
     width: 260px;
     height: 260px;
