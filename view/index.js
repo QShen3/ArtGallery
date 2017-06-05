@@ -46,6 +46,7 @@ function ajastDom() {
 
     // $("#mod-exit").css({ "width": pageWidth + "px" });
     $("#me-page-content").css('left', (pageWidth - $("#me-page-content").width()) / 2 + 'px');
+    $("#me-pre").css('left', ($("#me-page-content").width() - $("#me-pre").width()) / 2 + 'px');
     artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
     $("#id-artwork-intro").css('left', artworkLeft);
 
@@ -65,6 +66,7 @@ function ajastDom() {
         $("#home-welcome-text").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 - 10 + "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
         // $("#login-button").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 +20 + "px", "left": (pageWidth - $("#home-welcome-content").width()) / 2 + "px" });
         $("#login-register").css({ "top": (pageHeight + $("#home-welcome-content").height()) / 2 + 30 + "px" });
+        // $("#mod-exit").css({ "top": (pageHeight + $("#me-page-content").height()) / 2 + -95 + 100 + "px" });
         $("#mod-exit").css({ "top": (pageHeight + $("#me-page-content").height()) / 2 + -95 + 100 + "px" });
     }
     $("#login-pre").css({ "left": (pageWidth - $("#login-content").width()) / 2 + "px" });
@@ -91,9 +93,12 @@ function ajastDom() {
             $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
             $("#register-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
             $("#registe2-page-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 - 100 + "px" });
+
+
         }
 
     } else {
+        $("#mod-exit").css({ "top": (pageHeight + $("#me-page-content").height()) / 2 + -95 + 160 + "px" });
         $("#login-content").css({ "top": (pageHeight - $("#login-content").height()) / 2 + "px" });
         $("#login-next").css({ "bottom": '0em' });
         $("#login-next").css({ "right": '-5em' });
@@ -377,17 +382,10 @@ $("#search-back-top").click(
     }
 );
 
-$("#gallery-go-top").click(
-    function () {
-        alert("sds")
-
-    }
-);
-
 var beforeScrollTop = document.body.scrollTop; //  判断滚动方向
 
 var op2 = 255;
-var op=1;
+var op = 1;
 
 window.onscroll = function () {
 
@@ -398,14 +396,14 @@ window.onscroll = function () {
     var scollTopNow = jQuery(window).scrollTop();
     console.log(jQuery(window).scrollTop());
     if (op2 >= 0 && op >= 0) {
-            op = 1 - (scollTopNow) / 55;
-            op2 = 255 - (255 / 55) * (scollTopNow);
-            console.log("op:"+op);
-            console.log('op2:' + op2);
-        } else {
-            op2 = 0;
-            op = 0;
-        }
+        op = 1 - (scollTopNow) / 55;
+        op2 = 255 - (255 / 55) * (scollTopNow);
+        console.log("op:" + op);
+        console.log('op2:' + op2);
+    } else {
+        op2 = 0;
+        op = 0;
+    }
 
     if (pageNow[pageNow.length - 1] == "home") {
         $("#home-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
@@ -474,7 +472,7 @@ window.onscroll = function () {
         if (op2 >= 0 && op >= 0) {
             op = 1 - (scollTopNow) / 55;
             op2 = 255 - (255 / 55) * (scollTopNow);
-            console.log("op:"+op);
+            console.log("op:" + op);
             console.log('op2:' + op2);
         } else {
             op2 = 0;

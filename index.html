@@ -216,6 +216,9 @@
 
                 </tr>
             </table>
+            <div class="button">
+                 编辑画廊
+            </div>
         </div>
         <p class="gallery-title"></p>
     </div>
@@ -276,16 +279,17 @@
         <div class="form-part-content">
             <h6></h6>
             <br>
+            <br>
         </div>
         <div class="me-input-head-content">
-            <div class="me-fake-input" id="register-head-fake">
-                <form id="registerForm2">
+            <div class="me-fake-input" id="modify-head-fake">
+                <form id="registerForm4">
                     <input name="name" id="RurlName" type="text" style="display:none">
-                    <input name="file" type="file" id="me-head-file" onchange="RigisterUpHead();">
+                    <input name="file" type="file" id="me-head-file" onchange="ModifyUpHead();">
                 </form>
             </div>
         </div>
-        <form id="registerForm3">
+        <form id="registerForm5">
             <div class="form-part-content">
                 <h6>您叫什么</h6>
                 <input name="name" type="text">
@@ -293,7 +297,7 @@
                 <input name="galleryName" type="text">
                 <input name="gender" type="text" style="display:none">
                 <input name="age" type="text" style="display:none">
-                <input name="avatar" id="headurlavareg" type="text" style="display:none">
+                <input name="avatar" id="headurlavamod" type="text" style="display:none">
             </div>
         </form>
         
@@ -303,6 +307,7 @@
 
         
     </div>
+    <br>
     <div id="mod-exit" style="display:none">
             <a id="modify-button" class="button">
         修改
