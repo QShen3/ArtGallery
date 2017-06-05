@@ -130,7 +130,7 @@
     background: url(../icons/close.png);
     background-size: cover;
     position: absolute;
-    right: 5px;
+    right: 1500px;
     top: 5px;
     display: none;
 }

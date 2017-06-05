@@ -137,14 +137,45 @@ $("#collection-a").click(
         });
     }
 );
+$("#artwork-go-top").click(function () {
+    $("#nav-slide-content").fadeIn(400);
+    pageNow.push(pageNow[pageNow.length - 2]);
+    fadeoutNow();
+    fadeinNow();
+    // console.log(pageNow.pop());
+});
+
+$("#gallery-go-top").click(function () {
+    $("#nav-slide-content").fadeIn(400);
+    // pageNow.push(pageNow[pageNow.length - 2]);
+    for (var j = 2; j < pageNow.length; j++) {
+        if (pageNow[pageNow.length - j] != 'artworks'&&pageNow[pageNow.length - j] != 'gallery') {
+            pageNow.push(pageNow[pageNow.length - j]);
+
+            break;
+        }
+    }
+    // fadeinNow();
+    fadeoutNow();
+    fadeinNow();
+    // pageNow.push(pageNow[pageNow.length - 2]);
+    // $("#gallery-go-top").fadeOut(400);
+    // $("#gallery-page-content").fadeOut(400);
+    console.log(pageNow.join('|g|'));
+
+});
 
 $("#gallery-a").click(
     function () {
-        everyThingIsGrey();
-        $("#gallery-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
-        pageNow.push("gallery");
-        fadeoutNow();
-        $("#gallery-page-content").fadeIn(400);
+
+        $("#nav-slide-content").fadeOut(100, function () {
+            pageNow.push("gallery");
+            fadeoutNow();
+            $("#gallery-page-content").fadeIn(300);
+        });
+        // everyThingIsGrey();
+        // $("#gallery-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
+
         searchFoldedBool = true;
         $("#unfold-search-block").slideDown(200);
         $("#search-back-top").slideUp(200, function () {
@@ -154,9 +185,9 @@ $("#gallery-a").click(
         $("#folded").slideUp(200, function () {
             // $("#folded").css('height',47+'px');
         });
-        pageNow.push("gallery");
-        $("#home-page").fadeOut(400);
-        $("#gallery-page-content").fadeIn(400);
+        // pageNow.push("gallery");
+        // $("#home-page").fadeOut(400);
+        // $("#gallery-page-content").fadeIn(400);
         $.get("v1/user/info", function (user, result) {
             if (result == "success") {
                 $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
@@ -171,6 +202,7 @@ $("#gallery-a").click(
                         for (var j in tdss) {
                             tdss[j].onclick = function (ii) {
                                 return function () {
+
                                     pageNow.push("artworks");
                                     var index = 0;
                                     $("#artwork-page-content div.go-next").click(function () {
@@ -495,25 +527,26 @@ if ($.cookie("authToken") != null) {
                             var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                             var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
                             pageNow.push("artworks");
+                            $("#nav-slide-content").fadeOut(400);
                             var index = 0;
                             $("#artwork-page-content div.go-next").click(function () {
                                 if (index < colArtWorks[ii].urls.length - 1) {
                                     index++;
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 }
                             });
                             $("#artwork-page-content div.go-pre").click(function () {
                                 if (index > 0) {
                                     index--;
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 }
                             });
 
-                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');
-                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(colArtWorks[ii].profile);
-                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(colArtWorks[ii].title + " 来自");
-                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + colArtWorks[ii].author.info.name + "的</span>");
-                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + colArtWorks[ii].author.info.galleryName + "</span>");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
                             artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                             $("#id-artwork-intro").css('left', artworkLeft);
                             $("#artwork-page-content").fadeIn(400);
@@ -876,7 +909,7 @@ function RigisterUpHead() {
     //验证上传文件格式是否正确  
     var pos = strSrc.lastIndexOf(".");
     var lastname = strSrc.substring(pos, strSrc.length)
-    if (lastname.toLowerCase() != ".jpg" && lastname.toLowerCase() != ".png" && lastname.toLowerCase() != ".gif") {
+    if (lastname.toLowerCase() != ".jpg" && lastname.toLowerCase() != ".png" && lastname.toLowerCase() != ".gif" && lastname.toLowerCase() != ".jpeg") {
         alert("您上传的文件类型为" + lastname + "，Gallery仅接受 JPG/PNG/GIF 类型的图像格式");
         return false;
     }
@@ -903,6 +936,52 @@ function RigisterUpHead() {
             console.log("register2");
             $('#registerForm3').find('#headurlavareg').val(urll.url);
             console.log($('#registerForm3').find('#headurlavareg').val());
+        },
+        error: function () {
+            alert("请检查图片的合法性")
+        }
+    })
+
+}
+
+function ModifyUpHead() {
+    var nowHeadUrl = $.cookie("email");
+    $('#registerForm4').find('#RurlName').val(nowHeadUrl);
+
+    var strSrc = $("#me-head-file").val();
+    img = new Image();
+    img.src = getFullPath(strSrc);
+    console.log('imgsrc' + getFullPath(strSrc))
+    //验证上传文件格式是否正确  
+    var pos = strSrc.lastIndexOf(".");
+    var lastname = strSrc.substring(pos, strSrc.length)
+    if (lastname.toLowerCase() != ".jpg" && lastname.toLowerCase() != ".png" && lastname.toLowerCase() != ".gif" && lastname.toLowerCase() != ".jpeg") {
+        alert("您上传的文件类型为" + lastname + "，Gallery仅接受 JPG/PNG/GIF 类型的图像格式");
+        return false;
+    }
+    //验证上传文件宽高比例  
+
+    if (img.height / img.width > 0.9 || img.height / img.width < 1.1) {
+        alert("您的画廊封面会被裁剪，我们推荐您上传正方形的画廊封面");
+    }
+    //验证上传文件是否超出了大小  
+    if (img.fileSize / 1024 > 4096) {
+        alert("请您上传4M以内的画廊封面");
+        return false;
+    }
+    var imgObject = document.getElementById('me-head-file');
+    var getImageSrc = getFullPath(imgObject); // 本地路径
+    var srcs = window.URL.createObjectURL(imgObject.files[0]);
+    $("#modify-head-fake").css({ background: 'url(' + srcs + ')' });
+
+
+    $("#registerForm4").ajaxSubmit({
+        type: "post",
+        url: "/v1/res/upload",
+        success: function (urll) {
+            console.log("register4(modifyhead)");
+            $('#registerForm5').find('#headurlavamod').val(urll.url);
+            console.log($('#registerForm5').find('#headurlavamod').val());
         },
         error: function () {
             alert("请检查图片的合法性")
@@ -958,6 +1037,38 @@ $("#register-next2").click(
     }
 )
 
+$("#modify-button").click(
+    function () {
+        // $("#home-logo").fadeOut(400, function () {
+
+        // with (location) {
+        // var recGalleryScroll = new IScroll('#rec-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+        // var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+        // var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+        // var newArtScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+        // }
+        // })
+
+        $("#registerForm5").ajaxSubmit({
+            type: "post",
+            url: "/v1/user/update",
+            success: function (result) {
+                console.log("register5");
+                if (result.info.code == "200") {
+                    alert("修改成功")
+                    location.reload();
+                }
+            },
+            error: function () {
+                alert("请检查画廊合法性")
+            }
+        })
+    }
+)
+
 $("#nav-ul-me").click(
     function () {
         pageNow.push("me");
@@ -976,9 +1087,8 @@ $("#me-pre").click(
         $("#me-page-content").fadeOut(400);
         $("#nav-slide-content").fadeIn(400);
         $("#mod-exit").fadeOut(400);
-        fadeinNow();
         pageNow.push(pageNow[pageNow.length - 2]);
-
+        fadeinNow();
     }
 )
 
@@ -1035,19 +1145,19 @@ function fadeoutNow() {
 
 function fadeinNow() {
     console.log(pageNow.join("|"));
-    if (pageNow[pageNow.length - 2] == "home") {
+    if (pageNow[pageNow.length - 1] == "home") {
         $("#home-page").fadeIn(400);
     };
-    if (pageNow[pageNow.length - 2] == "search") {
+    if (pageNow[pageNow.length - 1] == "search") {
         $("#search-page-content").fadeIn(400);
     };
-    if (pageNow[pageNow.length - 2] == "collection") {
+    if (pageNow[pageNow.length - 1] == "collection") {
         $("#collection-page-content").fadeIn(400);
     };
-    if (pageNow[pageNow.length - 2] == "gallery") {
+    if (pageNow[pageNow.length - 1] == "gallery") {
         $("#gallery-page-content").fadeIn(400);
     };
-    if (pageNow[pageNow.length - 2] == "artworks") {
+    if (pageNow[pageNow.length - 1] == "artworks") {
         $("#artwork-page-content").fadeIn(400);
     };
 
