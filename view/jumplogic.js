@@ -43,6 +43,21 @@ function changeWorkSize(awidth, aheight, gheight) {
     return newSize;
 }
 
+function changeWorkImgSize(awidth, aheight) {
+    // if(aheight>)
+    var newSize = new Array();
+    if (awidth > pageWidth * 0.6) {
+
+        newSize[0] = pageWidth * 0.6 + 'px';
+        newSize[1] = awidth * (pageWidth / awidth) * 0.6 + 'px';
+    } else {
+        newSize[0] = awidth + 'px';
+        newSize[1] = aheight + 'px';
+    }
+    console.log(newSize.join("||"))
+    return newSize;
+}
+
 function addCol() {
     $.post("/v1/user/collection/add", { aid: currentArtwork }, function (data, status) {
         if (status == "success") {
@@ -78,12 +93,23 @@ function addArt() {
 
 
 $("#search-button").click(function () {
+    searchFoldedBool = true;
+    $("#unfold-search-block").slideDown(200);
+    $("#search-back-top").slideUp(200, function () {
+    });
+    $("#unfold-search-block").css({ position: 'relative', left: "0px", paddingLeft: '20px' });
+    // $("#unfold-search-block").animate({opacity:0},10);
+    $("#folded").slideUp(200, function () {
+        // $("#folded").css('height',47+'px');
+    });
     everyThingIsGrey();
     $("#search-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
     pageNow.push("search");
     $("#search-page-content").fadeIn(400);
     $("#home-page").fadeOut(400);
     var $defaultSea;
+    $("#search-page-content").html("<p class='slide-title'>检索</p><div class='search-part-content'><p class='slide-part-no' style='font-size:4em'><img src='../icons/ImpoliteLivelyGenet.gif'></p></div>");
+
     $("#searchForm").ajaxSubmit({
         type: "get",
         url: "/v1/art/search",
@@ -95,7 +121,7 @@ $("#search-button").click(function () {
                 }
                 seaArtWorks = result.lists;
                 if (seaArtWorks.length != 0) {
-                    $defaultSea = $("#search-page-content div:eq(0)").remove();
+                    // $defaultSea = $("#search-page-content div:eq(0)").remove();
                     $("#search-page-content").html("");
                     $("#search-page-content").append("<p class='slide-title'>检索</p>");
                     for (var i in seaArtWorks) {
@@ -167,15 +193,120 @@ $("#collection-a").click(
     }
 );
 $("#artwork-go-top").click(function () {
-    $("#nav-slide-content").fadeIn(400);
     pageNow.push(pageNow[pageNow.length - 2]);
-    fadeoutNow();
+    if (pageNow[pageNow.length - 1] != 'gallery') {
+        $("#nav-slide-content").fadeIn(400);
+    }
     fadeinNow();
+    fadeoutNow();
     // console.log(pageNow.pop());
 });
 
 $("#gallery-go-top").click(function () {
 
+    $("#rec-gallery-slide table tr").html(' <div class="slide-part-content"><p class="slide-part-no" style="font-size:4em"><img src="../icons/ImpoliteLivelyGenet.gif"></p></div>');
+    $.get("/v1/user/recent", function (recentGallery, result) {
+        if (result == "success") {
+            if (!(recentGallery.recent instanceof Array)) {
+                console.error("Parameter wrong : {" + recentGallery.recent + "} is not an Array");
+                return null;
+            };
+            recGallery = recentGallery.recent;
+            if (recGallery.length != 0) {
+                $("#rec-gallery-slide table tr").html(' ');
+                for (var i = 0; i < recGallery.length; i++) {
+                    $("#rec-gallery-slide table tr").append("<td id=" + 'newGatTd' + recGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + recGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + recGallery[i].info.name + '的<br>' + recGallery[i].info.galleryName + "</p></div></td>");
+                };
+                var tds = $("#rec-gallery-slide table tr td").toArray();
+                for (var i in tds) {
+                    tds[i].onclick = function (ii) {
+                        return function () {
+                            with (location) {
+                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                            }
+                            $("#edit-button").css('display', 'none');
+                            if (tds[ii].attributes.id.nodeValue.substring(8) == userNowContent._id) {
+                                console.log('thisGallery' + tds[ii].attributes.id.nodeValue.substring(8) + '|' + 'usernow' + userNowContent._id)
+                                $("#edit-button").fadeIn(300);
+                            }
+                            $("#nav-slide-content").fadeOut(300);
+                            var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                            var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                            pageNow.push("gallery");
+                            $("#home-page").fadeOut(400);
+                            $("#gallery-page-content").fadeIn(400);
+                            $("#gallery-page table tr").html("");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
+                            $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
+                                if (result == "success") {
+                                    var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                    var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                                    var userInfo = artworks.userInfo;
+                                    artworks = artworks.lists;
+
+                                    $("#gallery-page table tr").html('');
+                                    $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                                    if (artworks.length == 0) {
+                                        $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                                    }
+                                    $("#gallery-page-content p").text(userInfo.galleryName);
+                                    for (var j in artworks) {
+                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                    }
+
+                                    $("#add-works-button").click(function () {
+                                        pageNow.push("edita");
+                                        fadeinNow();
+                                        fadeoutNow();
+                                    });
+
+                                    var tdss = $("#gallery-page table tr td .slide-part-img-0").toArray();
+                                    for (var j in tdss) {
+                                        tdss[j].onclick = function (ii) {
+                                            return function () {
+                                                pageNow.push("artworks");
+                                                var index = 0;
+                                                $("#artwork-page-content div.go-next").click(function () {
+                                                    if (index < artworks[ii].urls.length - 1) {
+                                                        index++;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                    }
+                                                });
+                                                $("#artwork-page-content div.go-pre").click(function () {
+                                                    if (index > 0) {
+                                                        index--;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                    }
+                                                });
+
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.galleryName + "</span>");
+                                                artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                                $("#id-artwork-intro").css('left', artworkLeft);
+                                                //$("#gallery-page-content").fadeOut(400);
+                                                //$("#artwork-page-content").fadeIn(400);
+                                                pageNow.push("artworks");
+                                                fadeoutNow();
+                                                fadeinNow();
+                                            }
+
+                                        }(j)
+                                    }
+                                }
+                            });
+                        }
+                    }(i)
+                }
+            }
+            // alert(recentGallery.lists[0].info.name)
+
+        }
+    });
     for (var j = 2; j < pageNow.length; j++) {
         if (pageNow[pageNow.length - j] != 'artworks' && pageNow[pageNow.length - j] != 'gallery' && pageNow[pageNow.length - j] != 'edita') {
             pageNow.push(pageNow[pageNow.length - j]);
@@ -241,16 +372,28 @@ $("#gallery-go-top").click(function () {
                                 $("#artwork-page-content div.go-next").click(function () {
                                     if (index < newArtWorks[ii].urls.length - 1) {
                                         index++;
-                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeOut(200, function () {
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeIn(200);
+                                        })
                                     }
                                 });
                                 $("#artwork-page-content div.go-pre").click(function () {
                                     if (index > 0) {
                                         index--;
-                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeOut(200, function () {
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeIn(200);
+                                        })
                                     }
                                 });
 
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                 $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
@@ -319,6 +462,8 @@ $("#edit-button").click(function () {
 $("#gallery-a").click(
     function () {
 
+        $("#gallery-page table tr").html('');
+        $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
         $("#edit-button").fadeIn(300);
         $("#nav-slide-content").fadeOut(100, function () {
 
@@ -348,6 +493,8 @@ $("#gallery-a").click(
                     var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
 
                 }
+                $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
                 $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                     if (result == "success") {
                         var userInfo = artworks.userInfo;
@@ -379,6 +526,7 @@ $("#gallery-a").click(
                                 return function () {
 
                                     pageNow.push("artworks");
+                                    console.log(pageNow.join("|"))
                                     var index = 0;
                                     $("#artwork-page-content div.go-next").click(function () {
                                         if (index < newArtWorks[ii].urls.length - 1) {
@@ -476,6 +624,8 @@ if ($.cookie("authToken") != null) {
                             $("#home-page").fadeOut(400);
                             $("#gallery-page-content").fadeIn(400);
                             $("#gallery-page table tr").html("");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
                                     var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
@@ -580,6 +730,7 @@ if ($.cookie("authToken") != null) {
                             $("#home-page").fadeOut(400);
                             $("#gallery-page-content").fadeIn(400);
                             $("#gallery-page table tr").html("");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
                                     var userInfo = artworks.userInfo;
@@ -985,6 +1136,8 @@ $("#login-next").click(
                                             $("#home-page").fadeOut(400);
                                             $("#gallery-page-content").fadeIn(400);
                                             $("#gallery-page table tr").html("");
+                                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
                                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                                 if (result == "success") {
                                                     var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
@@ -1089,6 +1242,8 @@ $("#login-next").click(
                                             $("#home-page").fadeOut(400);
                                             $("#gallery-page-content").fadeIn(400);
                                             $("#gallery-page table tr").html("");
+                                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
                                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                                 if (result == "success") {
                                                     var userInfo = artworks.userInfo;
@@ -1342,10 +1497,13 @@ $("#login-next").click(
 
 $("#register-next").click(
     function () {
+        $("#loading-img").css('display', 'block');
         $("#registerForm1").ajaxSubmit({
             type: "post",
             url: "/v1/user/register",
             success: function (result) {
+                $("#loading-img").css('display', 'none');
+
                 if (result.info.code == "200") {
                     console.log("register complete");
                     $("#home-logo").fadeOut(400, function () {
@@ -1359,6 +1517,7 @@ $("#register-next").click(
                 }
             },
             error: function () {
+                $("#loading-img").css('display', 'none');
                 $("#home-logo").css('color', 'red');
                 $("#home-logo").text("注册");
                 $("#re-email-text").css('color', 'red');
@@ -1539,6 +1698,8 @@ function getFullPath(obj) {  //得到图片的完整路径
 }
 
 $("#save-button").click(function () {
+    $("#gallery-page table tr").html('');
+    $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
     $("#editForm1").ajaxSubmit({
         type: "post",
         url: "/v1/art/add",
@@ -1555,22 +1716,37 @@ $("#save-button").click(function () {
                 fadeoutNow();
                 $.get("v1/user/info", function (user, result) {
                     if (result == "success") {
+                        with (location) {
+                            var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                        }
+                        $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
                         $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                             if (result == "success") {
                                 var userInfo = artworks.userInfo;
                                 artworks = artworks.lists;
                                 artworksLocal = artworks.lists;
                                 $("#gallery-page table tr").html('');
-                                $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>")
+                                $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                                if (artworks.length == 0) {
+                                    $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                                }
                                 $("#gallery-page-content p").text(userInfo.galleryName);
                                 $("#add-works-button").click(function () {
+                                    $("input").css('borderBottom', '3px solid ' + 'black');
                                     pageNow.push("edita");
                                     fadeinNow();
                                     fadeoutNow();
                                 });
+
+
+
+                                // var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
                                 for (var j in artworks) {
-                                    $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                    $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                 }
+
                                 var tdss = $("#gallery-page table tr td .slide-part-content").toArray();
                                 for (var j in tdss) {
                                     tdss[j].onclick = function (ii) {
@@ -1600,6 +1776,7 @@ $("#save-button").click(function () {
                                             $("#id-artwork-intro").css('left', artworkLeft);
                                             $("#gallery-page-content").fadeOut(400);
                                             $("#artwork-page-content").fadeIn(400);
+                                            $("#nav-slide-content").css('display', 'none');
                                         }
                                     }(j)
                                 }
@@ -1690,10 +1867,12 @@ $("#modify-button").click(
 $("#nav-ul-me").click(
     function () {
         pageNow.push("me");
+        $("#loading-img").css('display', 'block');
         $("input").css('borderBottom', '3px solid ' + 'black');
         $.get("v1/user/info", function (user, result) {
             if (result == "success") {
                 userNow = user.userInfo;
+                $("#loading-img").css('display', 'none');
                 $("#registerForm5").find('#me-name').val(userNow.name);
                 $("#registerForm5").find('#me-galleyName').val(userNow.galleryName);
                 $("#modify-head-fake").css('background', 'url(' + userNow.avatar + ')');
