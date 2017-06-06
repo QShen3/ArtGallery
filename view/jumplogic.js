@@ -46,10 +46,10 @@ function changeWorkSize(awidth, aheight, gheight) {
 function changeWorkImgSize(awidth, aheight) {
     // if(aheight>)
     var newSize = new Array();
-    if (awidth > pageWidth * 0.6) {
+    if (awidth > pageWidth * 0.8) {
 
-        newSize[0] = pageWidth * 0.6 + 'px';
-        newSize[1] = awidth * (pageWidth / awidth) * 0.6 + 'px';
+        newSize[0] = pageWidth * 0.8 + 'px';
+        newSize[1] = aheight * (pageWidth / awidth) * 0.8 + 'px';
     } else {
         newSize[0] = awidth + 'px';
         newSize[1] = aheight + 'px';
@@ -132,20 +132,28 @@ $("#search-button").click(function () {
                         divs[i].onclick = function (ii) {
                             return function () {
                                 var index = 0;
+                                pageNow.push("artworks");
+                                // fadeinNow();
+                                fadeoutNow();
                                 $("#artwork-page-content div.go-next").click(function () {
                                     if (index < seaArtWorks[ii].urls.length - 1) {
                                         index++;
-                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(seaArtWorks[ii].size[index].width, seaArtWorks[ii].size[index].height)[0]);
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(seaArtWorks[ii].size[index].width, seaArtWorks[ii].size[index].height)[1]);
+                                        $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                     }
                                 });
                                 $("#artwork-page-content div.go-pre").click(function () {
                                     if (index > 0) {
                                         index--;
-                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(seaArtWorks[ii].size[index].width, seaArtWorks[ii].size[index].height)[0]);
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(seaArtWorks[ii].size[index].width, seaArtWorks[ii].size[index].height)[1]);
+                                        $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                     }
                                 });
-
-                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(seaArtWorks[ii].size[index].width, seaArtWorks[ii].size[index].height)[0]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(seaArtWorks[ii].size[index].width, seaArtWorks[ii].size[index].height)[1]);
+                                $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(seaArtWorks[ii].profile);
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(seaArtWorks[ii].title + " 来自");
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + seaArtWorks[ii].author.info.name + "的</span>");
@@ -271,17 +279,22 @@ $("#gallery-go-top").click(function () {
                                                 $("#artwork-page-content div.go-next").click(function () {
                                                     if (index < artworks[ii].urls.length - 1) {
                                                         index++;
-                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                     }
                                                 });
                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                     if (index > 0) {
                                                         index--;
-                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                     }
                                                 });
-
-                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
@@ -373,9 +386,9 @@ $("#gallery-go-top").click(function () {
                                     if (index < newArtWorks[ii].urls.length - 1) {
                                         index++;
                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeOut(200, function () {
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeIn(200);
                                         })
                                     }
@@ -384,17 +397,17 @@ $("#gallery-go-top").click(function () {
                                     if (index > 0) {
                                         index--;
                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeOut(200, function () {
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeIn(200);
                                         })
                                     }
                                 });
 
-                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
-                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
-                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
@@ -526,26 +539,33 @@ $("#gallery-a").click(
                                 return function () {
 
                                     pageNow.push("artworks");
+                                    fadeoutNow();
                                     console.log(pageNow.join("|"))
                                     var index = 0;
                                     $("#artwork-page-content div.go-next").click(function () {
                                         if (index < newArtWorks[ii].urls.length - 1) {
                                             index++;
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                         }
                                     });
                                     $("#artwork-page-content div.go-pre").click(function () {
                                         if (index > 0) {
                                             index--;
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                         }
                                     });
-
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                                    // alert(artworks[ii].size[index].width+''+artworks[ii].size[index].width)
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.galleryName + "</span>");
                                     artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                                     $("#id-artwork-intro").css('left', artworkLeft);
                                     $("#gallery-page-content").fadeOut(400);
@@ -658,17 +678,23 @@ if ($.cookie("authToken") != null) {
                                                 $("#artwork-page-content div.go-next").click(function () {
                                                     if (index < artworks[ii].urls.length - 1) {
                                                         index++;
-                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                     }
                                                 });
                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                     if (index > 0) {
                                                         index--;
-                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                     }
                                                 });
 
-                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
@@ -761,17 +787,22 @@ if ($.cookie("authToken") != null) {
                                                 $("#artwork-page-content div.go-next").click(function () {
                                                     if (index < artworks[ii].urls.length - 1) {
                                                         index++;
-                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                     }
                                                 });
                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                     if (index > 0) {
                                                         index--;
-                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                     }
                                                 });
-
-                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
@@ -813,23 +844,28 @@ if ($.cookie("authToken") != null) {
                         return function () {
                             var index = 0;
                             $("#artwork-page-content div.go-next").click(function () {
-                                if (index < newArtWorks[ii].urls.length - 1) {
+                                if (index < colArtWorks[ii].urls.length - 1) {
                                     index++;
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[1]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                 }
                             });
                             $("#artwork-page-content div.go-pre").click(function () {
                                 if (index > 0) {
                                     index--;
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[1]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                 }
                             });
-
-                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
-                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
-                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
-                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
-                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[0]);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[1]);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(colArtWorks[ii].profile);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(colArtWorks[ii].title + " 来自");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + colArtWorks[ii].author.info.name + "的</span>");
+                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + colArtWorks[ii].author.info.galleryName + "</span>");
                             artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                             $("#id-artwork-intro").css('left', artworkLeft);
                             $("#artwork-page-content").fadeIn(400);
@@ -909,17 +945,23 @@ if ($.cookie("authToken") != null) {
                             $("#artwork-page-content div.go-next").click(function () {
                                 if (index < newArtWorks[ii].urls.length - 1) {
                                     index++;
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                 }
                             });
                             $("#artwork-page-content div.go-pre").click(function () {
                                 if (index > 0) {
                                     index--;
-                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                 }
                             });
 
-                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
@@ -1170,17 +1212,22 @@ $("#login-next").click(
                                                                 $("#artwork-page-content div.go-next").click(function () {
                                                                     if (index < artworks[ii].urls.length - 1) {
                                                                         index++;
-                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                                     }
                                                                 });
                                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                                     if (index > 0) {
                                                                         index--;
-                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                                     }
                                                                 });
-
-                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
@@ -1274,17 +1321,22 @@ $("#login-next").click(
                                                                 $("#artwork-page-content div.go-next").click(function () {
                                                                     if (index < artworks[ii].urls.length - 1) {
                                                                         index++;
-                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                                     }
                                                                 });
                                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                                     if (index > 0) {
                                                                         index--;
-                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                                     }
                                                                 });
-
-                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
@@ -1326,23 +1378,28 @@ $("#login-next").click(
                                         return function () {
                                             var index = 0;
                                             $("#artwork-page-content div.go-next").click(function () {
-                                                if (index < newArtWorks[ii].urls.length - 1) {
+                                                if (index < colArtWorks[ii].urls.length - 1) {
                                                     index++;
-                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[1]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                                 }
                                             });
                                             $("#artwork-page-content div.go-pre").click(function () {
                                                 if (index > 0) {
                                                     index--;
-                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[1]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                                 }
                                             });
-
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(colArtWorks[ii].size[index].width, colArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + colArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');$("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(colArtWorks[ii].profile);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(colArtWorks[ii].title + " 来自");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + colArtWorks[ii].author.info.name + "的</span>");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + colArtWorks[ii].author.info.galleryName + "</span>");
                                             artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                                             $("#id-artwork-intro").css('left', artworkLeft);
                                             $("#artwork-page-content").fadeIn(400);
@@ -1422,17 +1479,22 @@ $("#login-next").click(
                                             $("#artwork-page-content div.go-next").click(function () {
                                                 if (index < newArtWorks[ii].urls.length - 1) {
                                                     index++;
-                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                 }
                                             });
                                             $("#artwork-page-content div.go-pre").click(function () {
                                                 if (index > 0) {
                                                     index--;
-                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                 }
                                             });
-
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')'); $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
@@ -1755,23 +1817,28 @@ $("#save-button").click(function () {
                                             pageNow.push("artworks");
                                             var index = 0;
                                             $("#artwork-page-content div.go-next").click(function () {
-                                                if (index < newArtWorks[ii].urls.length - 1) {
+                                                if (index < artworks[ii].urls.length - 1) {
                                                     index++;
-                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                 }
                                             });
                                             $("#artwork-page-content div.go-pre").click(function () {
                                                 if (index > 0) {
                                                     index--;
-                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
                                                 }
                                             });
-
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('height', changeWorkImgSize(artworks[ii].size[index].width, artworks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');$("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.galleryName + "</span>");
                                             artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                                             $("#id-artwork-intro").css('left', artworkLeft);
                                             $("#gallery-page-content").fadeOut(400);
@@ -1930,6 +1997,9 @@ $("#register2-pre").click(function () {
     $("#register1-next").fadeIn(400);
 })
 
+$("div").click(function() {
+    $("#id-artwork-page-content").css('margin-top',(pageHeight-$("#id-artwork-page-content").height())/2 + 'px');
+})
 function fadeoutNow() {
     console.log(pageNow.join("|"));
     if (pageNow[pageNow.length - 2] == "home") {
