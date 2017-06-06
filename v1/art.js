@@ -42,12 +42,15 @@ router.get("/list", async (req, res, next) => {
         docs[i]._doc.height = image.bitmap.height;
     }
 
+    let user = await User.findById(req.query.uid).select("info.galleryName info.name info.avatar").exec();
+
     result.pager = {};
     result.pager.page = parseInt(req.query.page);
     result.pager.pagesize = parseInt(req.query.pagesize);
     result.pager.pagecount = Math.ceil(count / req.query.pagesize);
     result.pager.count = count;
     result.lists = docs;
+    result.userInfo = user.info;
 
     res.status(200).jsonp(result);
 
