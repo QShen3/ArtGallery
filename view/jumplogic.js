@@ -4,10 +4,13 @@ var newArtWorks = new Array();
 var seaArtWorks = new Array();
 var colArtWorks = new Array();
 var artworksLocal = new Array();
+var userNow;
+var userNowContent;
 
 var pageNow = ['index'];//页面栈 
 var pagenow;
 var currentArtwork;
+var inputNewBool = false;
 
 var currentImg = new Array();
 
@@ -16,6 +19,44 @@ $("#exit-button").click(function () {
     $.cookie('email', null, { expires: -1, path: '/' });
     location.reload();
 });
+
+
+$.get("v1/user/info", function (user, result) {
+    if (result == "success") {
+        userNowContent = user;
+    }
+})
+
+
+function changeWorkSize(awidth, aheight, gheight) {
+    // if(aheight>)
+    var newSize = new Array();
+    if (aheight > gheight * 0.6) {
+        newSize[0] = awidth * (gheight / aheight) * 0.5 + 'px';
+
+        newSize[1] = gheight * 0.5 + 'px';
+    } else {
+        newSize[0] = awidth + 'px';
+        newSize[1] = aheight + 'px';
+    }
+    console.log(newSize.join("||"))
+    return newSize;
+}
+
+function changeWorkImgSize(awidth, aheight) {
+    // if(aheight>)
+    var newSize = new Array();
+    if (awidth > pageWidth * 0.6) {
+
+        newSize[0] = pageWidth * 0.6 + 'px';
+        newSize[1] = awidth * (pageWidth / awidth) * 0.6 + 'px';
+    } else {
+        newSize[0] = awidth + 'px';
+        newSize[1] = aheight + 'px';
+    }
+    console.log(newSize.join("||"))
+    return newSize;
+}
 
 function addCol() {
     $.post("/v1/user/collection/add", { aid: currentArtwork }, function (data, status) {
@@ -52,12 +93,23 @@ function addArt() {
 
 
 $("#search-button").click(function () {
+    searchFoldedBool = true;
+    $("#unfold-search-block").slideDown(200);
+    $("#search-back-top").slideUp(200, function () {
+    });
+    $("#unfold-search-block").css({ position: 'relative', left: "0px", paddingLeft: '20px' });
+    // $("#unfold-search-block").animate({opacity:0},10);
+    $("#folded").slideUp(200, function () {
+        // $("#folded").css('height',47+'px');
+    });
     everyThingIsGrey();
     $("#search-a-li").css('border-bottom', '3px solid ' + 'rgb' + '(' + op2 + ',' + op2 + ',' + op2 + ')');
     pageNow.push("search");
     $("#search-page-content").fadeIn(400);
     $("#home-page").fadeOut(400);
     var $defaultSea;
+    $("#search-page-content").html("<p class='slide-title'>检索</p><div class='search-part-content'><p class='slide-part-no' style='font-size:4em'><img src='../icons/ImpoliteLivelyGenet.gif'></p></div>");
+
     $("#searchForm").ajaxSubmit({
         type: "get",
         url: "/v1/art/search",
@@ -69,7 +121,7 @@ $("#search-button").click(function () {
                 }
                 seaArtWorks = result.lists;
                 if (seaArtWorks.length != 0) {
-                    $defaultSea = $("#search-page-content div:eq(0)").remove();
+                    // $defaultSea = $("#search-page-content div:eq(0)").remove();
                     $("#search-page-content").html("");
                     $("#search-page-content").append("<p class='slide-title'>检索</p>");
                     for (var i in seaArtWorks) {
@@ -141,17 +193,120 @@ $("#collection-a").click(
     }
 );
 $("#artwork-go-top").click(function () {
-    // $("#nav-slide-content").fadeIn(400);
     pageNow.push(pageNow[pageNow.length - 2]);
-    fadeoutNow();
+    if (pageNow[pageNow.length - 1] != 'gallery') {
+        $("#nav-slide-content").fadeIn(400);
+    }
     fadeinNow();
+    fadeoutNow();
     // console.log(pageNow.pop());
 });
 
 $("#gallery-go-top").click(function () {
-    $("#nav-slide-content").fadeIn(400);
-    // pageNow.push(pageNow[pageNow.length - 2]);
-    $("#add-button-td").fadeOut(400);
+
+    $("#rec-gallery-slide table tr").html(' <div class="slide-part-content"><p class="slide-part-no" style="font-size:4em"><img src="../icons/ImpoliteLivelyGenet.gif"></p></div>');
+    $.get("/v1/user/recent", function (recentGallery, result) {
+        if (result == "success") {
+            if (!(recentGallery.recent instanceof Array)) {
+                console.error("Parameter wrong : {" + recentGallery.recent + "} is not an Array");
+                return null;
+            };
+            recGallery = recentGallery.recent;
+            if (recGallery.length != 0) {
+                $("#rec-gallery-slide table tr").html(' ');
+                for (var i = 0; i < recGallery.length; i++) {
+                    $("#rec-gallery-slide table tr").append("<td id=" + 'newGatTd' + recGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + recGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + recGallery[i].info.name + '的<br>' + recGallery[i].info.galleryName + "</p></div></td>");
+                };
+                var tds = $("#rec-gallery-slide table tr td").toArray();
+                for (var i in tds) {
+                    tds[i].onclick = function (ii) {
+                        return function () {
+                            with (location) {
+                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                            }
+                            $("#edit-button").css('display', 'none');
+                            if (tds[ii].attributes.id.nodeValue.substring(8) == userNowContent._id) {
+                                console.log('thisGallery' + tds[ii].attributes.id.nodeValue.substring(8) + '|' + 'usernow' + userNowContent._id)
+                                $("#edit-button").fadeIn(300);
+                            }
+                            $("#nav-slide-content").fadeOut(300);
+                            var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                            var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                            pageNow.push("gallery");
+                            $("#home-page").fadeOut(400);
+                            $("#gallery-page-content").fadeIn(400);
+                            $("#gallery-page table tr").html("");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
+                            $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
+                                if (result == "success") {
+                                    var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                    var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                                    var userInfo = artworks.userInfo;
+                                    artworks = artworks.lists;
+
+                                    $("#gallery-page table tr").html('');
+                                    $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                                    if (artworks.length == 0) {
+                                        $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                                    }
+                                    $("#gallery-page-content p").text(userInfo.galleryName);
+                                    for (var j in artworks) {
+                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                    }
+
+                                    $("#add-works-button").click(function () {
+                                        pageNow.push("edita");
+                                        fadeinNow();
+                                        fadeoutNow();
+                                    });
+
+                                    var tdss = $("#gallery-page table tr td .slide-part-img-0").toArray();
+                                    for (var j in tdss) {
+                                        tdss[j].onclick = function (ii) {
+                                            return function () {
+                                                pageNow.push("artworks");
+                                                var index = 0;
+                                                $("#artwork-page-content div.go-next").click(function () {
+                                                    if (index < artworks[ii].urls.length - 1) {
+                                                        index++;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                    }
+                                                });
+                                                $("#artwork-page-content div.go-pre").click(function () {
+                                                    if (index > 0) {
+                                                        index--;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                    }
+                                                });
+
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.galleryName + "</span>");
+                                                artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                                $("#id-artwork-intro").css('left', artworkLeft);
+                                                //$("#gallery-page-content").fadeOut(400);
+                                                //$("#artwork-page-content").fadeIn(400);
+                                                pageNow.push("artworks");
+                                                fadeoutNow();
+                                                fadeinNow();
+                                            }
+
+                                        }(j)
+                                    }
+                                }
+                            });
+                        }
+                    }(i)
+                }
+            }
+            // alert(recentGallery.lists[0].info.name)
+
+        }
+    });
     for (var j = 2; j < pageNow.length; j++) {
         if (pageNow[pageNow.length - j] != 'artworks' && pageNow[pageNow.length - j] != 'gallery' && pageNow[pageNow.length - j] != 'edita') {
             pageNow.push(pageNow[pageNow.length - j]);
@@ -160,8 +315,138 @@ $("#gallery-go-top").click(function () {
         }
     }
     // fadeinNow();
-    fadeoutNow();
-    fadeinNow();
+
+    if (inputNewBool) {
+        $.get("/v1/art/latest", function (latestArtWrok, result) {
+            if (result == "success") {
+
+                $("#nav-slide-content").fadeIn(400);
+                $("#gallery-a-li").css('border-bottom', 'none');
+                // pageNow.push(pageNow[pageNow.length - 2]);
+                $("#add-button-td").fadeOut(400);
+                // reArrangeArray(candidates.data);
+                if (!(latestArtWrok.lists instanceof Array)) {
+                    console.error("Parameter wrong : {" + recentGallery.data + "} is not an Array");
+                    return null;
+                };
+                newArtWorks = latestArtWrok.lists;
+                var Artindex = new Array();
+                if (newArtWorks.length != 0) {
+                    $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
+                    var artworkInCollection = new Array();
+                    for (var i = 0; i < newArtWorks.length; i++) {
+                        if (colArtWorks.length != 0) {
+                            // next:
+                            for (var j = 0; j < colArtWorks.length; j++) {
+                                if (newArtWorks[i]._id == colArtWorks[j]._id) {
+                                    artworkInCollection.push(i);
+                                    console.log(artworkInCollection.join("|"));
+                                }
+                            }
+
+                        }
+
+                    };
+
+                    $("#new-art-slide table tr").html('');
+                    for (var i = 0; i < newArtWorks.length; i++) {
+                        if (contains(artworkInCollection, i)) {
+                            console.log("collected" + i)
+                            $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(./icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                        } else {
+                            console.log("uncollected" + i)
+                            $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                        }
+                    };
+
+                    var tds = $("#new-art-slide table tr td .slide-part-img-2").toArray();
+                    for (var i in tds) {
+                        tds[i].onclick = function (ii) {
+                            return function () {
+                                //urls[ii] = newArtWorks[ii].urls;
+                                var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                                pageNow.push("artworks");
+                                $("#nav-slide-content").fadeOut(400);
+                                var index = 0;
+                                $("#artwork-page-content div.go-next").click(function () {
+                                    if (index < newArtWorks[ii].urls.length - 1) {
+                                        index++;
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeOut(200, function () {
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeIn(200);
+                                        })
+                                    }
+                                });
+                                $("#artwork-page-content div.go-pre").click(function () {
+                                    if (index > 0) {
+                                        index--;
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeOut(200, function () {
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeIn(200);
+                                        })
+                                    }
+                                });
+
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
+                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
+                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                                artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                $("#id-artwork-intro").css('left', artworkLeft);
+                                $("#artwork-page-content").fadeIn(400);
+                                $("#home-page").fadeOut(400);
+                            }
+                        }(i)
+                    }
+
+                    var colButton = $("#new-art-slide table tr td .slide-part-content .collecte-button").toArray();
+                    for (var i in colButton) {
+                        colButton[i].onclick = function (ii) {
+                            return function () {
+                                $.post("/v1/user/collection/add", { aid: newArtWorks[ii]._id }, function (data, status) {
+                                    if (status == "success") {//
+                                        if (data.status) {
+                                            $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
+                                                $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection_fill.png)', backgroundSize: 'cover' });
+                                                $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
+                                                colArtWorks.push(newArtWorks[ii]);
+                                            })
+                                        } else {
+                                            $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
+                                                $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection.png)', backgroundSize: 'cover' });
+                                                $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
+                                                removeById(colArtWorks, newArtWorks[ii]._id);
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                        }(i)
+                    }
+                    fadeoutNow();
+                    fadeinNow();
+                    $("#nav-slide-content").fadeIn(300);
+                }
+                // alert(latestArtWrok.lists[0].info.name)
+
+            }
+        });
+        inputNewBool = false;
+    } else {
+        fadeoutNow();
+        fadeinNow();
+        $("#nav-slide-content").fadeIn(300);
+    }
+
+
     // pageNow.push(pageNow[pageNow.length - 2]);
     // $("#gallery-go-top").fadeOut(400);
     // $("#gallery-page-content").fadeOut(400);
@@ -171,11 +456,15 @@ $("#gallery-go-top").click(function () {
 
 $("#edit-button").click(function () {
     $("#add-button-td").fadeIn(400);
+    $("#no-artwork").fadeOut(400);
 });
 
 $("#gallery-a").click(
     function () {
 
+        $("#gallery-page table tr").html('');
+        $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+        $("#edit-button").fadeIn(300);
         $("#nav-slide-content").fadeOut(100, function () {
 
         });
@@ -200,28 +489,44 @@ $("#gallery-a").click(
         // $("#gallery-page-content").fadeIn(400);
         $.get("v1/user/info", function (user, result) {
             if (result == "success") {
+                with (location) {
+                    var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                }
+                $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
                 $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                     if (result == "success") {
                         var userInfo = artworks.userInfo;
                         artworks = artworks.lists;
                         artworksLocal = artworks.lists;
                         $("#gallery-page table tr").html('');
-                        $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>")
+                        $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                        if (artworks.length == 0) {
+                            $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                        }
                         $("#gallery-page-content p").text(userInfo.galleryName);
                         $("#add-works-button").click(function () {
+                            $("input").css('borderBottom', '3px solid ' + 'black');
                             pageNow.push("edita");
                             fadeinNow();
                             fadeoutNow();
                         });
+
+
+
+                        // var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
                         for (var j in artworks) {
-                            $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                            $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                         }
+
                         var tdss = $("#gallery-page table tr td .slide-part-content").toArray();
                         for (var j in tdss) {
                             tdss[j].onclick = function (ii) {
                                 return function () {
 
                                     pageNow.push("artworks");
+                                    console.log(pageNow.join("|"))
                                     var index = 0;
                                     $("#artwork-page-content div.go-next").click(function () {
                                         if (index < newArtWorks[ii].urls.length - 1) {
@@ -272,6 +577,8 @@ if ($.cookie("authToken") != null) {
         var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
 
         var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+        // var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
     }
     $("#login-button").css('display', 'none');
     $("#register-button").css('display', 'none');
@@ -295,18 +602,30 @@ if ($.cookie("authToken") != null) {
             if (recGallery.length != 0) {
                 $defaultRec = $("#rec-gallery-slide table tr td:eq(0)").remove();//删除默认节点 
                 for (var i = 0; i < recGallery.length; i++) {
-                    $("#rec-gallery-slide table tr").append("<td id=" + 'newGatTd' + recGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + recGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + recGallery[i].info.name + '的' + recGallery[i].info.galleryName + "</p></div></td>");
+                    $("#rec-gallery-slide table tr").append("<td id=" + 'newGatTd' + recGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + recGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + recGallery[i].info.name + '的<br>' + recGallery[i].info.galleryName + "</p></div></td>");
                 };
                 var tds = $("#rec-gallery-slide table tr td").toArray();
                 for (var i in tds) {
                     tds[i].onclick = function (ii) {
                         return function () {
+                            with (location) {
+                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                            }
+                            $("#edit-button").css('display', 'none');
+                            if (tds[ii].attributes.id.nodeValue.substring(8) == userNowContent._id) {
+                                console.log('thisGallery' + tds[ii].attributes.id.nodeValue.substring(8) + '|' + 'usernow' + userNowContent._id)
+                                $("#edit-button").fadeIn(300);
+                            }
+                            $("#nav-slide-content").fadeOut(300);
                             var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                             var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
                             pageNow.push("gallery");
                             $("#home-page").fadeOut(400);
                             $("#gallery-page-content").fadeIn(400);
                             $("#gallery-page table tr").html("");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
                                     var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
@@ -314,11 +633,23 @@ if ($.cookie("authToken") != null) {
                                     var userInfo = artworks.userInfo;
                                     artworks = artworks.lists;
 
+                                    $("#gallery-page table tr").html('');
+                                    $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                                    if (artworks.length == 0) {
+                                        $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                                    }
                                     $("#gallery-page-content p").text(userInfo.galleryName);
                                     for (var j in artworks) {
-                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                     }
-                                    var tdss = $("#gallery-page table tr td").toArray();
+
+                                    $("#add-works-button").click(function () {
+                                        pageNow.push("edita");
+                                        fadeinNow();
+                                        fadeoutNow();
+                                    });
+
+                                    var tdss = $("#gallery-page table tr td .slide-part-img-0").toArray();
                                     for (var j in tdss) {
                                         tdss[j].onclick = function (ii) {
                                             return function () {
@@ -381,23 +712,47 @@ if ($.cookie("authToken") != null) {
                 for (var i in tds) {
                     tds[i].onclick = function (ii) {
                         return function () {
+                            with (location) {
+                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                            }
                             var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                             var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
                             pageNow.push("gallery");
+
+                            $("#nav-slide-content").fadeOut(300);
+                            $("#edit-button").css('display', 'none');
+                            if (tds[ii].attributes.id.nodeValue.substring(8) == userNowContent._id) {
+                                console.log('thisGallery' + tds[ii].attributes.id.nodeValue.substring(8) + '|' + 'usernow' + userNowContent._id)
+                                $("#edit-button").fadeIn(300);
+                            }
                             everyThingIsGrey();
                             $("#home-page").fadeOut(400);
                             $("#gallery-page-content").fadeIn(400);
                             $("#gallery-page table tr").html("");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
                                     var userInfo = artworks.userInfo;
                                     artworks = artworks.lists;
 
+                                    $("#gallery-page table tr").html('');
+                                    $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                                    if (artworks.length == 0) {
+                                        $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                                    }
                                     $("#gallery-page-content p").text(userInfo.galleryName);
                                     for (var j in artworks) {
-                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                     }
-                                    var tdss = $("#gallery-page table tr td").toArray();
+
+                                    $("#add-works-button").click(function () {
+                                        pageNow.push("edita");
+                                        fadeinNow();
+                                        fadeoutNow();
+                                    });
+
+                                    var tdss = $("#gallery-page table tr td .slide-part-img-0").toArray();
                                     for (var j in tdss) {
                                         tdss[j].onclick = function (ii) {
                                             return function () {
@@ -738,6 +1093,8 @@ $("#login-next").click(
                             var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
                             var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+                            // var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
                         }
                     })
                     $("#login-content").fadeOut(400);
@@ -746,9 +1103,9 @@ $("#login-next").click(
                     var $defaultNew;
                     var $defaultRec;
                     var $defaultNewArt;
+                    var $defaultColArt;
                     $.get("/v1/user/recent", function (recentGallery, result) {
                         if (result == "success") {
-                            // reArrangeArray(candidates.data);
                             if (!(recentGallery.recent instanceof Array)) {
                                 console.error("Parameter wrong : {" + recentGallery.recent + "} is not an Array");
                                 return null;
@@ -757,8 +1114,93 @@ $("#login-next").click(
                             if (recGallery.length != 0) {
                                 $defaultRec = $("#rec-gallery-slide table tr td:eq(0)").remove();//删除默认节点 
                                 for (var i = 0; i < recGallery.length; i++) {
-                                    $("#rec-gallery-slide table tr").append("<td id=" + 'newGatTd' + recGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + recGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + recGallery[i].info.name + '的' + recGallery[i].info.galleryName + "</p></div></td>");
+                                    $("#rec-gallery-slide table tr").append("<td id=" + 'newGatTd' + recGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + recGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + recGallery[i].info.name + '的<br>' + recGallery[i].info.galleryName + "</p></div></td>");
                                 };
+                                var tds = $("#rec-gallery-slide table tr td").toArray();
+                                for (var i in tds) {
+                                    tds[i].onclick = function (ii) {
+                                        return function () {
+                                            with (location) {
+                                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                                            }
+                                            $("#edit-button").css('display', 'none');
+                                            if (tds[ii].attributes.id.nodeValue.substring(8) == userNowContent._id) {
+                                                console.log('thisGallery' + tds[ii].attributes.id.nodeValue.substring(8) + '|' + 'usernow' + userNowContent._id)
+                                                $("#edit-button").fadeIn(300);
+                                            }
+                                            $("#nav-slide-content").fadeOut(300);
+                                            var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                            var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                                            pageNow.push("gallery");
+                                            $("#home-page").fadeOut(400);
+                                            $("#gallery-page-content").fadeIn(400);
+                                            $("#gallery-page table tr").html("");
+                                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
+                                            $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
+                                                if (result == "success") {
+                                                    var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                                    var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                                                    var userInfo = artworks.userInfo;
+                                                    artworks = artworks.lists;
+
+                                                    $("#gallery-page table tr").html('');
+                                                    $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                                                    if (artworks.length == 0) {
+                                                        $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                                                    }
+                                                    $("#gallery-page-content p").text(userInfo.galleryName);
+                                                    for (var j in artworks) {
+                                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                                    }
+
+                                                    $("#add-works-button").click(function () {
+                                                        pageNow.push("edita");
+                                                        fadeinNow();
+                                                        fadeoutNow();
+                                                    });
+
+                                                    var tdss = $("#gallery-page table tr td .slide-part-img-0").toArray();
+                                                    for (var j in tdss) {
+                                                        tdss[j].onclick = function (ii) {
+                                                            return function () {
+                                                                pageNow.push("artworks");
+                                                                var index = 0;
+                                                                $("#artwork-page-content div.go-next").click(function () {
+                                                                    if (index < artworks[ii].urls.length - 1) {
+                                                                        index++;
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                    }
+                                                                });
+                                                                $("#artwork-page-content div.go-pre").click(function () {
+                                                                    if (index > 0) {
+                                                                        index--;
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                    }
+                                                                });
+
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.galleryName + "</span>");
+                                                                artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                                                $("#id-artwork-intro").css('left', artworkLeft);
+                                                                //$("#gallery-page-content").fadeOut(400);
+                                                                //$("#artwork-page-content").fadeIn(400);
+                                                                pageNow.push("artworks");
+                                                                fadeoutNow();
+                                                                fadeinNow();
+                                                            }
+
+                                                        }(j)
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }(i)
+                                }
                             }
                             // alert(recentGallery.lists[0].info.name)
 
@@ -778,6 +1220,87 @@ $("#login-next").click(
                                 for (var i = 0; i < newGallery.length; i++) {
                                     $("#new-gallery-slide table tr").append("<td id=" + 'newGatTd' + newGallery[i]._id + "><div class='slide-part-content'><div class='slide-part-img' style='background:url(" + newGallery[i].info.avatar + ");background-size:cover;'></div><p class='slide-part-name'>" + newGallery[i].info.name + '的' + newGallery[i].info.galleryName + "</p></div></td>");
                                 };
+                                var tds = $("#new-gallery-slide table tr td").toArray();
+                                for (var i in tds) {
+                                    tds[i].onclick = function (ii) {
+                                        return function () {
+                                            with (location) {
+                                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                                            }
+                                            var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                            var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                                            pageNow.push("gallery");
+
+                                            $("#nav-slide-content").fadeOut(300);
+                                            $("#edit-button").css('display', 'none');
+                                            if (tds[ii].attributes.id.nodeValue.substring(8) == userNowContent._id) {
+                                                console.log('thisGallery' + tds[ii].attributes.id.nodeValue.substring(8) + '|' + 'usernow' + userNowContent._id)
+                                                $("#edit-button").fadeIn(300);
+                                            }
+                                            everyThingIsGrey();
+                                            $("#home-page").fadeOut(400);
+                                            $("#gallery-page-content").fadeIn(400);
+                                            $("#gallery-page table tr").html("");
+                                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
+                                            $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
+                                                if (result == "success") {
+                                                    var userInfo = artworks.userInfo;
+                                                    artworks = artworks.lists;
+
+                                                    $("#gallery-page table tr").html('');
+                                                    $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                                                    if (artworks.length == 0) {
+                                                        $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                                                    }
+                                                    $("#gallery-page-content p").text(userInfo.galleryName);
+                                                    for (var j in artworks) {
+                                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                                    }
+
+                                                    $("#add-works-button").click(function () {
+                                                        pageNow.push("edita");
+                                                        fadeinNow();
+                                                        fadeoutNow();
+                                                    });
+
+                                                    var tdss = $("#gallery-page table tr td .slide-part-img-0").toArray();
+                                                    for (var j in tdss) {
+                                                        tdss[j].onclick = function (ii) {
+                                                            return function () {
+                                                                pageNow.push("artworks");
+                                                                var index = 0;
+                                                                $("#artwork-page-content div.go-next").click(function () {
+                                                                    if (index < artworks[ii].urls.length - 1) {
+                                                                        index++;
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                    }
+                                                                });
+                                                                $("#artwork-page-content div.go-pre").click(function () {
+                                                                    if (index > 0) {
+                                                                        index--;
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                    }
+                                                                });
+
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.name + "的</span>");
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + artworks[ii].author.info.galleryName + "</span>");
+                                                                artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                                                $("#id-artwork-intro").css('left', artworkLeft);
+                                                                $("#gallery-page-content").fadeOut(400);
+                                                                $("#artwork-page-content").fadeIn(400);
+                                                            }
+                                                        }(j)
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }(i)
+                                }
                             }
                             // alert(latestGallery.lists[0].info.name)
 
@@ -789,6 +1312,7 @@ $("#login-next").click(
                                 console.error("Parameter wrong : {" + recentGallery.collections + "} is not an Array");
                                 return null
                             };
+
                             colArtWorks = collectArtWork.collections;
                             if (colArtWorks.length != 0) {
                                 $defaultColArt = $("#collection-page-content div:eq(0)").remove();
@@ -798,6 +1322,7 @@ $("#login-next").click(
                                 var divs = $("#collection-page-content div").toArray();
                                 for (var i in divs) {
                                     divs[i].onclick = function (ii) {
+
                                         return function () {
                                             var index = 0;
                                             $("#artwork-page-content div.go-next").click(function () {
@@ -828,6 +1353,26 @@ $("#login-next").click(
                             }
                         }
                     });
+
+                    function contains(arr, obj) {
+                        var i = arr.length;
+                        while (i--) {
+                            if (arr[i] === obj) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+
+                    function removeById(arr, val) {
+                        for (var i = 0; i < arr.length; i++) {
+                            if (arr[i]._id == val) {
+                                arr.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
+
                     $.get("/v1/art/latest", function (latestArtWrok, result) {
                         if (result == "success") {
                             // reArrangeArray(candidates.data);
@@ -836,22 +1381,100 @@ $("#login-next").click(
                                 return null;
                             };
                             newArtWorks = latestArtWrok.lists;
+                            var Artindex = new Array();
                             if (newArtWorks.length != 0) {
-                                $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 33
+                                $defaultNewArt = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
+                                var artworkInCollection = new Array();
                                 for (var i = 0; i < newArtWorks.length; i++) {
+                                    if (colArtWorks.length != 0) {
+                                        // next:
+                                        for (var j = 0; j < colArtWorks.length; j++) {
+                                            if (newArtWorks[i]._id == colArtWorks[j]._id) {
+                                                artworkInCollection.push(i);
+                                                console.log(artworkInCollection.join("|"));
+                                            }
+                                        }
 
-                                    $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'><div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                                    }
 
                                 };
+
+                                for (var i = 0; i < newArtWorks.length; i++) {
+                                    if (contains(artworkInCollection, i)) {
+                                        console.log("collected" + i)
+                                        $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(./icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                                    } else {
+                                        console.log("uncollected" + i)
+                                        $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                                    }
+                                };
+
+                                var tds = $("#new-art-slide table tr td .slide-part-img-2").toArray();
+                                for (var i in tds) {
+                                    tds[i].onclick = function (ii) {
+                                        return function () {
+                                            //urls[ii] = newArtWorks[ii].urls;
+                                            var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                            var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                                            pageNow.push("artworks");
+                                            $("#nav-slide-content").fadeOut(400);
+                                            var index = 0;
+                                            $("#artwork-page-content div.go-next").click(function () {
+                                                if (index < newArtWorks[ii].urls.length - 1) {
+                                                    index++;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                }
+                                            });
+                                            $("#artwork-page-content div.go-pre").click(function () {
+                                                if (index > 0) {
+                                                    index--;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                                }
+                                            });
+
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.name + "的</span>");
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").append("<span class='slide-part-from'>" + newArtWorks[ii].author.info.galleryName + "</span>");
+                                            artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
+                                            $("#id-artwork-intro").css('left', artworkLeft);
+                                            $("#artwork-page-content").fadeIn(400);
+                                            $("#home-page").fadeOut(400);
+                                        }
+                                    }(i)
+                                }
+
+                                var colButton = $("#new-art-slide table tr td .slide-part-content .collecte-button").toArray();
+                                for (var i in colButton) {
+                                    colButton[i].onclick = function (ii) {
+                                        return function () {
+                                            $.post("/v1/user/collection/add", { aid: newArtWorks[ii]._id }, function (data, status) {
+                                                if (status == "success") {//
+                                                    if (data.status) {
+                                                        $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
+                                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection_fill.png)', backgroundSize: 'cover' });
+                                                            $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
+                                                            colArtWorks.push(newArtWorks[ii]);
+                                                        })
+                                                    } else {
+                                                        $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
+                                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection.png)', backgroundSize: 'cover' });
+                                                            $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
+                                                            removeById(colArtWorks, newArtWorks[ii]._id);
+                                                        })
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }(i)
+                                }
                             }
                             // alert(latestArtWrok.lists[0].info.name)
 
                         }
                     });
-                    // var $defaultNew = $("#new-art-slide table tr td:eq(0)").remove();//删除默认节点 
-                    // $("#new-art-slide table tr").append($defaultNew);//恢复默认节点 
-                } else {
-                    alert("no")
+
                 }
             },
             error: function (data) { // data 保存提交后返回的数据
@@ -874,10 +1497,13 @@ $("#login-next").click(
 
 $("#register-next").click(
     function () {
+        $("#loading-img").css('display', 'block');
         $("#registerForm1").ajaxSubmit({
             type: "post",
             url: "/v1/user/register",
             success: function (result) {
+                $("#loading-img").css('display', 'none');
+
                 if (result.info.code == "200") {
                     console.log("register complete");
                     $("#home-logo").fadeOut(400, function () {
@@ -891,6 +1517,7 @@ $("#register-next").click(
                 }
             },
             error: function () {
+                $("#loading-img").css('display', 'none');
                 $("#home-logo").css('color', 'red');
                 $("#home-logo").text("注册");
                 $("#re-email-text").css('color', 'red');
@@ -1071,36 +1698,55 @@ function getFullPath(obj) {  //得到图片的完整路径
 }
 
 $("#save-button").click(function () {
+    $("#gallery-page table tr").html('');
+    $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
     $("#editForm1").ajaxSubmit({
         type: "post",
         url: "/v1/art/add",
         success: function (result) {
             console.log("editForm1");
             if (result.info.code == "200") {
+                $("input").css('borderBottom', "none");
                 // location.reload();
                 //添加成功
                 // artworksLocal.push();
+                inputNewBool = true;
                 pageNow.push('gallery');
                 fadeinNow();
                 fadeoutNow();
                 $.get("v1/user/info", function (user, result) {
                     if (result == "success") {
+                        with (location) {
+                            var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                        }
+                        $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+
                         $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                             if (result == "success") {
                                 var userInfo = artworks.userInfo;
                                 artworks = artworks.lists;
                                 artworksLocal = artworks.lists;
                                 $("#gallery-page table tr").html('');
-                                $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>")
+                                $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>");
+                                if (artworks.length == 0) {
+                                    $("#gallery-page table tr").append('<td id="no-artwork"><div class="slide-part-content"><p class="slide-part-no" style="font-size:4em">无</p></div></td>');
+                                }
                                 $("#gallery-page-content p").text(userInfo.galleryName);
                                 $("#add-works-button").click(function () {
+                                    $("input").css('borderBottom', '3px solid ' + 'black');
                                     pageNow.push("edita");
                                     fadeinNow();
                                     fadeoutNow();
                                 });
+
+
+
+                                // var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
                                 for (var j in artworks) {
-                                    $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                    $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                 }
+
                                 var tdss = $("#gallery-page table tr td .slide-part-content").toArray();
                                 for (var j in tdss) {
                                     tdss[j].onclick = function (ii) {
@@ -1130,6 +1776,7 @@ $("#save-button").click(function () {
                                             $("#id-artwork-intro").css('left', artworkLeft);
                                             $("#gallery-page-content").fadeOut(400);
                                             $("#artwork-page-content").fadeIn(400);
+                                            $("#nav-slide-content").css('display', 'none');
                                         }
                                     }(j)
                                 }
@@ -1147,6 +1794,7 @@ $("#save-button").click(function () {
 });
 
 $("#edit-pre").click(function () {
+    $("input").css('borderBottom', 'none');
     pageNow.push("gallery");
     fadeinNow();
     fadeoutNow();
@@ -1219,11 +1867,21 @@ $("#modify-button").click(
 $("#nav-ul-me").click(
     function () {
         pageNow.push("me");
-        // $("#home-logo").css('backgroundImage', 'url()');
-        // $("#home-logo").text("您");
-        // $("#home-logo").fadeIn(400);
-        $("#mod-exit").fadeIn(400);
-        $("#me-page-content").fadeIn(400);
+        $("#loading-img").css('display', 'block');
+        $("input").css('borderBottom', '3px solid ' + 'black');
+        $.get("v1/user/info", function (user, result) {
+            if (result == "success") {
+                userNow = user.userInfo;
+                $("#loading-img").css('display', 'none');
+                $("#registerForm5").find('#me-name').val(userNow.name);
+                $("#registerForm5").find('#me-galleyName').val(userNow.galleryName);
+                $("#modify-head-fake").css('background', 'url(' + userNow.avatar + ')');
+                $("#modify-head-fake").css('backgroundSize', 'cover');
+                $("#mod-exit").fadeIn(400);
+                $("#me-page-content").fadeIn(400);
+            }
+        })
+
         $("#nav-slide-content").fadeOut(400);
         fadeoutNow();
     }
@@ -1231,6 +1889,7 @@ $("#nav-ul-me").click(
 
 $("#me-pre").click(
     function () {
+        $("input").css('borderBottom', 'none');
         $("#me-page-content").fadeOut(400);
         $("#nav-slide-content").fadeIn(400);
         $("#mod-exit").fadeOut(400);

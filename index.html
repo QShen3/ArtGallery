@@ -129,7 +129,7 @@
                 <input name="pwd" type="password">
             </div>
             <div class="form-part-content">
-                <h6 id="re-gallery-text">您的画廊叫什么</h6>
+                <h6 id="re-gallery-text">您的画廊叫什么（8字以内）</h6>
                 <input name="galleryName" type="text">
                 <input name="name" type="text" value="default" style="display:none">
                 <input name="avatar" type="text" value="" style="display:none">
@@ -152,7 +152,7 @@
 
                             </div>-->
                             <p class="slide-part-no" style="font-size:4em">
-                                无
+                                <img src="../icons/ImpoliteLivelyGenet.gif">
                             </p>
                         </div>
                     </td>
@@ -172,7 +172,7 @@
 
                             </div>-->
                             <p class="slide-part-no" style="font-size:4em">
-                                无
+                                <img src="../icons/ImpoliteLivelyGenet.gif">
                             </p>
                         </div>
                     </td>
@@ -189,7 +189,7 @@
                         <div class="slide-part-content">
 
                             <p class="slide-part-no" style="font-size:4em">
-                                无
+                                <img src="../icons/ImpoliteLivelyGenet.gif">
                             </p>
                         </div>
                     </td>
@@ -203,23 +203,18 @@
         <div class="slide" id="gallery-page">
             <table border="0" cellspacing="50px" cellpadding="20px" id="gallery-slide-table" class="slide-table" style="text-align:left;">
                 <tr>
-                    <!--<td>
+                    <td>
                         <div class="slide-part-content">
-                            <div class="slide-part-img-0">
-
-                            </div>
-                            <p class="slide-part-name">
-                                颢豆的画廊
-                            </p>
+                            <img src="../icons/ImpoliteLivelyGenet.gif">
                         </div>
-                    </td>-->
+                    </td>
                     <!--<td>
                         <div class="add-button" id="add-works-button"></div>
                     </td>-->
                 </tr>
             </table>
         </div>
-        <div class="button" style="width:200px;margin:auto auto;" id="edit-button">
+        <div class="button" style="width:200px;margin:auto auto;" id="edit-button" style="display:none">
             点击编辑您的画廊
         </div>
         <p class="gallery-title"></p>
@@ -229,7 +224,7 @@
         <p class="slide-title">检索</p>
         <div class="search-part-content">
             <p class="slide-part-no" style="font-size:4em">
-                无
+                <img src="../icons/ImpoliteLivelyGenet.gif">
             </p>
         </div>
     </div>
@@ -237,7 +232,7 @@
         <p class="slide-title">收藏</p>
         <div class="search-part-content">
             <p class="slide-part-no" style="font-size:4em">
-                无
+                <img src="../icons/ImpoliteLivelyGenet.gif">
             </p>
         </div>
     </div>
@@ -294,10 +289,10 @@
         
         <form id="registerForm5">
             <div class="form-part-content">
-                <h6>您叫什么</h6>
-                <input name="name" type="text">
-                <h6>您的画廊叫什么</h6>
-                <input name="galleryName" type="text">
+                <h6>您叫什么(7字以内）</h6>
+                <input id='me-name' name="name" type="text">
+                <h6>您的画廊叫什么(8字以内）</h6>
+                <input name="galleryName" id='me-galleyName' type="text">
                 <input name="gender" type="text" style="display:none">
                 <input name="age" type="text" style="display:none">
                 <input name="avatar" id="headurlavamod" type="text" style="display:none">
@@ -328,7 +323,7 @@
 
         <form id="registerForm3">
             <div class="form-part-content">
-                <h6>您叫什么</h6>
+                <h6>您叫什么（7字以内）</h6>
                 <input name="name" type="text">
                 <input name="galleryName" type="text" style="display:none">
                 <input name="gender" type="text" style="display:none">
@@ -422,6 +417,10 @@
                 </div>
         </div>
 
+    </div>
+
+    <div id="loading-img" style="width:100%;display:none";>
+        <img style="margin:auto auto;" src="../icons/ImpoliteLivelyGenet.gif">
     </div>
 
     <script src="./lips/vue.js"></script>
