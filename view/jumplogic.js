@@ -135,16 +135,21 @@ $("#search-button").click(function () {
                                 $("#artwork-page-content div.go-next").click(function () {
                                     if (index < seaArtWorks[ii].urls.length - 1) {
                                         index++;
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                     }
                                 });
                                 $("#artwork-page-content div.go-pre").click(function () {
                                     if (index > 0) {
                                         index--;
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                     }
                                 });
-
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                 $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + seaArtWorks[ii].urls[index] + ')');
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(seaArtWorks[ii].profile);
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(seaArtWorks[ii].title + " 来自");
@@ -271,16 +276,21 @@ $("#gallery-go-top").click(function () {
                                                 $("#artwork-page-content div.go-next").click(function () {
                                                     if (index < artworks[ii].urls.length - 1) {
                                                         index++;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                     }
                                                 });
                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                     if (index > 0) {
                                                         index--;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                     }
                                                 });
-
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
@@ -373,8 +383,8 @@ $("#gallery-go-top").click(function () {
                                     if (index < newArtWorks[ii].urls.length - 1) {
                                         index++;
                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeOut(200, function () {
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeIn(200);
                                         })
@@ -384,16 +394,16 @@ $("#gallery-go-top").click(function () {
                                     if (index > 0) {
                                         index--;
                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeOut(200, function () {
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
-                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").fadeIn(200);
                                         })
                                     }
                                 });
 
-                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
-                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                 $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
@@ -531,16 +541,22 @@ $("#gallery-a").click(
                                     $("#artwork-page-content div.go-next").click(function () {
                                         if (index < newArtWorks[ii].urls.length - 1) {
                                             index++;
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                         }
                                     });
                                     $("#artwork-page-content div.go-pre").click(function () {
                                         if (index > 0) {
                                             index--;
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                         }
                                     });
 
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                     $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                                     $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
@@ -658,16 +674,22 @@ if ($.cookie("authToken") != null) {
                                                 $("#artwork-page-content div.go-next").click(function () {
                                                     if (index < artworks[ii].urls.length - 1) {
                                                         index++;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                     }
                                                 });
                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                     if (index > 0) {
                                                         index--;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                     }
                                                 });
 
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
@@ -761,16 +783,21 @@ if ($.cookie("authToken") != null) {
                                                 $("#artwork-page-content div.go-next").click(function () {
                                                     if (index < artworks[ii].urls.length - 1) {
                                                         index++;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                     }
                                                 });
                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                     if (index > 0) {
                                                         index--;
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                     }
                                                 });
-
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
@@ -815,16 +842,21 @@ if ($.cookie("authToken") != null) {
                             $("#artwork-page-content div.go-next").click(function () {
                                 if (index < newArtWorks[ii].urls.length - 1) {
                                     index++;
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 }
                             });
                             $("#artwork-page-content div.go-pre").click(function () {
                                 if (index > 0) {
                                     index--;
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 }
                             });
-
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
@@ -909,16 +941,22 @@ if ($.cookie("authToken") != null) {
                             $("#artwork-page-content div.go-next").click(function () {
                                 if (index < newArtWorks[ii].urls.length - 1) {
                                     index++;
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 }
                             });
                             $("#artwork-page-content div.go-pre").click(function () {
                                 if (index > 0) {
                                     index--;
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                 }
                             });
 
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
@@ -1170,16 +1208,21 @@ $("#login-next").click(
                                                                 $("#artwork-page-content div.go-next").click(function () {
                                                                     if (index < artworks[ii].urls.length - 1) {
                                                                         index++;
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                                     }
                                                                 });
                                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                                     if (index > 0) {
                                                                         index--;
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                                     }
                                                                 });
-
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
@@ -1274,16 +1317,21 @@ $("#login-next").click(
                                                                 $("#artwork-page-content div.go-next").click(function () {
                                                                     if (index < artworks[ii].urls.length - 1) {
                                                                         index++;
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                                     }
                                                                 });
                                                                 $("#artwork-page-content div.go-pre").click(function () {
                                                                     if (index > 0) {
                                                                         index--;
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                                        $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                                         $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                                     }
                                                                 });
-
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                                $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + artworks[ii].urls[index] + ')');
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(artworks[ii].profile);
                                                                 $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(artworks[ii].title + " 来自");
@@ -1328,16 +1376,21 @@ $("#login-next").click(
                                             $("#artwork-page-content div.go-next").click(function () {
                                                 if (index < newArtWorks[ii].urls.length - 1) {
                                                     index++;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                                 }
                                             });
                                             $("#artwork-page-content div.go-pre").click(function () {
                                                 if (index > 0) {
                                                     index--;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                                 }
                                             });
-
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
@@ -1422,16 +1475,21 @@ $("#login-next").click(
                                             $("#artwork-page-content div.go-next").click(function () {
                                                 if (index < newArtWorks[ii].urls.length - 1) {
                                                     index++;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                                 }
                                             });
                                             $("#artwork-page-content div.go-pre").click(function () {
                                                 if (index > 0) {
                                                     index--;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                                 }
                                             });
-
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
@@ -1757,16 +1815,21 @@ $("#save-button").click(function () {
                                             $("#artwork-page-content div.go-next").click(function () {
                                                 if (index < newArtWorks[ii].urls.length - 1) {
                                                     index++;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                                 }
                                             });
                                             $("#artwork-page-content div.go-pre").click(function () {
                                                 if (index > 0) {
                                                     index--;
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                                    $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                                     $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                                 }
                                             });
-
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[0]);
+                                            $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('width', changeWorkImgSize(newArtWorks[ii].size[index].width, newArtWorks[ii].size[index].height)[1]);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-part-img").css('background-image', 'url(' + newArtWorks[ii].urls[index] + ')');
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro-m").html(newArtWorks[ii].profile);
                                             $("#artwork-page-content div.artwork-page-content div.artwork-intro p.artwork-part-intro").html(newArtWorks[ii].title + " 来自");
