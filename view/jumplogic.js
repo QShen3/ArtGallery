@@ -28,8 +28,19 @@ $.get("v1/user/info", function (user, result) {
 })
 
 
-function changeWorkSize(aheight, awidth, gheight) {
+function changeWorkSize(awidth, aheight, gheight) {
     // if(aheight>)
+    var newSize = new Array();
+    if (aheight > gheight * 0.6) {
+        newSize[0] = awidth * (gheight / aheight) * 0.5 + 'px';
+
+        newSize[1] = gheight * 0.5 + 'px';
+    } else {
+        newSize[0] = awidth + 'px';
+        newSize[1] = aheight + 'px';
+    }
+    console.log(newSize.join("||"))
+    return newSize;
 }
 
 function addCol() {
@@ -279,6 +290,7 @@ $("#gallery-go-top").click(function () {
                     }
                     fadeoutNow();
                     fadeinNow();
+                    $("#nav-slide-content").fadeIn(300);
                 }
                 // alert(latestArtWrok.lists[0].info.name)
 
@@ -288,6 +300,7 @@ $("#gallery-go-top").click(function () {
     } else {
         fadeoutNow();
         fadeinNow();
+        $("#nav-slide-content").fadeIn(300);
     }
 
 
@@ -331,6 +344,10 @@ $("#gallery-a").click(
         // $("#gallery-page-content").fadeIn(400);
         $.get("v1/user/info", function (user, result) {
             if (result == "success") {
+                with (location) {
+                    var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                }
                 $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                     if (result == "success") {
                         var userInfo = artworks.userInfo;
@@ -349,8 +366,11 @@ $("#gallery-a").click(
                             fadeoutNow();
                         });
 
+
+
+                        // var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
                         for (var j in artworks) {
-                            $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                            $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                         }
 
                         var tdss = $("#gallery-page table tr td .slide-part-content").toArray();
@@ -409,6 +429,8 @@ if ($.cookie("authToken") != null) {
         var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
 
         var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+        // var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
     }
     $("#login-button").css('display', 'none');
     $("#register-button").css('display', 'none');
@@ -438,6 +460,10 @@ if ($.cookie("authToken") != null) {
                 for (var i in tds) {
                     tds[i].onclick = function (ii) {
                         return function () {
+                            with (location) {
+                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                            }
                             $("#edit-button").css('display', 'none');
                             if (tds[ii].attributes.id.nodeValue.substring(8) == userNowContent._id) {
                                 console.log('thisGallery' + tds[ii].attributes.id.nodeValue.substring(8) + '|' + 'usernow' + userNowContent._id)
@@ -464,7 +490,7 @@ if ($.cookie("authToken") != null) {
                                     }
                                     $("#gallery-page-content p").text(userInfo.galleryName);
                                     for (var j in artworks) {
-                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                     }
 
                                     $("#add-works-button").click(function () {
@@ -536,6 +562,10 @@ if ($.cookie("authToken") != null) {
                 for (var i in tds) {
                     tds[i].onclick = function (ii) {
                         return function () {
+                            with (location) {
+                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                            }
                             var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                             var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
                             pageNow.push("gallery");
@@ -562,7 +592,7 @@ if ($.cookie("authToken") != null) {
                                     }
                                     $("#gallery-page-content p").text(userInfo.galleryName);
                                     for (var j in artworks) {
-                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                     }
 
                                     $("#add-works-button").click(function () {
@@ -912,6 +942,8 @@ $("#login-next").click(
                             var newGalleryScroll = new IScroll('#new-gallery-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 
                             var newArtScroll = new IScroll('#new-art-slide', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+
+                            // var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
                         }
                     })
                     $("#login-content").fadeOut(400);
@@ -937,6 +969,10 @@ $("#login-next").click(
                                 for (var i in tds) {
                                     tds[i].onclick = function (ii) {
                                         return function () {
+                                            with (location) {
+                                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                                            }
                                             $("#edit-button").css('display', 'none');
                                             if (tds[ii].attributes.id.nodeValue.substring(8) == userNowContent._id) {
                                                 console.log('thisGallery' + tds[ii].attributes.id.nodeValue.substring(8) + '|' + 'usernow' + userNowContent._id)
@@ -963,7 +999,7 @@ $("#login-next").click(
                                                     }
                                                     $("#gallery-page-content p").text(userInfo.galleryName);
                                                     for (var j in artworks) {
-                                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                                     }
 
                                                     $("#add-works-button").click(function () {
@@ -1035,6 +1071,10 @@ $("#login-next").click(
                                 for (var i in tds) {
                                     tds[i].onclick = function (ii) {
                                         return function () {
+                                            with (location) {
+                                                var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
+
+                                            }
                                             var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                                             var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
                                             pageNow.push("gallery");
@@ -1061,7 +1101,7 @@ $("#login-next").click(
                                                     }
                                                     $("#gallery-page-content p").text(userInfo.galleryName);
                                                     for (var j in artworks) {
-                                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
+                                                        $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='width:" + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[0] + ';height:' + changeWorkSize(artworks[j].width, artworks[j].height, $("#gallery-page").height())[1] + ";background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                                     }
 
                                                     $("#add-works-button").click(function () {
