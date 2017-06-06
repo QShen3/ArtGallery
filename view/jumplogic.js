@@ -202,11 +202,12 @@ $("#gallery-a").click(
             if (result == "success") {
                 $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                     if (result == "success") {
+                        var userInfo = artworks.userInfo;
                         artworks = artworks.lists;
                         artworksLocal = artworks.lists;
                         $("#gallery-page table tr").html('');
                         $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>")
-                        $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
+                        $("#gallery-page-content p").text(userInfo.galleryName);
                         $("#add-works-button").click(function () {
                             pageNow.push("edita");
                             fadeinNow();
@@ -310,9 +311,10 @@ if ($.cookie("authToken") != null) {
                                 if (result == "success") {
                                     var artworkLeft = (pageWidth - $("#id-artwork-intro").width()) / 2 + 'px';
                                     var artworkGoTop = ((pageHeight - $("#nav-slide-content").height()) - $("#artwork-go-next").height()) / 2 + 'px';
+                                    var userInfo = artworks.userInfo;
                                     artworks = artworks.lists;
 
-                                    $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
+                                    $("#gallery-page-content p").text(userInfo.galleryName);
                                     for (var j in artworks) {
                                         $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                     }
@@ -388,9 +390,10 @@ if ($.cookie("authToken") != null) {
                             $("#gallery-page table tr").html("");
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
+                                    var userInfo = artworks.userInfo;
                                     artworks = artworks.lists;
 
-                                    $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
+                                    $("#gallery-page-content p").text(userInfo.galleryName);
                                     for (var j in artworks) {
                                         $("#gallery-page table tr").append("<td><div class='slide-part-content'><div class='slide-part-img-0' style='background:url(" + artworks[j].cover + ");background-size:cover;'></div><p class='slide-part-name'>" + artworks[j].title + "</p></div></td>");
                                     }
@@ -1084,11 +1087,12 @@ $("#save-button").click(function () {
                     if (result == "success") {
                         $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                             if (result == "success") {
+                                var userInfo = artworks.userInfo;
                                 artworks = artworks.lists;
                                 artworksLocal = artworks.lists;
                                 $("#gallery-page table tr").html('');
                                 $("#gallery-page table tr").append("<td id='add-button-td' style='display:none'><div class='add-button' id='add-works-button'></div></td>")
-                                $("#gallery-page-content p").text(artworks[0].author.info.galleryName);
+                                $("#gallery-page-content p").text(userInfo.galleryName);
                                 $("#add-works-button").click(function () {
                                     pageNow.push("edita");
                                     fadeinNow();
