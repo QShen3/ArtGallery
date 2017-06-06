@@ -334,6 +334,13 @@ router.get("/latest", async (req, res, next) => {
         let image = await Jimp.read(docs[i].cover);
         docs[i]._doc.width = image.bitmap.width;
         docs[i]._doc.height = image.bitmap.height;
+        docs[i]._doc.size = [];
+        for (let j = 0; j < docs[i].urls.length; j++) {
+            docs[i]._doc.size.push({
+                width: (await Jimp.read(docs[i].urls[j])).bitmap.width,
+                height: (await Jimp.read(docs[i].urls[j])).bitmap.height
+            });
+        }
     }
 
     result.lists = docs;
