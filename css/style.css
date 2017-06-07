@@ -48,6 +48,22 @@
     left: 0px;
 }
 
+#mod-exit {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top:2000px;
+    left: 0px;
+}
+
+.modify-form-content {
+    margin: auto auto;
+}
+
+#me-page-content {
+    margin: 0px auto;
+}
+
 .button {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-weight: bold;
@@ -69,7 +85,7 @@
 .login-register-content {
     display: none;
     position: absolute;
-    top: 120px;
+    top: 20px;
 }
 
 .form-part-content input {
@@ -82,6 +98,7 @@
 }
 
 .form-part-content h6 {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     margin: 1.5em 0;
 }
 
@@ -105,6 +122,25 @@
     left: 0px;
     top: 48px;
     display: none;
+}
+
+.button-close {
+    width: 30px;
+    height: 30px;
+    background: url(../icons/close.png);
+    background-size: cover;
+    position: absolute;
+    right: 1500px;
+    top: 5px;
+    display: none;
+}
+
+.add-button {
+    background: url(../icons/add.png);
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    /*display: none;*/
 }
 
 .ui-loader-default{ display:none}  
@@ -135,9 +171,16 @@
 .slide-part-img-2 {
     background: url(../img/wimg3.jpg);
     background-size: cover;
+    padding: 5px;
     height: 300px;
     width: 360px;
     margin: 0px;
+}
+
+.slide-part-no {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 4em;
+    font-weight: lighter;
 }
 
 .slide-part-name {
@@ -145,6 +188,7 @@
     font-size: 1em;
     font-weight: bold;
 }
+
 .slide-part-from {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 1em;
@@ -261,13 +305,25 @@ ul,li {
     border-bottom: 3px solid black;
     padding-bottom: 12px;
 }
-#nav-ul-me {
+/*#nav-ul-me {
     background: rebeccapurple;
     border-radius: 50%;
     width: 35px;
     height: 35px;
     position: absolute;
     top: 8px;
+    right: 20px;
+    z-index: 1000;
+}*/
+
+#nav-ul-me {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-size: 0.8em;
+    font-weight: bold;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 18px;
     right: 20px;
     z-index: 1000;
 }
@@ -364,9 +420,56 @@ ul,li {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-weight: bold;
     font-size: 0.9em;
+    width: 96%;
+    height: 34px;
+    margin: 8px auto;
+    padding-top: 13px;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.exit-button {
+    color: black;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: bold;
+    font-size: 0.9em;
+    height: 34px;
+    width: 100%;
+    text-align: center;
+}
+
+.any-search-input {
+    background: rgba(255,255,255,0.3);
+    color: white;
+    border: none;
+    outline: none;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: bold;
+    font-size: 0.9em;
+    width: 96%;
+    height: 34px;
+    margin: 4px auto;
+    padding: 6px 0px;
+    padding-left: 20px;
+}
+
+.white-next-content {
+    width: 96%;
+    height: 40px;
+    margin: 30px auto 0px auto;
+}
+
+.white-next {
+    width: 40px;
+    height: 40px;
+    background: url(../icons/next-w.png);
+    background-size: cover;
+    /*position: absolute;*/
+    right: 20px;
 }
 
 .search-a {
+    text-align: center;
     position: relative;
     width: 100%;
     box-sizing: border-box;
@@ -416,7 +519,7 @@ ul,li {
 }
 
 .artwork-intro {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 40px;
     left: -200px;
 }
@@ -455,7 +558,7 @@ ul,li {
 .artwork-part-img {
     background: url(../img/wimg1.png);
     background-size: cover;
-    height: 150px;
+    height: 650px;
     width: 100%;
     margin: 0px;
 }
@@ -467,11 +570,109 @@ ul,li {
 #collection-page-content {
     text-align: center;
 }
+
+#head-file {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+}
+
+#me-head-file {
+    margin: auto auto;
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+}
+
+.me-input-head-content {
+    margin: auto auto;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+
+.me-fake-input {
+    margin: auto auto;
+    width: 100px;
+    height: 100px;
+    /*background: rebeccapurple;*/
+    border:1px solid grey;
+}
+
+.input-head-content {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+.fake-input {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    /*background: rebeccapurple;*/
+    border:1px solid grey;
+}
+
+.slide-part-content .collecte-button{
+    position: absolute;
+    /*margin-left: 10px;
+    margin-top: 10px;*/
+    width: 30px;
+    height: 30px;
+    background: url(../icons/collection.png);
+    background-size: cover;
+    margin-left: 15px;
+    top: 35px;
+}
+
+.edit-form-content {
+    width: 402px;
+    margin: auto auto;
+}
+
+#save-delete {
+    /*width: 260px;*/
+    margin: auto auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#edit-pre {
+    width: 30px;
+    height: 30px;
+    background: url(../icons/close.png);
+    background-size: cover;
+    margin: auto auto;
+}
 @media screen and (min-width: 769px) and (max-width: 1080px) {
 
 }
 
 @media only screen and (max-width: 769px) { 
+    .edit-form-content {
+    width: 262px;
+    }
+    /*#head-file {
+    width: 260px;
+    height: 260px;
+    background: rebeccapurple;
+    }*/
+    /*.input-head-content {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    }*/
+
+    /*.fake-input {
+    margin: auto auto;
+    width: 200px;
+    height: 200px;
+    border:1px solid grey;
+    background: grey;
+    }*/
     #home-welcome-text {
     font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
     font-size: 0.5em;
@@ -508,6 +709,13 @@ ul,li {
     padding-top: 13px;
     padding-left: 20px;
     }
+
+    .white-next-content {
+    width: 86%;
+    height: 40px;
+    margin: 30px auto 0px auto;
+    }
+
     #nav-slide-content {
         position: relative;
         width: 100%;
@@ -557,4 +765,17 @@ ul,li {
     width: 30px;
     height: 30px;
     }
+    .any-search-input {
+    background: rgba(255,255,255,0.3);
+    color: white;
+    border: none;
+    outline: none;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-weight: bold;
+    font-size: 0.9em;
+    width: 86%;
+    height: 34px;
+    padding: 6px 0px;
+    padding-left: 20px;
+}
 } 

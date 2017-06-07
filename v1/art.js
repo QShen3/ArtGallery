@@ -40,7 +40,16 @@ router.get("/list", async (req, res, next) => {
         let image = await Jimp.read(docs[i].cover);
         docs[i]._doc.width = image.bitmap.width;
         docs[i]._doc.height = image.bitmap.height;
+        docs[i]._doc.size = [];
+        for (let j = 0; j < docs[i].urls.length; j++) {
+            docs[i]._doc.size.push({
+                width: (await Jimp.read(docs[i].urls[j])).bitmap.width,
+                height: (await Jimp.read(docs[i].urls[j])).bitmap.height
+            });
+        }
     }
+
+    let user = await User.findById(req.query.uid).select("info.galleryName info.name info.avatar").exec();
 
     result.pager = {};
     result.pager.page = parseInt(req.query.page);
@@ -48,6 +57,7 @@ router.get("/list", async (req, res, next) => {
     result.pager.pagecount = Math.ceil(count / req.query.pagesize);
     result.pager.count = count;
     result.lists = docs;
+    result.userInfo = user.info;
 
     res.status(200).jsonp(result);
 
@@ -256,7 +266,8 @@ router.get("/search", async (req, res, next) => {
         }
     }
 
-    let users = await User.find({ "info.galleryName": new RegExp(req.query.galleryName || "") }).exec();
+    //let users = await User.find({ "info.galleryName": new RegExp(req.query.galleryName || "") }).exec();
+    let users = await User.find().or([{ "info.galleryName": new RegExp(req.query.galleryName || "") }, { "info.name": new RegExp(req.query.galleryName || "") }])
     let userQuery = []
     for (let i = 0; i < users.length; i++) {
         userQuery.push({
@@ -294,6 +305,13 @@ router.get("/search", async (req, res, next) => {
         let image = await Jimp.read(docs[i].cover);
         docs[i]._doc.width = image.bitmap.width;
         docs[i]._doc.height = image.bitmap.height;
+        docs[i]._doc.size = [];
+        for (let j = 0; j < docs[i].urls.length; j++) {
+            docs[i]._doc.size.push({
+                width: (await Jimp.read(docs[i].urls[j])).bitmap.width,
+                height: (await Jimp.read(docs[i].urls[j])).bitmap.height
+            });
+        }
     }
 
     result.pager = {};
@@ -316,6 +334,13 @@ router.get("/latest", async (req, res, next) => {
         let image = await Jimp.read(docs[i].cover);
         docs[i]._doc.width = image.bitmap.width;
         docs[i]._doc.height = image.bitmap.height;
+        docs[i]._doc.size = [];
+        for (let j = 0; j < docs[i].urls.length; j++) {
+            docs[i]._doc.size.push({
+                width: (await Jimp.read(docs[i].urls[j])).bitmap.width,
+                height: (await Jimp.read(docs[i].urls[j])).bitmap.height
+            });
+        }
     }
 
     result.lists = docs;
