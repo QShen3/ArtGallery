@@ -120,7 +120,7 @@ var textIndex = 0;
 var t;
 var nt;
 var WelcomeText = ['来自吷买井页的Gallery', 'From Howto\'s Gallery', 'ようこそGallery', 'Bienvenue à la galerie'];
-var WelcomeImg = ['./img/wimg1.png', './img/wimg2.jpg', './img/wimg3.jpg', './img/wimg4.png'];
+var WelcomeImg = ['http://gallery-1253482132.cossh.myqcloud.com/img/wimg1.jpg', 'http://gallery-1253482132.cossh.myqcloud.com/img/wimg2.jpg', 'http://gallery-1253482132.cossh.myqcloud.com/img/wimg3.jpg', 'http://gallery-1253482132.cossh.myqcloud.com/img/wimg4.jpg'];
 var pageChanged = false;
 var tn = setTimeout("timedCount()", 2000);
 function timedCount() {
@@ -287,7 +287,7 @@ function iniPages() {
 //         changePages();
 //         $("#home-logo").fadeOut(400, function () {
 //             $("#home-logo").text("");
-//             $("#home-logo").css('backgroundImage', 'url(./icons/galley-logo-c.png)');
+//             $("#home-logo").css('backgroundImage', 'url(http://gallery-1253482132.cossh.myqcloud.com/icons/galley-logo-c.png)');
 //             $("#home-logo").fadeIn(400);
 //             $("#home-welcome-content").fadeIn(400, function () {
 //                 t = setTimeout("timedCount()", 2000);
@@ -542,7 +542,7 @@ window.onscroll = function () {
 };
 
 
-var ArtworkImg = ['./img/wimg1.png', './img/wimg2.jpg', './img/wimg3.jpg', './img/wimg4.png'];
+var ArtworkImg = ['http://gallery-1253482132.cossh.myqcloud.com/img/wimg1.jpg', 'http://gallery-1253482132.cossh.myqcloud.com/img/wimg2.jpg', 'http://gallery-1253482132.cossh.myqcloud.com/img/wimg3.jpg', 'http://gallery-1253482132.cossh.myqcloud.com/img/wimg4.jpg'];
 var artwiIndex = 0;
 $("artwork-go-next").click(function () {
     $("#artwork-part-img").stop(true, false).fadeOut(800, function () {

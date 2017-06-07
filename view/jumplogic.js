@@ -108,7 +108,7 @@ $("#search-button").click(function () {
     $("#search-page-content").fadeIn(400);
     $("#home-page").fadeOut(400);
     var $defaultSea;
-    $("#search-page-content").html("<p class='slide-title'>检索</p><div class='search-part-content'><p class='slide-part-no' style='font-size:4em'><img src='../icons/ImpoliteLivelyGenet.gif'></p></div>");
+    $("#search-page-content").html("<p class='slide-title'>检索</p><div class='search-part-content'><p class='slide-part-no' style='font-size:4em'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></p></div>");
 
     $("#searchForm").ajaxSubmit({
         type: "get",
@@ -212,7 +212,7 @@ $("#artwork-go-top").click(function () {
 
 $("#gallery-go-top").click(function () {
 
-    $("#rec-gallery-slide table tr").html(' <div class="slide-part-content"><p class="slide-part-no" style="font-size:4em"><img src="../icons/ImpoliteLivelyGenet.gif"></p></div>');
+    $("#rec-gallery-slide table tr").html(' <div class="slide-part-content"><p class="slide-part-no" style="font-size:4em"><img src="http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif"></p></div>');
     $.get("/v1/user/recent", function (recentGallery, result) {
         if (result == "success") {
             if (!(recentGallery.recent instanceof Array)) {
@@ -245,7 +245,7 @@ $("#gallery-go-top").click(function () {
                             $("#home-page").fadeOut(400);
                             $("#gallery-page-content").fadeIn(400);
                             $("#gallery-page table tr").html("");
-                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
 
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
@@ -365,7 +365,7 @@ $("#gallery-go-top").click(function () {
                     for (var i = 0; i < newArtWorks.length; i++) {
                         if (contains(artworkInCollection, i)) {
                             console.log("collected" + i)
-                            $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(./icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                            $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                         } else {
                             console.log("uncollected" + i)
                             $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
@@ -428,13 +428,13 @@ $("#gallery-go-top").click(function () {
                                     if (status == "success") {//
                                         if (data.status) {
                                             $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
-                                                $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection_fill.png)', backgroundSize: 'cover' });
+                                                $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection_fill.png)', backgroundSize: 'cover' });
                                                 $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
                                                 colArtWorks.push(newArtWorks[ii]);
                                             })
                                         } else {
                                             $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
-                                                $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection.png)', backgroundSize: 'cover' });
+                                                $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection.png)', backgroundSize: 'cover' });
                                                 $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
                                                 removeById(colArtWorks, newArtWorks[ii]._id);
                                             })
@@ -476,7 +476,7 @@ $("#gallery-a").click(
     function () {
 
         $("#gallery-page table tr").html('');
-        $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+        $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
         $("#edit-button").fadeIn(300);
         $("#nav-slide-content").fadeOut(100, function () {
 
@@ -506,7 +506,7 @@ $("#gallery-a").click(
                     var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
 
                 }
-                $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+                $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
 
                 $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                     if (result == "success") {
@@ -644,7 +644,7 @@ if ($.cookie("authToken") != null) {
                             $("#home-page").fadeOut(400);
                             $("#gallery-page-content").fadeIn(400);
                             $("#gallery-page table tr").html("");
-                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
 
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
@@ -756,7 +756,7 @@ if ($.cookie("authToken") != null) {
                             $("#home-page").fadeOut(400);
                             $("#gallery-page-content").fadeIn(400);
                             $("#gallery-page table tr").html("");
-                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                 if (result == "success") {
                                     var userInfo = artworks.userInfo;
@@ -925,7 +925,7 @@ if ($.cookie("authToken") != null) {
                 for (var i = 0; i < newArtWorks.length; i++) {
                     if (contains(artworkInCollection, i)) {
                         console.log("collected" + i)
-                        $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(./icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                        $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                     } else {
                         console.log("uncollected" + i)
                         $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
@@ -982,13 +982,13 @@ if ($.cookie("authToken") != null) {
                                 if (status == "success") {//
                                     if (data.status) {
                                         $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
-                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection_fill.png)', backgroundSize: 'cover' });
+                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection_fill.png)', backgroundSize: 'cover' });
                                             $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
                                             colArtWorks.push(newArtWorks[ii]);
                                         })
                                     } else {
                                         $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
-                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection.png)', backgroundSize: 'cover' });
+                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection.png)', backgroundSize: 'cover' });
                                             $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
                                             removeById(colArtWorks, newArtWorks[ii]._id);
                                         })
@@ -1075,7 +1075,7 @@ $("#login-pre").click(
         changePages();
         $("#home-logo").fadeOut(400, function () {
             $("#home-logo").text("");
-            $("#home-logo").css('backgroundImage', 'url(./icons/galley-logo-c.png)');
+            $("#home-logo").css('backgroundImage', 'url(http://gallery-1253482132.cossh.myqcloud.com/icons/galley-logo-c.png)');
             $("#home-logo").fadeIn(400);
             $("#home-welcome-content").fadeIn(400, function () {
                 t = setTimeout("timedCount()", 2000);
@@ -1178,7 +1178,7 @@ $("#login-next").click(
                                             $("#home-page").fadeOut(400);
                                             $("#gallery-page-content").fadeIn(400);
                                             $("#gallery-page table tr").html("");
-                                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+                                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
 
                                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                                 if (result == "success") {
@@ -1289,7 +1289,7 @@ $("#login-next").click(
                                             $("#home-page").fadeOut(400);
                                             $("#gallery-page-content").fadeIn(400);
                                             $("#gallery-page table tr").html("");
-                                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+                                            $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
 
                                             $.get("/v1/art/list?uid=" + tds[ii].attributes.id.nodeValue.substring(8), function (artworks, result) {
                                                 if (result == "success") {
@@ -1459,7 +1459,7 @@ $("#login-next").click(
                                 for (var i = 0; i < newArtWorks.length; i++) {
                                     if (contains(artworkInCollection, i)) {
                                         console.log("collected" + i)
-                                        $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(./icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
+                                        $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button" style="background:url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection_fill.png);background-size:cover;"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
                                     } else {
                                         console.log("uncollected" + i)
                                         $("#new-art-slide table tr").append("<td id=" + 'newArtWorkTd' + newArtWorks[i]._id + "><div class='slide-part-content'>" + '<div class="collecte-button"' + 'id=collecte-button' + newArtWorks[i]._id + '></div>' + "<div class='slide-part-img-2' style='background:url(" + newArtWorks[i].cover + ");background-size:cover;'>" + "</div><p class='slide-part-intro'>" + newArtWorks[i].title + '来自' + '<span class="slide-part-from">' + newArtWorks[i].author.info.name + '的' + newArtWorks[i].author.info.galleryName + "</span></p></div></td>");
@@ -1515,13 +1515,13 @@ $("#login-next").click(
                                                 if (status == "success") {//
                                                     if (data.status) {
                                                         $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
-                                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection_fill.png)', backgroundSize: 'cover' });
+                                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection_fill.png)', backgroundSize: 'cover' });
                                                             $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
                                                             colArtWorks.push(newArtWorks[ii]);
                                                         })
                                                     } else {
                                                         $("#collecte-button" + newArtWorks[ii]._id).fadeOut(100, function () {
-                                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(./icons/collection.png)', backgroundSize: 'cover' });
+                                                            $("#collecte-button" + newArtWorks[ii]._id).css({ background: 'url(http://gallery-1253482132.cossh.myqcloud.com/icons/collection.png)', backgroundSize: 'cover' });
                                                             $("#collecte-button" + newArtWorks[ii]._id).fadeIn(100);
                                                             removeById(colArtWorks, newArtWorks[ii]._id);
                                                         })
@@ -1761,7 +1761,7 @@ function getFullPath(obj) {  //得到图片的完整路径
 
 $("#save-button").click(function () {
     $("#gallery-page table tr").html('');
-    $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+    $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
     $("#editForm1").ajaxSubmit({
         type: "post",
         url: "/v1/art/add",
@@ -1782,7 +1782,7 @@ $("#save-button").click(function () {
                             var GalleyScroll = new IScroll('#gallery-page', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false, scrollbars: false });
 
                         }
-                        $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='../icons/ImpoliteLivelyGenet.gif'></div></td>");
+                        $("#gallery-page table tr").append("<td><divclass='slide-part-content'><img src='http://gallery-1253482132.cossh.myqcloud.com/icons/ImpoliteLivelyGenet.gif'></div></td>");
 
                         $.get("/v1/art/list?uid=" + user._id, function (artworks, result) {
                             if (result == "success") {
